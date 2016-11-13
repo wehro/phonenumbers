@@ -7,8 +7,8 @@ national rules. It also allows to link phone numbers using the hyperref
 package.
 
 Package author: Keno Wehr
-Version: 1.1
-Date: November 6th, 2016
+Version: 1.1.1
+Date: November 13th, 2016
 
 The phonenumbers package is subject to the LaTeX Project Public License,
 version 1.3 or later.

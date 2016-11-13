@@ -1,6 +1,6 @@
 % phonenumbers package: English manual
-% Version: 1.1
-% Datum: 6. November 2016
+% Version: 1.1.1
+% Datum: 13. November 2016
 \documentclass{cnltx-doc}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -54,8 +54,8 @@
 
 \setcnltx{
 	package = phonenumbers,
-	version = Version 1.1,
-	date = \DeEn{6. November 2016}{November 6th, 2016},
+	version = Version 1.1.1,
+	date = \DeEn{13. November 2016}{November 13th, 2016},
 	authors = Keno Wehr,
 	email = keno.wehr@uni-oldenburg.de,
 	info = \DeEn{Setzen von Telefonnummern mit \LaTeX}{Typesetting telephone numbers with \LaTeX},
@@ -226,8 +226,8 @@ US & \DeEn{Vereinigte Staaten, Kanada und weitere Länder}
 \DeEn{Gibt an, ob Telefonnummern verlinkt werden sollen, falls das Paket \hyper\ geladen ist}{Specifies whether phone numbers shall be linked if the \hyper\ package is loaded}
 \vglAbschnitt{verlinkung}.
 
-\keychoice{home-area-code}{\DeEn{\meta{Heimatvorwahl\kern1pt}}{home area code},empty}
-\Default{empty}
+\keychoice{home-area-code}{\meta{\DeEn{Heimatvorwahl\kern1pt}{home area code}},none}
+\Default{none}
 \DeEn{Legt die Vorwahl Ihres Heimatgebietes fest. Bei Nummern mit dieser Vorwahl wird nur die Teilnehmerrufnummer ausgegeben. Die Verlinkung}{Sets the area code of your home area. Only the subscriber number will be output for numbers with this area code. Links}
 \vglAbschnitt{verlinkung}
 \DeEn{erfolgt immer einschließlich der Vorwahl.}{will always include the area code.}
@@ -551,6 +551,7 @@ US & \DeEn{Vereinigte Staaten, Kanada und weitere Länder}
   \phonenumber[country=US,foreign]{2125550123}
 \end{sidebyside}
 
+\DeEn{\newpage}{}
 \subsection{\DeEn{Optionen}{Options}} \label{US-optionen}
 \begin{options}
 \keychoice{area-code-sep}{brackets,space,hyphen}
@@ -696,6 +697,11 @@ US & \DeEn{Vereinigte Staaten, Kanada und weitere Länder}
 \item \DeEn{Ergänzung der Mobilfunkvorwahlen der französischen Überseegebiete}{Addition of the mobile phone area codes of the French overseas territories}
 \item \DeEn{Ergänzung der neuen nordamerikanischen Vorwahlen}{Addition of the new North American area codes} 332, 463, 564, 680, 726, 838\DeEn{ und}{, and} 986
 \end{itemize}
+\item[1.1.1] \DeEn{13. November 2016}{November 13th, 2016}
+\begin{itemize}
+\item \DeEn{Fehlerkorrektur in der Anleitung bezüglich der Option \option{home-area-code}}{Error correction in the manual concerning the \option{home-area-code} option}
+\end{itemize}
+
 \end{description}
 
 \end{document}
