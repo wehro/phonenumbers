@@ -1,6 +1,6 @@
 % phonenumbers package: German manual
-% Version: 1.1.1
-% Datum: 13. November 2016
+% Version: 1.2
+% Datum: 5. März 2017
 \documentclass{cnltx-doc}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -14,6 +14,8 @@
 \setlist[itemize]{itemsep=0.7ex plus0.3ex minus0.2ex}
 
 \KOMAoption{numbers}{noendperiod}
+
+\AtBeginDocument{\enlargethispage{7mm}}
 
 \addbibresource{Literatur.bib}
 
@@ -42,6 +44,8 @@
 
 \newcommand*{\sieheAbschnitt}[1]{(\DeEn{siehe Abschnitt}{see section} \ref{#1})}
 
+\newcommand*{\vglAnhang}[1]{(\cf\ \DeEn{Anhang}{appendix}~\ref{#1})}
+
 \newcommand*{\Quelle}{\emph{\DeEn{Quelle: }{Source: }}}
 
 \newcommand*{\Quellen}{\emph{\DeEn{Quellen: }{Sources: }}}
@@ -54,13 +58,13 @@
 
 \setcnltx{
 	package = phonenumbers,
-	version = Version 1.1.1,
-	date = \DeEn{13. November 2016}{November 13th, 2016},
+	version = Version 1.2,
+	date = \DeEn{5. März 2017}{March 5th, 2017},
 	authors = Keno Wehr,
 	email = keno.wehr@uni-oldenburg.de,
 	info = \DeEn{Setzen von Telefonnummern mit \LaTeX}{Typesetting telephone numbers with \LaTeX},
 	add-cmds = {setphonenumbers,phonenumber,href},
-	abstract = \DeEn{Dieses Paket ermöglicht es, Telefonnummern unterschiedlichen nationalen Konventionen entsprechend zu setzen. Zur Zeit werden deutsche, französische und nordamerikanische Telefonnummern unterstützt.}{This package makes it possible to typeset telephone numbers according to different national conventions. Currently, German, French, and North American phone numbers are supported.},
+	abstract = \DeEn{Dieses Paket ermöglicht es, Telefonnummern unterschiedlichen nationalen Konventionen entsprechend zu setzen und bei Bedarf auch zu verlinken. Zur Zeit werden deutsche, französische und nordamerikanische Telefonnummern unterstützt. Nummern aus anderen Ländern werden rudimentär unterstützt.}{This package makes it possible to typeset telephone numbers according to different national conventions and to link them when required. Currently, German, French, and North American phone numbers are supported. Phone numbers from other countries are supported rudimentarily.},
 	color-scheme = phonecolor,
 	add-listings-options = {numbers=none},
 	pre-output = {\raggedright}
@@ -68,6 +72,10 @@
 
 \newpackagename{\phone}{phonenumbers}
 \newpackagename{\hyper}{hyperref}
+\newpackagename{\ltxcmds}{ltxcmds}
+\newpackagename{\expl}{expl3}
+\newpackagename{\xparse}{xparse}
+\newpackagename{\keys}{l3keys2e}
 
 \makeatletter
 \setlength{\cnltx@before@skip}{5pt plus1pt minus1pt}
@@ -121,6 +129,15 @@
   \phonenumber[country=US,foreign]{2125550123}
 \end{sidebyside}
 
+\subsection{\DeEn{Andere Länder}{Other Countries}}
+\begin{sidebyside}
+  \phonenumber{+3905523776} % 39=IT
+\end{sidebyside}
+
+\begin{sidebyside}
+  \phonenumber{+35923456789} % 359=BG
+\end{sidebyside}
+
 \section{\DeEn{Allgemeine Prinzipien}{General Principles}}
 \subsection{\DeEn{Grundideen des Pakets}{Basic Ideas of the Package}}
 \DeEn{Das Ziel des Pakets \phone\ ist es, das Setzen von Telefonnummern zu ermöglichen, ohne dass der Anwender den internen Aufbau der Nummer oder die nationalen typographischen Konventionen für den Telefonnummernsatz kennen muss.}
@@ -154,8 +171,22 @@
 {Sets the \meta{options} globally for all following phone numbers not having contradictory options of their own. Can be used in the preamble or in the document body.}
 
 \command{phonenumber}[\oarg{\DeEn{Optionen}{options}}\marg{\DeEn{Nummer}{number}}\oarg{\DeEn{Durchwahl\kern1pt}{extension}}]
-\DeEn{Setzt eine Telefonnummer. Die \meta{Nummer} darf dabei nur aus Ziffern und Leerzeichen bestehen; Leerzeichen werden ignoriert. Bei deutschen Telefonnummern kann außerdem eine \meta{Durchwahl\kern1pt} angegeben werden, die an die Nummer angehängt wird. Die \meta{Optionen} gelten nur für diese Telefonnummer.}
-{Typesets a telephone number. The \meta{number} has to consist of digits and spaces only; the spaces will be ignored. For German phone numbers an \meta{extension} can be given additionally, since extensions are often highlighted in German typography. The \meta{options} are only valid for this phone number.}
+\DeEn{Setzt eine Telefonnummer. Die \meta{Optionen} gelten nur für diese Telefonnummer.}{Typesets a telephone number. The \meta{options} are valid only for this phone number.}
+
+\DeEn{Die \meta{Nummer} kann im lokalen oder im internationalen Format eingegeben werden. Das lokale Format ist nur für unterstützte Länder möglich; das zugehörige Land ist durch die Option}{The \meta{number} can be input in the local or in the international format. The local format is possible for supported countries only; the country has to be set by the}
+\option{country} 
+\DeEn{festzulegen}{option}
+\vglAbschnitt{optionen}.
+\DeEn{Das internationale Format beginnt stets mit}{The international format always begins with}
+\code{+}
+\DeEn{gefolgt von der Landeskennzahl}{followed by the country code}
+\vglAnhang{landeskennzahlen}.
+
+\DeEn{Abgesehen von einem führenden Pluszeichen darf die \meta{Nummer} nur aus Ziffern und Leerzeichen bestehen; Leerzeichen werden ignoriert.}{Apart from a leading plus sign the \meta{number} has to consist of digits and spaces only; the spaces will be ignored.}
+
+\DeEn{Bei deutschen Telefonnummern kann außerdem eine \meta{Durchwahl\kern1pt} angegeben werden, die an die Nummer angehängt wird.}{For German phone numbers an \meta{extension} can be given additionally, since extensions are often highlighted in German typography.}
+
+\DeEn{Nummern aus unterstützten Ländern werden den nationalen Konventionen gemäß gesetzt. Nummern aus nicht unterstützten Ländern werden in der Ausgabe lediglich durch ein Leerzeichen nach der Auslandsvorwahl gegliedert.}{Numbers from supported countries are typeset according to the national conventions. Numbers from unsupported countries are structured only by a space after the country calling code.}
 
 \command{AreaCodesGeographic}[\oarg{\DeEn{Optionen}{options}}]
 \DeEn{Gibt eine Liste der Orts- bzw. Regionalvorwahlen für das global eingestellte oder durch eine lokale Option angegebene Land aus.}
@@ -164,10 +195,15 @@
 \command{AreaCodesNonGeographic}[\oarg{\DeEn{Optionen}{options}}]
 \DeEn{Gibt eine Liste der Vorwahlen ohne geographischen Bezug (Mobilfunk- und Sondervorwahlen) für das gewählte Land aus.}
 {Typesets a list of non-geographic area codes (area codes for mobile phones and for other special purposes) for the selected country.}
+
+\command{CountryCodes}
+\DeEn{Gibt eine Liste der gültigen Landeskennzahlen aus.}{Typesets a list of valid country codes.}
 \end{commands}
 
-\subsection{\DeEn{Verlinkung von Telefonnummern}{Linking of Phone Numbers}} \label{verlinkung}
-\DeEn{Auf modernen Geräten mit Telefoniefähigkeiten können Links auf Telefonnummern verwendet werden, um die Nummern anzurufen, ohne sie eintippen zu müssen. Das Paket \phone\ erzeugt solche Links, sofern das Paket \hyper\ \cite{hyperref} zusätzlich geladen wird.}{On modern devices with telephony capabilities links on phone numbers can be used to call a number without having it to type in. The \phone\ package generates such links if the \hyper\ package is loadad additionally.}
+\DeEn{\subsection[Verlinkung von Nummern]{Verlinkung von Telefonnummern}}{\subsection{Linking of Phone Numbers}} \label{verlinkung}
+\DeEn{Auf modernen Geräten mit Telefoniefähigkeiten können Links auf Telefonnummern verwendet werden, um die Nummern anzurufen, ohne sie eintippen zu müssen. Das Paket \phone\ erzeugt solche Links, sofern das Paket \hyper}{On modern devices with telephony capabilities links on phone numbers can be used to call a number without having it to type in. The \phone\ package generates such links if the \hyper\ package}
+\cite{hyperref}
+\DeEn{zusätzlich geladen wird.}{is loadad additionally.}
 
 \DeEn{Unabhängig davon, wie sie im Text erscheinen, werden die Telefonnummern unter Einschluss der Auslandsvorwahl (beginnend mit +) verlinkt, damit sie von überall aus erreichbar sind.}{Independantly of their appearing in the text the phone numbers are linked including the country calling code (beginning with +) so that they can be reached from everywhere.}
 
@@ -200,6 +236,13 @@ US & \DeEn{Vereinigte Staaten, Kanada und weitere Länder}
 \DeEn{Bitte kontaktieren Sie den Paketautor, falls Sie Unterstützung für weitere Länder benötigen.}
 {Please contact the package author if you need support for further countries.}
 
+\DeEn{Diese Option wird ignoriert, wenn die Nummer im internationalen Format eingegeben wird. In diesem Fall wird das Land durch die Landeskennzahl bestimmt.}{This option is ignored if the number is input in the international format. In this case the country is determined by the country code.}
+
+\keychoice{link}{on,off}
+\Default{on}
+\DeEn{Gibt an, ob Telefonnummern verlinkt werden sollen, falls das Paket \hyper\ geladen ist}{Specifies whether phone numbers shall be linked if the \hyper\ package is loaded}
+\vglAbschnitt{verlinkung}.
+
 \keychoice{foreign}{off,international,american,european}
 \Default{off}
 \DeEn{Gibt an, ob und in welcher Form die Auslandsvorwahl ausgegeben werden soll.}
@@ -221,25 +264,35 @@ US & \DeEn{Vereinigte Staaten, Kanada und weitere Länder}
   \phonenumber[foreign=european]{0305226789}
 \end{sidebyside}
 
-\keychoice{link}{on,off}
-\Default{on}
-\DeEn{Gibt an, ob Telefonnummern verlinkt werden sollen, falls das Paket \hyper\ geladen ist}{Specifies whether phone numbers shall be linked if the \hyper\ package is loaded}
-\vglAbschnitt{verlinkung}.
+\DeEn{Bei Nummern aus nicht unterstützten Ländern wird die Wahl}{For numbers from unsupported countries the choice}
+\code{foreign=off}
+\DeEn{wie}{is treated like}
+\code{foreign=\linebreak[0]international}\DeEn{ behandelt, \ie\ die Auslandsvorwahl wird bei solchen Nummern immer ausgegeben.}{, which means that the country calling code will always be output for these numbers.}
+
+\keychoice{home-country}{DE,FR,US,none}
+\Default{none}
+\DeEn{Legt das Heimatland fest. Für Nummern aus diesem Land wird unabhängig vom Wert der Option \option{foreign} keine Auslandsvorwahl ausgegeben.}{Sets the home country. Numbers from this country will be typeset without the country calling code independantly of the value of the \option{foreign} option.}
+\begin{sidebyside}
+  \setphonenumbers{foreign,home-country=FR}
+  \phonenumber[country=DE]{0441343396} \\
+  \phonenumber[country=FR]{0123456789} \\
+  \phonenumber[country=US]{2125550123}
+\end{sidebyside}
 
 \keychoice{home-area-code}{\meta{\DeEn{Heimatvorwahl\kern1pt}{home area code}},none}
 \Default{none}
 \DeEn{Legt die Vorwahl Ihres Heimatgebietes fest. Bei Nummern mit dieser Vorwahl wird nur die Teilnehmerrufnummer ausgegeben. Die Verlinkung}{Sets the area code of your home area. Only the subscriber number will be output for numbers with this area code. Links}
 \vglAbschnitt{verlinkung}
 \DeEn{erfolgt immer einschließlich der Vorwahl.}{will always include the area code.}
+
+\DeEn{Vor der Heimatvorwahl sollte das Heimatland mit der Option \option{home-country} festgelegt werden. Erfolgt dies nicht, so wird bei der Festlegung der Heimatvorwahl der aktuelle Wert der Option \option{country} als Heimatland gesetzt.}{The \option{home-country} option should to be set before the home area code. If this does not happen, the home country is set to the current value of the \option{country} option when you set a home area code.}
 \begin{sidebyside}
-  \setphonenumbers{country=US,home-area-code=242}
-  \phonenumber{2425550123}
+  \setphonenumbers{home-country=US,home-area-code=242,foreign}
+  \phonenumber[country=US]{2125550123} \\
+  \phonenumber[country=US]{2425550124} \\
+  \phonenumber[country=DE]{02581639737}
 \end{sidebyside}
-\begin{sidebyside}
-  \setphonenumbers{country=DE,home-area-code=02581}
-  \phonenumber{02581639737}
-\end{sidebyside}
-\DeEn{Die Angabe einer Heimatvorwahl ist nur für Gebiete zulässig, in denen die Vorwahl bei Ortsgesprächen weggelassen werden kann. Vor der Heimatvorwahl muss das Land festgelegt werden.}{Setting a home area code is allowed only for areas where the area code can be left out for local calls. The country has to be set before the home area code.}
+\DeEn{Die Angabe einer Heimatvorwahl ist nur für Gebiete zulässig, in denen die Vorwahl bei Ortsgesprächen weggelassen werden kann.}{Setting a home area code is allowed only for areas where the area code can be left out for local calls.}
 \end{options}
 
 \subsection{\UeberschriftUngueltig}
@@ -247,10 +300,10 @@ US & \DeEn{Vereinigte Staaten, Kanada und weitere Länder}
 {To ensure robustness against errors, the compilation will never be aborted with an error message if an invalid number is given to the \cs{phonenumber} command. Rather, the \phone\ package will write warnings to the log file.}
 \DeEn{Dies ist der Fall, wenn}{This will occur if}
 \begin{itemize}
-\item \DeEn{die Eingabe leer ist}{the input is empty},
-\item \DeEn{die Eingabe nicht nur Ziffern und Leerzeichen enthält}{the input contains other characters than digits and spaces},
+\item \DeEn{die Eingabe leer ist oder nicht nur Ziffern und Leerzeichen enthält (abgesehen von einem Pluszeichen am Anfang)}{the input is empty or contains other characters than digits and spaces (apart from a plus sign as first character)},
 \item \DeEn{eine Durchwahlnummer angegeben ist, obwohl es sich nicht um eine deutsche Telefonnummer handelt}{an extension is given for a non-German phone number},
-\item \DeEn{die Nummer nicht den nationalen Regeln des gewählten Landes entspricht}{the number is not in accordance with the national rules of the selected country}.
+\item \DeEn{eine im internationalen Format eingegebene Nummer nur aus einer Landesvorwahl besteht oder keine gültige Landeskennzahl enthält}{a number input in the international format consists of a country calling code only or does not contain a valid country code},
+\item \DeEn{die Nummer nicht den nationalen Regeln des gewählten Landes entspricht (nur für unterstützte Länder)}{the number is not in accordance with the national rules of the selected country (only for supported countries)}.
 \end{itemize}
 
 \section{\DeEn{Deutsche Telefonnummern}{German Phone Numbers}}
@@ -334,7 +387,6 @@ US & \DeEn{Vereinigte Staaten, Kanada und weitere Länder}
 \end{sidebyside}
 \end{options}
 
-\DeEn{\pagebreak}{}
 \subsection{\UeberschriftUngueltig}
 \WarnungWenn
 \begin{itemize}
@@ -367,7 +419,7 @@ US & \DeEn{Vereinigte Staaten, Kanada und weitere Länder}
 \item \DeEn{eine Dialer-Nummer (Vorwahl 0\,90\,09) nicht genau 12 Stellen hat}{a dialer number (area code 0\,90\,09) does not have exactly 12 digits} \cite[78]{BNA-konzept}.
 \end{itemize}
 
-\DeEn{}{\newpage}
+\newpage
 \section{\DeEn{Französische Telefonnummern}{French Phone Numbers}}
 \subsection{\DeEn{Geltungsbereich}{Scope}} \label{FR-bereich}
 \DeEn{Der französische Nummerierungsplan}{The French numbering plan}
@@ -392,7 +444,7 @@ US & \DeEn{Vereinigte Staaten, Kanada und weitere Länder}
   \phonenumber[country=FR]{0123456789}
 \end{sidebyside}
 \DeEn{Die zweite Ziffer ermöglicht die Zuordnung der Nummer zu einem von fünf geographischen Bereichen bzw. einer besonderen Verwendung (z.\,B. Mobilfunk). Die folgenden Stellen erlauben prinzipiell eine genauere geographische Zuordnung der Nummer, doch macht das Paket \phone\ hiervon nur zur Identifikation von Nummern aus Überseegebieten Gebrauch}{The second digit makes it possible to assign a number to one of five geographic zones or to a special purpose (\eg\ mobile telephony), respectively. The following digits theoretically allow a more precise geographic assignment of the number, but the \phone\ package uses them only to identify numbers from the overseas territories}
-(\cf\ \DeEn{Anhang}{appendix}~\ref{vorwahlen-FR}).
+\vglAnhang{vorwahlen-FR}.
 \begin{sidebyside}
   \setphonenumbers{country=FR,area-code=place-and-number}
   \phonenumber{0123456789} \\
@@ -410,7 +462,7 @@ US & \DeEn{Vereinigte Staaten, Kanada und weitere Länder}
   \phonenumber[country=FR]{3245}
 \end{sidebyside}
 \DeEn{Kurznummern werden ohne Auslandvorwahl verlinkt}{Short numbers are linked}
-\vglAbschnitt{verlinkung}\DeEn{, da sie aus dem Ausland nicht erreichbar sind.}{ without the foreign country code since they cannot be reached from abroad.}
+\vglAbschnitt{verlinkung}\DeEn{, da sie aus dem Ausland nicht erreichbar sind.}{ without the country calling code since they cannot be reached from abroad.}
 
 \DeEn{Obwohl die in Abschnitt \ref{FR-bereich} genannten Gebiete intern wie ein einziges Netz behandelt werden, gibt es im Bereich des französichen Nummerierungsplans verschiedene Landeskennzahlen:}{Despite the fact that the areas mentioned in section \ref{FR-bereich} are treated as one single net internally, there are different country codes within the French numbering plan:}
 %\begin{table}
@@ -439,7 +491,7 @@ US & \DeEn{Vereinigte Staaten, Kanada und weitere Länder}
   \phonenumber{0296123456}
 \end{sidebyside}
 
-\DeEn{Die Auslandsvorwahl führt für einige Gebiete zu einer Verdopplung der ersten drei Ziffern, z.\,B. in Martinique (Regionalvorwahl 05\,96).}{For some areas the country code leads to doubling the first three digits, \eg\ Martinique (area code 05\,96).}
+\DeEn{Die Auslandsvorwahl führt für einige Gebiete zu einer Verdopplung der ersten drei Ziffern, z.\,B. im Fall von Martinique (Regionalvorwahl 05\,96).}{For some areas the country code leads to doubling the first three digits, \eg\ in the case of Martinique (area code 05\,96).}
 \begin{sidebyside}
   \phonenumber[country=FR,foreign]{0596123456}
 \end{sidebyside}
@@ -490,8 +542,7 @@ US & \DeEn{Vereinigte Staaten, Kanada und weitere Länder}
 \item \DeEn{eine Nummer mit 10 Stellen keine gültige Vorwahl beinhaltet}{a 10-digit number does not contain a valid area code}.
 \end{itemize}
 
-\DeEn{}{\newpage}
-\section{\DeEn{Nordamerikanische Telefonnummern}{North American Phone Numbers}}
+\DeEn{\section[Nordamerikanische Nummern]{Nordamerikanische Telefonnummern}}{\section{North American Phone Numbers}}
 \subsection{\DeEn{Geltungsbereich}{Scope}} \label{US-bereich}
 \DeEn{Der nordamerikanische Nummerierungsplan}{The \emph{North American Numbering Plan}}
 \cite{wikipedia-NANP}
@@ -535,9 +586,8 @@ US & \DeEn{Vereinigte Staaten, Kanada und weitere Länder}
 \begin{sidebyside}
   \phonenumber[country=US]{5550123}
 \end{sidebyside}
-\KeineVerlinkung\ \DeEn{Alternativ ist in den entsprechenden Gebieten die Verwendung der Option \option{home-area-code}}{As an alternative the \option{home-area-code} option}
-\vglAbschnitt{optionen}
-\DeEn{möglich. Dies gilt jedoch nicht überall \cite{NANPA-ten-digit}, da manchen Regionen aufgrund von Nummernknappheit mehrere Vorwahlen zugeteilt wurden (sogenannte \emph{overlays}).}{can be used in the corresponding areas. However, this is not possible everywhere \cite{NANPA-ten-digit} since some areas had to be given multiple area codes (called \emph{overlays}) because of number exhaustion.}
+\KeineVerlinkung\ \DeEn{Alternativ ist in den entsprechenden Gebieten die Verwendung der Option \option{home-area-code} möglich}{As an alternative the \option{home-area-code} option}
+\vglAbschnitt{optionen}\DeEn{. Dies gilt jedoch nicht überall \cite{NANPA-ten-digit}, da manchen Regionen aufgrund von Nummernknappheit mehrere Vorwahlen zugeteilt wurden (sogenannte \emph{overlays}).}{ can be used in the corresponding areas. However, this is not possible everywhere \cite{NANPA-ten-digit} since some areas had to be given multiple area codes (called \emph{overlays}) because of number exhaustion.}
 
 \DeEn{Bei Ferngesprächen muss in der Regel die Verkehrsausscheidungsziffer 1 (\emph{trunk prefix}) vorgewählt werden.}{For long-distance calls the \emph{trunk prefix} 1 has to be dialled first as a rule.}
 \begin{sidebyside}
@@ -546,12 +596,11 @@ US & \DeEn{Vereinigte Staaten, Kanada und weitere Länder}
 
 \DeEn{Für den Mobilfunk gibt es im nordamerikanischen Nummerierungsplan keine eigenen Vorwahlen. Mobiltelefonnummern erhalten gewöhnliche Regionalvorwahlen.}{There are no seperate area codes for mobile telephony in the North American Numbering Plan. Mobile phones get regular geographic area codes.}
 
-\DeEn{Alle Gebiete des nordamerikanischen Nummerierungsplans sind aus dem Ausland unter der Vorwahl +1 zu erreichen.}{All territories of the North American Numbering Plan can be reached from abroad with the country calling code +1.}
+\DeEn{Alle Gebiete des nordamerikanischen Nummerierungsplans sind aus dem Ausland unter der Vorwahl +\kern1pt1 zu erreichen.}{All territories of the North American Numbering Plan can be reached from abroad with the country calling code +\kern1pt1.}
 \begin{sidebyside}
   \phonenumber[country=US,foreign]{2125550123}
 \end{sidebyside}
 
-\DeEn{\newpage}{}
 \subsection{\DeEn{Optionen}{Options}} \label{US-optionen}
 \begin{options}
 \keychoice{area-code-sep}{brackets,space,hyphen}
@@ -581,8 +630,8 @@ US & \DeEn{Vereinigte Staaten, Kanada und weitere Länder}
 \begin{sidebyside}
   \setphonenumbers{country=US,area-code=place-and-number}
   \phonenumber{2125550123} \\
-  \phonenumber{4415550123} \\
-  \phonenumber{8005550123} \\
+  \phonenumber{4415550125} \\
+  \phonenumber{8005550126} \\
   \phonenumber[trunk-prefix]{2125550123} \\
   \phonenumber[foreign]{2125550123}
 \end{sidebyside}
@@ -591,8 +640,8 @@ US & \DeEn{Vereinigte Staaten, Kanada und weitere Länder}
 \begin{sidebyside}
   \setphonenumbers{country=US,area-code=place}
   \phonenumber{2125550123} \\
-  \phonenumber{4415550123} \\
-  \phonenumber{8005550123} \\
+  \phonenumber{4415550125} \\
+  \phonenumber{8005550126} \\
   \phonenumber[trunk-prefix]{2125550123} \\
   \phonenumber[foreign]{2125550123}
 \end{sidebyside}
@@ -604,7 +653,7 @@ US & \DeEn{Vereinigte Staaten, Kanada und weitere Länder}
 \begin{sidebyside}
   \setphonenumbers{country=US,trunk-prefix=on}
   \phonenumber{2125550123} \\
-  \phonenumber{4415550123} \\
+  \phonenumber{4415550125} \\
   \phonenumber[trunk-prefix=off]{2125550123} \\
   \phonenumber[foreign]{2125550123}
 \end{sidebyside}
@@ -613,10 +662,8 @@ US & \DeEn{Vereinigte Staaten, Kanada und weitere Länder}
 \subsection{\UeberschriftUngueltig}
 \WarnungWenn
 \begin{itemize}
-\item \DeEn{eine Nummer nicht genau 3, 7 oder 10 Stellen hat}{a number does not have exactly 3, 7, or 10 digits},
+\item \DeEn{eine Nummer nicht genau 7 oder 10 Stellen hat}{a number does not have exactly 7 or 10 digits},
 \item \DeEn{eine 10-stellige Nummer keine gültige Vorwahl enthält}{a ten-digit number does not contain a valid area code},
-\item \DeEn{eine 3-stellige Nummer keine gültige Vorwahl darstellt}{a three-digit number is not a valid area code},
-\item \DeEn{eine Nummer nur aus einer Vorwahl besteht}{the number consists of an area code only},
 \item \DeEn{die Vermittlungsstellennummer mit einer 0 oder 1 beginnt}{the central office code begins with 0 or 1},
 \item \DeEn{die Vermittlungsstellennummer bei einer regionalen Nummer auf 11 endet}{the central office code of a geographic number ends with 11},
 \item \DeEn{die Vermittlungsstellennummer bei einer Sondernummer 911 lautet}{the central office code of a non-geographic number is 911}.
@@ -624,19 +671,21 @@ US & \DeEn{Vereinigte Staaten, Kanada und weitere Länder}
 
 \section{\DeEn{Technische Hinweise}{Technical Remarks}}
 \DeEn{Das Paket \phone\ verwendet das Paket}{The \phone\ package uses the}
-\texttt{ltxcmds}
-\DeEn{sowie die experimentellen \LaTeX-3-Pakete}{package as well as the experimental \LaTeX\ 3 packages} \texttt{expl3}, \texttt{xparse}\DeEn{ und}{, and} \texttt{l3keys2e}.
+\ltxcmds\ 
+\DeEn{sowie die experimentellen \LaTeX-3-Pakete}{package as well as the experimental \LaTeX\ 3 packages} \expl, \xparse\DeEn{ und}{, and} \keys.
 
 \DeEn{Bindestriche innerhalb von Telefonnummern werden durch}{Hyphens within phone numbers are realized by}
-\verbcode:\kern1pt-\kern1pt:\DeEn{ realisiert, das heißt sie werden mit einem Zusatzabstand von einem Punkt zu den umgebenden Ziffern gesetzt. Schrägstriche werden als}{, \ie\ they are typeset with an additional distance of one point from the surrounding digits. Slashes are output as}
-\verbcode:\slash:\DeEn{ ausgegeben, was einen Zeilenumbruch nach dem Schrägstrich ermöglicht. Die Gliederung deutscher und französischer Nummern erfolgt durch kleine Leerzeichen}{, allowing a line break after the slash. The structuring of German and French numbers is done by small spaces}
+\verbcode:\kern1pt-\kern1pt:\DeEn{ realisiert, das heißt sie werden mit einem Zusatzabstand von 1 Punkt zu den umgebenden Ziffern gesetzt. Das gilt auch für Schrägstriche, die als}{, \ie\ they are typeset with an additional distance of 1 point from the surrounding digits. The same goes for slashes too, which are output as}
+\verbcode:\kern1pt\slash\kern1pt:\DeEn{ ausgegeben werden, was einen Zeilenumbruch nach dem Schrägstrich ermöglicht. Nach einem Pluszeichen wird ebenfalls ein Zusatzabstand eingefügt}{, allowing a line break after the slash. After a plus sign an additional distance is inserted as well}
+(\verbcode:+\kern1pt:).
+\DeEn{Die Gliederung deutscher und französischer Nummern erfolgt durch kleine Leerzeichen}{The structuring of German and French numbers is done by small spaces}
 \verbcode:\,:.
 
 \DeEn{Für die Verlinkung von Telefonnummern wird der \hyper-Befehl \cs{href} verwendet. Sofern \hyper\ geladen ist, wird der Befehl}{The \hyper\ command \cs{href} is used to link phone numbers. If \hyper\ is loaded, the command}
 \verbcode:\phonenumber{0441654321}:
 \DeEn{zu}{will be expanded to}
 \begin{center}
-\verbcode=\href{tel:+49441654321}{04\,41\slash65\,43\,21}=\DeEn{}{\,.}
+\verbcode=\href{tel:+49441654321}{04\,41\kern1pt\slash\kern1pt65\,43\,21}=\DeEn{}{\,.}
 \end{center}
 \DeEn{expandiert.}{}
 
@@ -665,7 +714,6 @@ US & \DeEn{Vereinigte Staaten, Kanada und weitere Länder}
 \end{multicols}
 \Quellen \cite[3--5]{BNA-nummernplan}, \cite{BNA-mobil}
 
-\DeEn{}{\newpage}
 \section{\DeEn{Französische Vorwahlen}{French Area Codes}} \label{vorwahlen-FR}
 \subsection{\DeEn{Regionalvorwahlen}{Geographic Area Codes}}
 \AreaCodesGeographic[country=FR]
@@ -675,17 +723,24 @@ US & \DeEn{Vereinigte Staaten, Kanada und weitere Länder}
 \AreaCodesNonGeographic[country=FR]
 \Quellen \cite[6--15]{ARCEP}, \cite{wikipedia-FR-fr}, \cite{wikipedia-FR-de}
 
-\DeEn{\newpage}{}
+\newpage
 \section{\DeEn{Vorwahlen des nordamerikanischen Nummerierungsplans}{Area codes of the North American Numbering Plan}}
 \subsection{\DeEn{Regionalvorwahlen}{Geographic Area Codes}}
 \begin{multicols}{2}
 \AreaCodesGeographic[country=US]
 \end{multicols}
-\Quellen \cite{NANPA-geographic}, \cite{NANPA-not-yet}
+\enlargethispage{5mm}
+\Quellen \cite{NANPA-geographic}, \cite{NANPA-ten-years}, \cite{NANPA-not-yet}
 
 \subsection{\UeberschriftSondervorwahlen}
 \AreaCodesNonGeographic[country=US]
-\Quelle \cite{NANPA-non-geographic}
+\Quellen \cite{NANPA-non-geographic}, \cite{NANPA-ten-years}
+
+\section{\DeEn{Gültige Landeskennzahlen}{Valid Country Codes}} \label{landeskennzahlen}
+\begin{multicols}{6}
+\CountryCodes
+\end{multicols}
+\Quelle \cite{ITU}
 
 \section{\DeEn{Versionsprotokoll}{Version History}}
 \begin{description}
@@ -700,6 +755,23 @@ US & \DeEn{Vereinigte Staaten, Kanada und weitere Länder}
 \item[1.1.1] \DeEn{13. November 2016}{November 13th, 2016}
 \begin{itemize}
 \item \DeEn{Fehlerkorrektur in der Anleitung bezüglich der Option \option{home-area-code}}{Error correction in the manual concerning the \option{home-area-code} option}
+\end{itemize}
+\item[1.2] \DeEn{5. März 2017}{March 5th, 2017}
+\begin{itemize}
+\item \DeEn{Einführung der Option}{Introduction of the}
+\option{home-country}
+\DeEn{für das Heimatland}{option}
+\item \DeEn{Verwendung der Option}{Use of the}
+\option{home-country}
+\DeEn{anstelle von}{option instead of}
+\option{country}
+\DeEn{zur Festlegung des Landes der Heimatvorwahl}{to set the country of the home area code}
+\item \DeEn{Einführung des Befehls}{Introduction of the}
+\cs{CountryCodes}\DeEn{}{ command}
+\item \DeEn{Nummerneingabe im internationalen Format}{Number input in the international format}
+\item \DeEn{rudimentäre Unterstützung für Telefonnummern aus nicht unterstützten Ländern}{Rudimentary support for phone numbers from unsupported countries}
+\item \DeEn{Zusatzabstand (Kerning) von 1 Punkt vor und nach einem Schrägstrich sowie nach einem Pluszeichen}{Additional distance (kerning) of 1 point before and after a slash as well as after a plus sign}
+\item \DeEn{Ergänzung der neuen nordamerikanischen Vorwahlen}{Addition of the new North American area codes} 223 \DeEn{und}{and} 445
 \end{itemize}
 
 \end{description}
