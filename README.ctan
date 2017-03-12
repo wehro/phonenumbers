@@ -8,9 +8,26 @@ output of the country calling code. The package is able to check if a phone
 number is valid according to the national rules. It also allows to link phone
 numbers using the hyperref package.
 
-Package author: Keno Wehr
-Version: 1.2
-Date: March 5th, 2017
+Package author: K. Wehr
+Version: 1.2.1
+Date: March 12th, 2017
 
 The phonenumbers package is subject to the LaTeX Project Public License,
 version 1.3 or later.
+
+Package files in the doc/ subtree:
+Literatur.bib -- References
+phonenumbers-de.pdf -- German manual
+phonenumbers-de.tex -- Source of the German manual
+phonenumbers-en.pdf -- English manual
+phonenumbers-en.tex -- Source of the English manual
+
+Package files in the tex/ subtree:
+phn-DE_Ortsnamen.tex -- German place names
+phn-DE_Vorwahlen.tex -- German area codes
+phn-FR_Ortsnamen.tex -- French place names
+phn-FR_Vorwahlen.tex -- French area codes
+phn-Landeskennzahlen.tex -- Country codes
+phn-US_Ortsnamen.tex -- North American place names
+phn-US_Vorwahlen.tex -- North American area codes
+phonenumbers.sty -- Package code

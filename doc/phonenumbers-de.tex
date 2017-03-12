@@ -1,6 +1,6 @@
 % phonenumbers package: German manual
-% Version: 1.2
-% Datum: 5. März 2017
+% Version: 1.2.1
+% Datum: 12. März 2017
 \documentclass{cnltx-doc}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -58,8 +58,8 @@
 
 \setcnltx{
 	package = phonenumbers,
-	version = Version 1.2,
-	date = \DeEn{5. März 2017}{March 5th, 2017},
+	version = Version 1.2.1,
+	date = \DeEn{12. März 2017}{March 12th, 2017},
 	authors = Keno Wehr,
 	email = keno.wehr@uni-oldenburg.de,
 	info = \DeEn{Setzen von Telefonnummern mit \LaTeX}{Typesetting telephone numbers with \LaTeX},
@@ -395,7 +395,9 @@ US & \DeEn{Vereinigte Staaten, Kanada und weitere Länder}
 \end{itemize}
 \DeEn{Bei Festnetznummern wird eine Warnung ausgegeben, wenn}{For landline numbers a warning will be issued if}
 \begin{itemize}
-\item \DeEn{die Teilnehmerrufnummer einschließlich Durchwahlnummer weniger als 3 oder mehr als 8 Stellen hat}{the subscriber number including the extension has less than 3 or more than 8 digits} \cite[6]{BNA-nummernplan},
+\item \DeEn{die Teilnehmerrufnummer einschließlich Durchwahlnummer weniger als 3 Stellen hat}{the subscriber number including the extension has less than 3 digits} \cite[6]{BNA-nummernplan},
+\item \DeEn{die Teilnehmerrufnummer bei einer Nummer ohne Durchwahl mehr als 8 Stellen hat}{the subscriber number of a number without extension has more than 8 digits} \cite[6]{BNA-nummernplan},
+\item \DeEn{die Teilnehmerrufnummer bei einer Nummer mit Durchwahl mehr als 9 Stellen hat}{the subscriber number of a number with extension has more than 9 digits}\footnote{\DeEn{Mir wurde berichtet, dass es 9-stellige Teilnehmerrufnummern mit Durchwahl gibt, obwohl der Nummernplan der Bundesnetzagentur nur 8 Stellen erlaubt.}{Someone reported to me that there are 9-digit subscriber numbers with extension despite the fact that the numbering plan of the Bundesnetzagentur does not allow more than 8 digits.}},
 \item \DeEn{die Teilnehmerrufnummer mit einer 0 beginnt}{the subscriber number begins with a 0} \cite[6]{BNA-nummernplan},
 \item \DeEn{die Nummer einschließlich Vorwahl mehr als 12 Stellen hat}{the number including the area code has more than 12 digits} \cite[33]{BNA-konzept}.
 \end{itemize}
@@ -419,7 +421,6 @@ US & \DeEn{Vereinigte Staaten, Kanada und weitere Länder}
 \item \DeEn{eine Dialer-Nummer (Vorwahl 0\,90\,09) nicht genau 12 Stellen hat}{a dialer number (area code 0\,90\,09) does not have exactly 12 digits} \cite[78]{BNA-konzept}.
 \end{itemize}
 
-\newpage
 \section{\DeEn{Französische Telefonnummern}{French Phone Numbers}}
 \subsection{\DeEn{Geltungsbereich}{Scope}} \label{FR-bereich}
 \DeEn{Der französische Nummerierungsplan}{The French numbering plan}
@@ -742,6 +743,7 @@ US & \DeEn{Vereinigte Staaten, Kanada und weitere Länder}
 \end{multicols}
 \Quelle \cite{ITU}
 
+\newpage
 \section{\DeEn{Versionsprotokoll}{Version History}}
 \begin{description}
 \item[1.0] \DeEn{22. August 2016}{August 22nd, 2016}
@@ -772,6 +774,12 @@ US & \DeEn{Vereinigte Staaten, Kanada und weitere Länder}
 \item \DeEn{rudimentäre Unterstützung für Telefonnummern aus nicht unterstützten Ländern}{Rudimentary support for phone numbers from unsupported countries}
 \item \DeEn{Zusatzabstand (Kerning) von 1 Punkt vor und nach einem Schrägstrich sowie nach einem Pluszeichen}{Additional distance (kerning) of 1 point before and after a slash as well as after a plus sign}
 \item \DeEn{Ergänzung der neuen nordamerikanischen Vorwahlen}{Addition of the new North American area codes} 223 \DeEn{und}{and} 445
+\end{itemize}
+\item[1.2.1] \DeEn{12. März 2017}{March 12th, 2017}
+\begin{itemize}
+\item \DeEn{Erlaubnis von 9-stelligen Teilnehmerrufnummern mit Durchwahl im deutschen Festnetz}{Permission for 9-digit German landline subscriber numbers with extension}
+\item \DeEn{Fehlerkorrektur im Paketcode}{Bug fix in the package code}
+\item \DeEn{Änderung einiger Dateinamen}{Change of some file names}
 \end{itemize}
 
 \end{description}
