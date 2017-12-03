@@ -1,16 +1,17 @@
 % phonenumbers package: German manual
-% Version 2.0
-% Datum: 22. Oktober 2017
+% Version 2.0.1
+% Datum: 03. Dezember 2017
 \documentclass[numbers=noenddot]{scrreprt}
 \usepackage[french,ngerman]{babel}
 \usepackage{fontspec}
 \usepackage[link=off]{phonenumbers}
-\usepackage[backend=biber]{biblatex}
+\usepackage{biblatex}
 \usepackage{array}
 \usepackage{enumitem}
 \usepackage{scrlayer-scrpage}
 \usepackage{multicol}
 \usepackage{metalogo}
+\usepackage[toc]{multitoc}
 \usepackage[ngerman]{isodate}
 \usepackage{cnltx-example}
 \usepackage{cnltx-tools}
@@ -36,6 +37,16 @@
 \addtokomafont{descriptionlabel}{\rmfamily}
 
 \setlist[itemize]{itemsep=0.7ex plus0.3ex minus0.2ex}
+
+\setlength{\columnsep}{1,5em}
+\setlength{\columnseprule}{0,4pt}
+
+\makeatletter
+\renewcommand\@pnumwidth{2em}
+\makeatother
+
+\DeclareTOCStyleEntry[raggedentrytext=on]{tocline}{chapter}
+\DeclareTOCStyleEntry[raggedentrytext=on]{tocline}{section}
 
 \addbibresource{Literatur.bib}
 
@@ -1148,6 +1159,10 @@ am Anfang
 \item Erlaubnis von bis zu 14-stelligen (statt 11-stelligen) 0800er-Nummern in Deutschland
 \item Ergänzung der neuen nordamerikanischen Vorwahlen 279, 367, 640, 820, 833 und 879
 \item Gliederung nicht unterstützter Nummern in Zweiergruppen
+\end{itemize}
+\item[2.0.1] \printdate{3.12.2017}
+\begin{itemize}
+\item leichte Verbesserung der Anleitung
 \end{itemize}
 
 \end{description}
