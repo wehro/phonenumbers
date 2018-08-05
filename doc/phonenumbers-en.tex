@@ -1,6 +1,6 @@
 % phonenumbers package: English manual
-% Version 2.0.2
-% Datum: 2. Januar 2018
+% Version 2.1
+% Datum: 5. August 2018
 \documentclass[numbers=noenddot]{scrreprt}
 \usepackage[french,UKenglish]{babel}
 \usepackage{fontspec}
@@ -523,14 +523,14 @@ The relevant tariff can be output using the
 \begin{itemize}
 \item a number beginning with 0 does not contain a valid area code,
 \item the given number consists of an area code only,
-\item a non-geographic number contains an extension.
+\item a non-geographic number contains an extension (except for MABEZ numbers).
 \end{itemize}
 For landline numbers a warning will be issued if
 \begin{itemize}
 \item the subscriber number begins with a 0 \cite[6]{BNA-nummernplan},
 \item the subscriber number including the extension has less than 3 digits \cite[6]{BNA-nummernplan},
-\item the subscriber number including the extension has more than 10 digits \cite[3]{BNA-Struktur},
-\item the number including the area code has more than 13 digits \cite[3]{BNA-Struktur}.
+\item the subscriber number including the extension has more than 10 digits \cite[2]{BNA-Struktur},
+\item the number including the area code has more than 13 digits \cite[2]{BNA-Struktur}.
 \end{itemize}
 For mobile phone numbers a warning will be issued if
 \begin{itemize}
@@ -1168,7 +1168,15 @@ option for the area code separator in numbers with country calling code
 \begin{itemize}
 \item Error correction in the package code
 \end{itemize}
-
+\item[2.1] \printdate{5.8.2018}
+\begin{itemize}
+\item Permission for extensions in German MABEZ numbers (area code~01\,37\,X)
+\item Addition of the new German mobile phone area code 01\,55\,66
+\item Addition of the new British mobile phone area codes 07307, 07308, 07309, 07310, 07311, and 07312
+\item Removal of the British area codes 07007, 07571, 07643, and 07662
+\item Addition of the new North American area codes 326, 521, 658, and 672
+\item Removal of the North American area code 456
+\end{itemize}
 \end{description}
 
 \end{document}

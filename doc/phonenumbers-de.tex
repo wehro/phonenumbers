@@ -1,6 +1,6 @@
 % phonenumbers package: German manual
-% Version 2.0.2
-% Datum: 2. Januar 2018
+% Version 2.1
+% Datum: 5. August 2018
 \documentclass[numbers=noenddot]{scrreprt}
 \usepackage[french,ngerman]{babel}
 \usepackage{fontspec}
@@ -523,14 +523,14 @@ Der zugehörige Tarif kann mit Hilfe der Option
 \begin{itemize}
 \item eine mit 0 beginnende Nummer keine gültige Vorwahl enthält,
 \item die eingegebene Nummer nur aus einer Vorwahl besteht,
-\item eine Mobilfunk- oder Sondernummer eine Durchwahl enthält.
+\item eine Mobilfunk- oder Sondernummer eine Durchwahl enthält (außer für MABEZ-Nummern).
 \end{itemize}
 Bei Festnetznummern wird eine Warnung ausgegeben, wenn
 \begin{itemize}
 \item die Teilnehmerrufnummer mit einer 0 beginnt \cite[6]{BNA-nummernplan},
 \item die Teilnehmerrufnummer einschließlich Durchwahlnummer weniger als 3 Stellen hat \cite[6]{BNA-nummernplan},
-\item die Teilnehmerrufnummer einschließlich Durchwahlnummer mehr als 10 Stellen hat \cite[3]{BNA-Struktur},
-\item die Nummer einschließlich Vorwahl mehr als 13 Stellen hat \cite[3]{BNA-Struktur}.
+\item die Teilnehmerrufnummer einschließlich Durchwahlnummer mehr als 10 Stellen hat \cite[2]{BNA-Struktur},
+\item die Nummer einschließlich Vorwahl mehr als 13 Stellen hat \cite[2]{BNA-Struktur}.
 \end{itemize}
 Bei Mobilfunknummern wird eine Warnung ausgegeben, wenn
 \begin{itemize}
@@ -1168,7 +1168,15 @@ am Anfang
 \begin{itemize}
 \item Fehlerkorrektur im Paketcode
 \end{itemize}
-
+\item[2.1] \printdate{5.8.2018}
+\begin{itemize}
+\item Erlaubnis von Durchwahlen in deutschen MABEZ-Nummern (Vorwahl~01\,37\,X)
+\item Ergänzung der neuen deutschen Mobilfunkvorwahl 01\,55\,66
+\item Ergänzung der neuen britischen Mobilfunkvorwahlen 07307, 07308, 07309, 07310, 07311 und 07312
+\item Entfernung der britischen Vorwahlen 07007, 07571, 07643 und 07662
+\item Ergänzung der neuen nordamerikanischen Vorwahlen 326, 521, 658 und 672
+\item Entfernung der nordamerikanischen Vorwahl 456
+\end{itemize}
 \end{description}
 
 \end{document}
