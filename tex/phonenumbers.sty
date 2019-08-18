@@ -2,8 +2,8 @@
 % LaTeX-Paket zur Formatierung von Telefonnummern
 % LaTeX package for formatting telephone numbers
 % Autor: K. Wehr
-% Version: 2.1
-% Datum: 5. August 2018
+% Version: 2.2
+% Datum: 18. August 2019
 
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either version 1.3
@@ -15,7 +15,7 @@
 
 
 \RequirePackage{xparse}
-\ProvidesExplPackage {phonenumbers} {2018/08/05} {2.1} {Telephone number package}
+\ProvidesExplPackage {phonenumbers} {2019/08/18} {2.2} {Telephone number package}
 
 \RequirePackage{l3keys2e}
 \RequirePackage{ltxcmds}
@@ -66,22 +66,22 @@
 \cs_generate_variant:Nn \msg_warning:nnn {nnV}
 
 
-\msg_new:nnn {phonenumbers} {illegal~character}
+\msg_new:nnn {phonenumbers} {illegal character}
    {
       illegal~character~'#1'~in~phone~number~\msg_line_context:
    }
 
-\msg_new:nnn {phonenumbers} {empty~input}
+\msg_new:nnn {phonenumbers} {empty input}
    {
       empty~phone~number~\msg_line_context:
    }
 
-\msg_new:nnn {phonenumbers} {empty~extension}
+\msg_new:nnn {phonenumbers} {empty extension}
    {
       empty~extension~(Durchwahl)~\msg_line_context:
    }
 
-\msg_new:nnn {phonenumbers} {illegal~extension}
+\msg_new:nnn {phonenumbers} {illegal extension}
    {
       extension~(Durchwahl)~of~
       \phone_landesadjektiv:V \l_phone_land_str
@@ -90,7 +90,7 @@
       \msg_line_context:
    }
 
-\msg_new:nnn {phonenumbers} {odd~extension}
+\msg_new:nnn {phonenumbers} {odd extension}
    {
       \phone_landesadjektiv:V \l_phone_land_str
       \c_space_tl
@@ -98,7 +98,7 @@
       \msg_line_context:
    }
 
-\msg_new:nnn {phonenumbers} {subscriber~number~too~short}
+\msg_new:nnn {phonenumbers} {subscriber number too short}
    {
       subscriber~number~(Teilnehmerrufnummer)~has~less~than~#1~digits~in~
       \phone_landesadjektiv:V \l_phone_land_str
@@ -107,7 +107,7 @@
       \msg_line_context:
    }
 
-\msg_new:nnn {phonenumbers} {subscriber~number~too~long}
+\msg_new:nnn {phonenumbers} {subscriber number too long}
    {
       subscriber~number~(Teilnehmerrufnummer)~has~more~than~#1~digits~in~
       \phone_landesadjektiv:V \l_phone_land_str
@@ -116,52 +116,52 @@
       \msg_line_context:
    }
 
-\msg_new:nnn {phonenumbers} {illegal~start~of~subscriber~number}
+\msg_new:nnn {phonenumbers} {illegal start of subscriber number}
    {
       subscriber~number~(Teilnehmerrufnummer)~starts~with~#1~in~\phone_landesadjektiv:V \l_phone_land_str\ phone~number~\msg_line_context:
    }   
 
-\msg_new:nnn {phonenumbers} {missing~subscriber~number}
+\msg_new:nnn {phonenumbers} {missing subscriber number}
    {
       no~subscriber~number~(Teilnehmerrufnummer)~given~in~\phone_landesadjektiv:V \l_phone_land_str\ phone~number~\msg_line_context:
    }
 
-\msg_new:nnn {phonenumbers} {invalid~area~code}
+\msg_new:nnn {phonenumbers} {invalid area code}
    {
       unknown~area~code~(Vorwahl)~in~\phone_landesadjektiv:V \l_phone_land_str\ phone~number~\msg_line_context:
    }
 
-\msg_new:nnn {phonenumbers} {number~too~short}
+\msg_new:nnn {phonenumbers} {number too short}
    {
       \phone_landesadjektiv:V \l_phone_land_str\ #1~number~has~less~than~#2~digits~\msg_line_context:
    }
 
-\msg_new:nnn {phonenumbers} {number~too~long}
+\msg_new:nnn {phonenumbers} {number too long}
    {
       \phone_landesadjektiv:V \l_phone_land_str\ #1~number~has~more~than~#2~digits~\msg_line_context:
    }
 
-\msg_new:nnn {phonenumbers} {home~country~set}
+\msg_new:nnn {phonenumbers} {home country set}
    {
       home~country~set~to~\l_phone_heimatland_str\ \msg_line_context:
    }
 
-\msg_new:nnn {phonenumbers} {home~country~cleared}
+\msg_new:nnn {phonenumbers} {home country cleared}
    {
       home~country~\l_phone_heimatland_str\ has~been~deleted~\msg_line_context:
    }
 
-\msg_new:nnn {phonenumbers} {home~area~code~set}
+\msg_new:nnn {phonenumbers} {home area code set}
    {
       Your~home~is~in~\tl_use:c {c_phone_\l_phone_heimatland_str _ortsname_#1_tl}~(area~code~#1)~according~to~line~\msg_line_number:.
    }
 
-\msg_new:nnn {phonenumbers} {home~area~code~cleared}
+\msg_new:nnn {phonenumbers} {home area code cleared}
    {
       home~area~code~\l_phone_heimatvorwahl_str\ has~been~deleted~\msg_line_context:
    }
 
-\msg_new:nnn {phonenumbers} {invalid~home~area~code}
+\msg_new:nnn {phonenumbers} {invalid home area code}
    {
       #1~unknown~as~
       \phone_landesadjektiv:V \l_phone_heimatland_str
@@ -170,12 +170,12 @@
       \msg_line_context:
    }
 
-\msg_new:nnn {phonenumbers} {invalid~country~code}
+\msg_new:nnn {phonenumbers} {invalid country code}
    {
       illegal~country~code~\msg_line_context:
    }
 
-\msg_new:nnn {phonenumbers} {country~code~only}
+\msg_new:nnn {phonenumbers} {country code only}
    {
       phone~number~consists~of~a~country~code~only~\msg_line_context:
    }
@@ -216,18 +216,18 @@
                {
                   \str_if_empty:NF \l_phone_heimatland_str
                      {
-                        \msg_info:nn {phonenumbers} {home~country~cleared}
+                        \msg_info:nn {phonenumbers} {home country cleared}
                         \str_clear:N \l_phone_heimatland_str
                      }
                }
                {
                   \str_set_eq:NN \l_phone_heimatland_str \l_keys_choice_tl
-                  \msg_info:nn {phonenumbers} {home~country~set}
+                  \msg_info:nn {phonenumbers} {home country set}
                }
 
             \str_if_empty:NF \l_phone_heimatvorwahl_str
                {
-                  \msg_info:nn {phonenumbers} {home~area~code~cleared}
+                  \msg_info:nn {phonenumbers} {home area code cleared}
                   \str_clear:N \l_phone_heimatvorwahl_str
                }
          },
@@ -299,7 +299,7 @@
                {
                   \str_if_empty:NF \l_phone_heimatvorwahl_str
                      {
-                        \msg_info:nn {phonenumbers} {home~area~code~cleared}
+                        \msg_info:nn {phonenumbers} {home area code cleared}
                         \str_clear:N \l_phone_heimatvorwahl_str
                      }
                }
@@ -307,14 +307,14 @@
                   \str_if_empty:NT \l_phone_heimatland_str
                      {
                         \str_set_eq:NN \l_phone_heimatland_str \l_phone_land_str
-                        \msg_info:nn {phonenumbers} {home~country~set}
+                        \msg_info:nn {phonenumbers} {home country set}
                      }
 
                   \phone_heimatvorwahl_erlaubt:nT {#1}
                      {
                         % Auslassen der Vorwahl möglich, Heimatvorwahl setzen:
                         \str_set:Nn \l_phone_heimatvorwahl_str {#1}
-                        \msg_info:nnn {phonenumbers} {home~area~code~set} {#1}
+                        \msg_info:nnn {phonenumbers} {home area code set} {#1}
                      }
                }
          },
@@ -340,7 +340,7 @@
                      {
                         \str_if_eq:nnTF {#1} {0508} { \prg_return_true: }
                            {
-                              \msg_warning:nnn {phonenumbers/FR} {illegal~home~area~code} {#1}
+                              \msg_warning:nnn {phonenumbers} {FR/illegal home area code} {#1}
                               \prg_return_false:
                            }
                      }
@@ -354,7 +354,7 @@
                      {
                         \clist_if_in:cnTF {\l_tmpa_str} {#1}
                            {
-                              \msg_warning:onn {phonenumbers/\l_phone_heimatland_str} {illegal~home~area~code} {#1}
+                              \msg_warning:onn {phonenumbers} {\l_phone_heimatland_str/illegal home area code} {#1}
                               \prg_return_false:
                            }
                            {
@@ -367,7 +367,7 @@
                }
          }
          {
-            \msg_warning:nnn {phonenumbers} {invalid~home~area~code} {#1}
+            \msg_warning:nnn {phonenumbers} {invalid home area code} {#1}
             \prg_return_false:
          }
    }
@@ -440,7 +440,7 @@
    {
       \tl_if_blank:nTF {#1}
          {
-            \msg_warning:nn {phonenumbers} {empty~input}
+            \msg_warning:nn {phonenumbers} {empty input}
             \bool_set_true:N \l_phone_eingabe_leer_bool
          }
          {
@@ -485,7 +485,7 @@
                }
                {
                   % keine Ziffer eingelesen
-                  \bool_lazy_and:nnTF {\l_phone_erstes_zeichen_bool} {\str_if_eq_p:nn {##1} {+}}
+                  \bool_lazy_and:nnTF {\l_phone_erstes_zeichen_bool} { \str_if_eq_p:nn {##1} {+} }
                      {
                         % führendes + eingelesen
                         \bool_set_true:N \l_phone_auslandsnummer_bool
@@ -501,7 +501,7 @@
                                  }
                                  {
                                     % unerlaubtes Zeichen (z. B. Buchstaben) eingelesen
-                                    \msg_warning:nnx {phonenumbers} {illegal~character} {##1}
+                                    \msg_warning:nnx {phonenumbers} {illegal character} {##1}
                                  }
                            }
                      }
@@ -622,12 +622,15 @@
          \tl_remove_all:Nn \l_phone_bereinigte_nummer_str {-}
    }
 
+\cs_generate_variant:Nn \phone_nummer_ueberpruefen:n {x}
+
+
 % #1: eingebene Durchwahl
 \cs_new:Npn \phone_durchwahl_ueberpruefen:n #1
    {
       \tl_if_blank:nTF {#1}
          {
-            \msg_warning:nn {phonenumbers} {empty~extension}
+            \msg_warning:nn {phonenumbers} {empty extension}
             \bool_set_true:N \l_phone_durchwahl_leer_bool
          }
          {
@@ -643,7 +646,7 @@
                   \str_put_right:Nn \l_phone_bereinigte_durchwahl_str {##1}
                }
                {
-                  \msg_warning:nnx {phonenumbers} {illegal~character} {##1}
+                  \msg_warning:nnx {phonenumbers} {illegal character} {##1}
                }
          }
    }
@@ -741,7 +744,7 @@
 
 \NewDocumentCommand \setphonenumbers {m}
    {
-      \keys_set:nn {phonenumbers} {#1}
+      \keys_set:no {phonenumbers} {#1}
    }
 
 \NewDocumentCommand \phonenumber {omo}
@@ -749,15 +752,15 @@
       \group_begin:
       \IfValueT {#1}
          {
-            \keys_set:nn {phonenumbers} {#1}
+            \keys_set:no {phonenumbers} {#1}
          }
 
       \IfValueT {#3}
          {
-            \phone_durchwahl_ueberpruefen:n {#3}
+            \phone_durchwahl_ueberpruefen:x {#3}
          }
 
-      \phone_nummer_ueberpruefen:n {#2}
+      \phone_nummer_ueberpruefen:x {#2}
 
       \IfValueT {#3}
          {
@@ -765,7 +768,7 @@
                {
                   \bool_if:NF \l_phone_durchwahl_leer_bool
                      {
-                        \msg_warning:nn {phonenumbers} {illegal~extension}
+                        \msg_warning:nn {phonenumbers} {illegal extension}
                      }
                }
          }
@@ -779,7 +782,7 @@
       \group_begin:
       \IfValueT {#1}
          {
-            \keys_set:nn {phonenumbers} {#1}
+            \keys_set:no {phonenumbers} {#1}
          }
 
       \phone_vorwahlliste_ausgeben:n {ortsvorwahlen}
@@ -791,7 +794,7 @@
       \group_begin:
       \IfValueT {#1}
          {
-            \keys_set:nn {phonenumbers} {#1}
+            \keys_set:no {phonenumbers} {#1}
          }
 
       \phone_vorwahlliste_ausgeben:n {sondervorwahlen}
@@ -953,12 +956,12 @@
 
       \int_compare:nNnTF {\l_tmpa_int} < {#2}
          {
-            \msg_warning:nnnn {phonenumbers} {number~too~short} {#4} {#2}
+            \msg_warning:nnnn {phonenumbers} {number too short} {#4} {#2}
          }
          {
             \int_compare:nNnTF {\l_tmpa_int} > {#3}
                {
-                  \msg_warning:nnnn {phonenumbers} {number~too~long} {#4} {#3}
+                  \msg_warning:nnnn {phonenumbers} {number too long} {#4} {#3}
                }
                {
                   \bool_set_true:N \l_phone_teilnehmerrufnummer_gueltig_bool
@@ -1152,7 +1155,7 @@
       \int_compare:nNnTF {\l_tmpa_int} > {13}
          {
             % Gesamtnummer hat mehr als 13 Stellen
-            \msg_warning:nnnn {phonenumbers} {number~too~long} {landline} {13}
+            \msg_warning:nnnn {phonenumbers} {number too long} {landline} {13}
          }
          {
             \int_set:Nn \l_tmpa_int {\str_count:n {#2}}
@@ -1161,7 +1164,7 @@
             \int_compare:nNnTF {\l_tmpa_int} < {3}
                {
                   % Teilnehmerrufnummer hat weniger als 3 Stellen
-                  \msg_warning:nnn {phonenumbers} {subscriber~number~too~short} {3}
+                  \msg_warning:nnn {phonenumbers} {subscriber number too short} {3}
                }
                {
                   \bool_set_true:N \l_phone_teilnehmerrufnummer_gueltig_bool
@@ -1178,13 +1181,13 @@
       \int_compare:nNnTF {\l_tmpa_int} > {11}
          {
             % Gesamtnummer hat mehr als 11 Stellen
-            \msg_warning:nnnn {phonenumbers} {number~too~long} {0137~(MABEZ)} {11}
+            \msg_warning:nnnn {phonenumbers} {number too long} {0137~(MABEZ)} {11}
          }
          {
             \int_compare:nNnTF {\l_tmpa_int} < {11}
                {
                   % Gesamtnummer hat weniger als 11 Stellen
-                  \msg_warning:nnnn {phonenumbers} {number~too~short} {0137~(MABEZ)} {11}
+                  \msg_warning:nnnn {phonenumbers} {number too short} {0137~(MABEZ)} {11}
                }
                {
                   \bool_set_true:N \l_phone_teilnehmerrufnummer_gueltig_bool
@@ -1210,7 +1213,7 @@
                   % Festnetznummer
                   \str_if_eq:xnTF {\str_head:n {#2}} {0}
                      {
-                        \msg_warning:nnn {phonenumbers} {illegal~start~of~subscriber~number} {0}
+                        \msg_warning:nnn {phonenumbers} {illegal start of subscriber number} {0}
                      }
                      {
                         \phone_DE_festnetzteilnehmerrufnummernlaenge_ueberpruefen:Nn #1 {#2}
@@ -1261,7 +1264,7 @@
                         % Mobilfunk- und Sondernummern dürfen keine Durchwahl enthalten (ausgenommen MABEZ-Nummern)
                         \str_if_eq:xnF {\str_range:Nnn #1 {1} {4}} {0137}
                            {
-                              \msg_warning:nn {phonenumbers} {odd~extension}
+                              \msg_warning:nn {phonenumbers} {odd extension}
                            }
                      }
                }
@@ -1315,7 +1318,7 @@
 
                   \int_compare:nNnTF {\l_phone_DE_AT_vorwahllaenge_int} = {\l_phone_DE_AT_hauptnummerlaenge_int}
                      {
-                        \msg_warning:nn {phonenumbers} {missing~subscriber~number}
+                        \msg_warning:nn {phonenumbers} {missing subscriber number}
                      }
                      {
                         \use:c {phone_\l_phone_land_str _teilnehmerrufnummer_schreiben:Nx} \l_phone_vorwahl_str
@@ -1325,7 +1328,7 @@
                      }
                }
                {
-                  \msg_warning:nn {phonenumbers} {invalid~area~code}
+                  \msg_warning:nn {phonenumbers} {invalid area code}
                   \tl_put_right:NV \l_phone_ausgabetext_tl \l_phone_bereinigte_nummer_str
                   \tl_put_right:NV \l_phone_ausgabetext_tl \l_phone_bereinigte_durchwahl_str
                }
@@ -1355,7 +1358,7 @@
       \int_compare:nNnTF {\l_tmpa_int} > {13}
          {
             % Gesamtnummer hat mehr als 13 Stellen
-            \msg_warning:nnnn {phonenumbers} {number~too~long} {landline} {13}
+            \msg_warning:nnnn {phonenumbers} {number too long} {landline} {13}
          }
          {
             \int_set:Nn \l_tmpa_int {\str_count:n {#2}}
@@ -1364,13 +1367,13 @@
             \int_compare:nNnTF {\l_tmpa_int} < {5}
                {
                   % Teilnehmerrufnummer hat weniger als 5 Stellen
-                  \msg_warning:nnn {phonenumbers} {subscriber~number~too~short} {5}
+                  \msg_warning:nnn {phonenumbers} {subscriber number too short} {5}
                }
                {
                   \bool_lazy_and:nnTF {\str_if_eq_p:Vn #1 {01}} {\int_compare_p:nNn {\l_tmpa_int} < {7}}
                      {
                         % Wiener Teilnehmerrufnummer hat weniger als 7 Stellen
-                        \msg_warning:nnn {phonenumbers} {subscriber~number~too~short} {7}
+                        \msg_warning:nnn {phonenumbers} {subscriber number too short} {7}
                      }
                      {   
                         \bool_lazy_and:nnTF
@@ -1393,13 +1396,13 @@
                            }
                            {
                               % Teilnehmerrufnummer in bestimmten Ortsnetzen hat weniger als 6 Stellen
-                              \msg_warning:nnn {phonenumbers} {subscriber~number~too~short} {6}
+                              \msg_warning:nnn {phonenumbers} {subscriber number too short} {6}
                            }
                            {
                               \int_compare:nNnTF {\l_tmpa_int} > {9}
                                  {
                                     % Teilnehmerrufnummer hat mehr als 9 Stellen
-                                    \msg_warning:nnn {phonenumbers} {subscriber~number~too~long} {9}
+                                    \msg_warning:nnn {phonenumbers} {subscriber number too long} {9}
                                  }
                                  {
                                     \bool_set_true:N \l_phone_teilnehmerrufnummer_gueltig_bool
@@ -1417,7 +1420,7 @@
 
       \bool_lazy_or:nnTF {\str_if_eq_p:Vn \l_tmpa_str {0}} {\str_if_eq_p:Vn \l_tmpa_str {1}}
          {
-            \msg_warning:nnV {phonenumbers} {illegal~start~of~subscriber~number} \l_tmpa_str
+            \msg_warning:nnV {phonenumbers} {illegal start of subscriber number} \l_tmpa_str
          }
          {
             \phone_AT_festnetzteilnehmerrufnummernlaenge_ueberpruefen:Nn #1 {#2}
@@ -1480,7 +1483,7 @@
 
                   \str_if_empty:NF \l_phone_bereinigte_durchwahl_str
                      {
-                        \msg_warning:nn {phonenumbers} {odd~extension}
+                        \msg_warning:nn {phonenumbers} {odd extension}
                      }
                }
 
@@ -1522,12 +1525,12 @@
 \clist_new:N \c_phone_FR_vorwahlen_clist
 \clist_concat:NNN \c_phone_FR_vorwahlen_clist \c_phone_FR_ortsvorwahlen_clist \c_phone_FR_sondervorwahlen_clist
 
-\msg_new:nnn {phonenumbers} {FR/illegal~home~area~code}
+\msg_new:nnn {phonenumbers} {FR/illegal home area code}
    {
       The~only~legal~home~area~code~in~France~is~0508~(Saint-Pierre-et-Miquelon).~#1~cannot~be~set~as~home~area~code~\msg_line_context:.
    }
 
-\msg_new:nnn {phonenumbers} {FR/missing~zero}
+\msg_new:nnn {phonenumbers} {FR/missing zero}
    {
       French~phone~number~has~no~zero~in~the~beginning~\msg_line_context:
    }
@@ -1640,13 +1643,13 @@
                {
                   \int_compare:nNnTF {\l_phone_nummerlaenge_int} < {4}
                      {
-                        \msg_warning:nnnn {phonenumbers} {number~too~short} {short} {4}
+                        \msg_warning:nnnn {phonenumbers} {number too short} {short} {4}
                         \tl_put_right:NV \l_phone_ausgabetext_tl \l_phone_bereinigte_nummer_str
                      }
                      {
                         \int_compare:nNnTF {\l_phone_nummerlaenge_int} > {4}
                            {
-                              \msg_warning:nnnn {phonenumbers} {number~too~long} {short} {4}
+                              \msg_warning:nnnn {phonenumbers} {number too long} {short} {4}
                               \tl_put_right:NV \l_phone_ausgabetext_tl \l_phone_bereinigte_nummer_str 
                            }
                            {
@@ -1656,14 +1659,14 @@
                      }
                }
                {
-                  \msg_warning:nnnn {phonenumbers} {number~too~short} {phone} {10}
+                  \msg_warning:nnnn {phonenumbers} {number too short} {phone} {10}
                   \tl_put_right:NV \l_phone_ausgabetext_tl \l_phone_bereinigte_nummer_str
                }
          }
          {
             \int_compare:nNnTF {\l_phone_nummerlaenge_int} > {10}
                {
-                  \msg_warning:nnnn {phonenumbers} {number~too~long} {phone} {10}
+                  \msg_warning:nnnn {phonenumbers} {number too long} {phone} {10}
                   \tl_put_right:NV \l_phone_ausgabetext_tl \l_phone_bereinigte_nummer_str
                }
                {
@@ -1695,12 +1698,12 @@
             
                         \bool_if:NF \l_phone_vorwahl_gefunden_bool
                            {
-                              \msg_warning:nn {phonenumbers} {invalid~area~code}
+                              \msg_warning:nn {phonenumbers} {invalid area code}
                               \tl_put_right:NV \l_phone_ausgabetext_tl \l_phone_bereinigte_nummer_str
                            }
                      }
                      {
-                        \msg_warning:nn {phonenumbers/FR} {missing~zero}
+                        \msg_warning:nn {phonenumbers} {FR/missing zero}
                         \tl_put_right:NV \l_phone_ausgabetext_tl \l_phone_bereinigte_nummer_str
                      }
                }
@@ -1716,12 +1719,12 @@
 \clist_new:N \c_phone_UK_vorwahlen_clist
 \clist_concat:NNN \c_phone_UK_vorwahlen_clist \c_phone_UK_ortsvorwahlen_clist \c_phone_UK_sondervorwahlen_clist
 
-\msg_new:nnn {phonenumbers} {UK/illegal~home~area~code}
+\msg_new:nnn {phonenumbers} {UK/illegal home area code}
    {
       National~dialling~is~required~in~\tl_use:c {c_phone_UK_ortsname_#1_tl}.~#1~cannot~be~set~as~home~area~code~\msg_line_context:.
    }
 
-\msg_new:nnn {phonenumbers} {UK/national~dialling~required}
+\msg_new:nnn {phonenumbers} {UK/national dialling required}
    {
       British~subscriber~number~starting~with~0~or~1~requires~an~area~code~\msg_line_context:
    }   
@@ -1866,7 +1869,7 @@
                   {1} { }
                }
                {
-                  \msg_warning:nn {phonenumbers/UK} {national~dialling~required}
+                  \msg_warning:nn {phonenumbers} {UK/national dialling required}
                }
          }
          {
@@ -1957,7 +1960,7 @@
                                     
                                     \int_compare:nNnTF {##1} = {\l_phone_nummerlaenge_int}
                                        {
-                                          \msg_warning:nn {phonenumbers} {missing~subscriber~number}
+                                          \msg_warning:nn {phonenumbers} {missing subscriber number}
                                        }
                                        {
                                           \phone_UK_teilnehmerrufnummer_schreiben:Nx \l_phone_vorwahl_str {\str_range:Nnn \l_phone_bereinigte_nummer_str {##1 + 1} {-1}}
@@ -1969,7 +1972,7 @@
 
             \bool_if:NF \l_phone_vorwahl_gefunden_bool
                {
-                  \msg_warning:nn {phonenumbers} {invalid~area~code}
+                  \msg_warning:nn {phonenumbers} {invalid area code}
                   \tl_put_right:NV \l_phone_ausgabetext_tl \l_phone_bereinigte_nummer_str
                }
          }
@@ -1987,17 +1990,17 @@
 \clist_new:N \c_phone_US_vorwahlen_clist
 \clist_concat:NNN \c_phone_US_vorwahlen_clist \c_phone_US_ortsvorwahlen_clist \c_phone_US_sondervorwahlen_clist
 
-\msg_new:nnn {phonenumbers} {US/illegal~home~area~code}
+\msg_new:nnn {phonenumbers} {US/illegal home area code}
    {
       10-digit~dialling~is~required~in~\tl_use:c {c_phone_US_ortsname_#1_tl}.~#1~cannot~be~set~as~home~area~code~\msg_line_context:.
    }
 
-\msg_new:nnn {phonenumbers} {US/invalid~area~code}
+\msg_new:nnn {phonenumbers} {US/invalid area code}
    {
       unknown~area~code~#1~in~North~American~phone~number~\msg_line_context:
    }
 
-\msg_new:nnn {phonenumbers} {US/invalid~central~office~code}
+\msg_new:nnn {phonenumbers} {US/invalid central office code}
    {
       invalid~central~office~code~#1~in~North~American~phone~number~\msg_line_context:
    }
@@ -2207,7 +2210,7 @@
             {1} { }
          }
          {
-            \msg_warning:nnn {phonenumbers/US} {invalid~central~office~code} {#2}
+            \msg_warning:nnn {phonenumbers} {US/invalid central office code} {#2}
          }
          {
             \bool_set_false:N \l_tmpa_bool % Regionalnummer?
@@ -2227,13 +2230,13 @@
                {
                   \str_if_eq:xnT {\str_range:nnn {#2} {2} {3}} {11}
                      {
-                        \msg_warning:nnn {phonenumbers/US} {invalid~central~office~code} {#2}
+                        \msg_warning:nnn {phonenumbers} {US/invalid central office code} {#2}
                      }
                }
                {
                   \str_if_eq:nnT {#2} {911}
                      {
-                        \msg_warning:nnn {phonenumbers/US} {invalid~central~office~code} {#2}
+                        \msg_warning:nnn {phonenumbers} {US/invalid central office code} {#2}
                      }
                }
          }
@@ -2272,10 +2275,10 @@
                {
                   \clist_if_in:NVTF \c_phone_US_vorwahlen_clist \l_phone_bereinigte_nummer_str
                      {
-                        \msg_warning:nn {phonenumbers} {missing~subscriber~number}
+                        \msg_warning:nn {phonenumbers} {missing subscriber number}
                      }
                      {
-                        \msg_warning:nnV {phonenumbers/US} {invalid~area~code} \l_phone_bereinigte_nummer_str
+                        \msg_warning:nnV {phonenumbers} {US/invalid area code} \l_phone_bereinigte_nummer_str
                      }
 
                   \phone_US_vorwahl_schreiben:VN \l_phone_bereinigte_nummer_str \c_false_bool
@@ -2292,7 +2295,7 @@
 
                   \clist_if_in:NVF \c_phone_US_vorwahlen_clist \l_tmpa_str
                      {
-                        \msg_warning:nnx {phonenumbers/US} {invalid~area~code} {\l_tmpa_str}
+                        \msg_warning:nnx {phonenumbers} {US/invalid area code} {\l_tmpa_str}
                      }
 
                   \phone_US_vorwahl_schreiben:VN \l_tmpa_str \c_true_bool
@@ -2306,10 +2309,10 @@
          {
             \int_compare:nNnTF {\str_count:N \l_phone_bereinigte_nummer_str} < {10}
                {
-                  \msg_warning:nnnn {phonenumbers} {number~too~short} {phone} {10}
+                  \msg_warning:nnnn {phonenumbers} {number too short} {phone} {10}
                }
                {
-                  \msg_warning:nnnn {phonenumbers} {number~too~long} {phone} {10}
+                  \msg_warning:nnnn {phonenumbers} {number too long} {phone} {10}
                }
 
             \tl_put_right:NV \l_phone_ausgabetext_tl \l_phone_bereinigte_nummer_str
@@ -2341,7 +2344,7 @@
 
                               \int_compare:nNnTF {##1} = {\l_phone_nummerlaenge_int}
                                  {
-                                    \msg_warning:nn {phonenumbers} {country~code~only}
+                                    \msg_warning:nn {phonenumbers} {country code only}
                                  }
                                  {
                                     \tl_put_right:NV \l_phone_ausgabetext_tl \c_space_tl
@@ -2357,7 +2360,7 @@
 
       \bool_if:NF \l_phone_vorwahl_gefunden_bool
          {
-            \msg_warning:nnn {phonenumbers} {invalid~country~code}
+            \msg_warning:nnn {phonenumbers} {invalid country code}
             \tl_put_right:NV \l_phone_ausgabetext_tl \c_phone_pluszeichen_tl
             \tl_put_right:NV \l_phone_ausgabetext_tl \l_phone_bereinigte_nummer_str
          }
