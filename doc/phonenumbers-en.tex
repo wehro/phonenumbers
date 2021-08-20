@@ -1,6 +1,6 @@
 % phonenumbers package: English manual
-% Version 2.2
-% Datum: 18. August 2019
+% Version 2.3
+% Datum: 20. August 2021
 \documentclass[numbers=noenddot]{scrreprt}
 \usepackage[french,UKenglish]{babel}
 \usepackage{fontspec}
@@ -12,7 +12,6 @@
 \usepackage{scrlayer-scrpage}
 \usepackage{multicol}
 \usepackage{metalogo}
-
 \usepackage[UKenglish]{isodate}
 \usepackage{cnltx-example}
 \usepackage{cnltx-tools}
@@ -46,8 +45,8 @@
 \renewcommand\@pnumwidth{2em}
 \makeatother
 
-\DeclareTOCStyleEntry[raggedentrytext=on]{tocline}{chapter}
-\DeclareTOCStyleEntry[raggedentrytext=on]{tocline}{section}
+
+
 
 \addbibresource{Literatur.bib}
 
@@ -72,7 +71,7 @@
 \makeatother
 
 \DeclareNewLayer[background,bottommargin,mode=picture,hoffset=7cm,
-	contents={\includegraphics{Telefonhörer}}]{Telefonebene}
+	contents={\includegraphics{Telefonhoerer}}]{Telefonebene}
 
 \AddLayersToPageStyle{plain}{Telefonebene}
 \AddLayersToPageStyle{scrheadings}{Telefonebene}
@@ -184,19 +183,25 @@ The subscriber number can end in a separate extension, which can be input by an 
 \includegraphics{Titelbild-en}
 
 \vfill
-\Large
+\large
 \textit{Package author}
 
-\medskip
+\smallskip
 Keno Wehr
 
-\large
+\bigskip
+\textit{Bug reports}
+
 \smallskip
-\url{wehr@abgol.de}
+\normalsize
+\url{https://github.com/wehro/phonenumbers/issues}
 \end{center}
 
-\vfill
+\bigskip
 \noindent This package makes it possible to typeset telephone numbers according to different national conventions and to link them when required. German, Austrian, French, British, and North American phone numbers are supported. Phone numbers from other countries are supported rudimentarily.
+
+\bigskip
+\noindent A German version of this manual is available in the file \texttt{phonenumbers-de.pdf}.
 \end{titlepage}
 
 \tableofcontents
@@ -212,7 +217,7 @@ Keno Wehr
   \phonenumber[area-code-sep=brackets]{020432632194}
 \end{sidebyside}
 \begin{sidebyside}
-  \phonenumber[area-code=place,area-code-sep=space]{0409188423}
+  \phonenumber[area-code=place,area-code-sep=space]{04066969123}
 \end{sidebyside}
 \begin{sidebyside}
   \phonenumber[foreign]{0209576342}
@@ -237,13 +242,13 @@ Keno Wehr
 
 \section{France}
 \begin{sidebyside}
-  \phonenumber[country=FR]{0123456789}
+  \phonenumber[country=FR]{0199006789}
 \end{sidebyside}
 \begin{sidebyside}
-  \phonenumber[country=FR,area-code=place-and-number]{0123456789}
+  \phonenumber[country=FR,area-code=place-and-number]{0199006789}
 \end{sidebyside}
 \begin{sidebyside}
-  \phonenumber[country=FR,foreign]{0123456789}
+  \phonenumber[country=FR,foreign]{0199006789}
 \end{sidebyside}
 
 \section{United Kingdom}
@@ -292,11 +297,11 @@ The \phone\ package aims to enable the user to typeset telephone numbers without
 
 For instance, area codes are separated from the subscriber number in most countries. To typeset the phone number with the aid of the \phone\ package the user does not need to know which digits belong to the area code and which to the subscriber number. The package knows all area codes of the supported countries and will automatically typeset them correctly.
 \begin{sidebyside}
-  \phonenumber{0305226789}
+  \phonenumber{03023125789}
 \end{sidebyside}
 The first three digits of this German phone number are recognized as the area code of Berlin, whereas in the following example the first six digits can be identified as the area code of the German spa town of Bad Schandau.
 \begin{sidebyside}
-  \phonenumber{0350226789}
+  \phonenumber{03502225789}
 \end{sidebyside}
 
 The package does not aim to implement a particular norm. Rather, it follows the usual conventions for typesetting phone numbers. By setting options the user can determine the country the number is belonging to and select from various formatting options. This includes the additional output of the country calling code.
@@ -313,7 +318,7 @@ Sets the \meta{options} for all following phone numbers not having contradictory
 Typesets a telephone number. The \meta{options} are valid only for this phone number.
 
 The \meta{number} can be input in the local or in the international format. The local format is possible for supported countries only; the country has to be set by the
-\option{country} 
+\option{country}
 option
 \vglAbschnitt{optionen-allgemein}.
 The international format always begins with
@@ -379,15 +384,15 @@ Specifies whether and in which form the country calling code will be output.
 
 With \code{foreign=international} or simply \code{foreign} you will get a country calling code consisting of a plus sign followed by the country code (\eg\ 49 for German numbers). In this form the country calling code can be directly used on mobile phones. For landline calls the + has to be replaced by the international call prefix used in the country of the caller.
 \begin{sidebyside}
-  \phonenumber[foreign=international]{0305226789}
+  \phonenumber[foreign=international]{03023125789}
 \end{sidebyside}
 The choice \code{american} lets the country calling code begin with 011, the international call prefix used in North America.
 \begin{sidebyside}
-  \phonenumber[foreign=american]{0305226789}
+  \phonenumber[foreign=american]{03023125789}
 \end{sidebyside}
 With the choice \code{european} the number will begin with a double zero, used in most of Europe and further parts of the world.
 \begin{sidebyside}
-  \phonenumber[foreign=european]{0305226789}
+  \phonenumber[foreign=european]{03023125789}
 \end{sidebyside}
 
 For numbers from unsupported countries the choice
@@ -413,7 +418,7 @@ Sets the home country. Numbers from this country will be typeset without the cou
 \begin{sidebyside}
   \setphonenumbers{foreign,home-country=FR}
   \phonenumber[country=DE]{0441343396} \\
-  \phonenumber[country=FR]{0123456789} \\
+  \phonenumber[country=FR]{0199006789} \\
   \phonenumber[country=US]{2125550123}
 \end{sidebyside}
 
@@ -427,7 +432,7 @@ The \option{home-country} option should to be set before the home area code. If 
   \setphonenumbers{home-country=US,home-area-code=242,foreign}
   \phonenumber[country=US]{2125550123} \\
   \phonenumber[country=US]{2425550124} \\
-  \phonenumber[country=DE]{02581639737}
+  \phonenumber[country=DE]{0258163970}
 \end{sidebyside}
 Setting a home area code is allowed only for areas where the area code can be left out for local calls.
 \end{Befehlsliste}
@@ -486,15 +491,15 @@ The relevant tariff can be output using the
 \OptionsvariantenAreaCodeSep
 \OptionsbeschreibungAreaCodeSep
 \begin{sidebyside}
-  \phonenumber[area-code-sep=space]{02581639737} \\
-  \phonenumber[area-code-sep=hyphen]{01738642753}
+  \phonenumber[area-code-sep=space]{0258163970} \\
+  \phonenumber[area-code-sep=hyphen]{01749091317}
 \end{sidebyside}
 
 \WertbeschreibungBrackets
 \begin{sidebyside}
   \setphonenumbers{area-code-sep=brackets}
   \phonenumber{02581639737} \\
-  \phonenumber{01738642753}
+  \phonenumber{01749091317}
 \end{sidebyside}
 
 \HinweisForeignAreaCodeSep
@@ -505,7 +510,7 @@ The relevant tariff can be output using the
 \begin{sidebyside}
   \setphonenumbers{area-code=place}
   \phonenumber{08942630845} \\
-  \phonenumber{01738642753} \\
+  \phonenumber{01749091317} \\
   \phonenumber[foreign]{04414363524}
 \end{sidebyside}
 
@@ -513,7 +518,7 @@ The relevant tariff can be output using the
 \begin{sidebyside}
   \setphonenumbers{area-code=place-and-number}
   \phonenumber{08942630845} \\
-  \phonenumber{01738642753} \\
+  \phonenumber{01749091317} \\
   \phonenumber{01803635341} \\
   \phonenumber[foreign]{04414363524}
 \end{sidebyside}
@@ -679,20 +684,26 @@ However, it is not used for the Pacific territories Wallis and Futuna, French Po
 \UeberschriftAufbau
 French phone numbers generally have ten digits and are structured in groups of two digits. The first digit is always 0.
 \begin{sidebyside}
-  \phonenumber[country=FR]{0123456789}
+  \phonenumber[country=FR]{0199006789}
 \end{sidebyside}
-The second digit makes it possible to assign a number to one of five geographic zones or to a special purpose (\eg\ mobile telephony), respectively. The following digits theoretically allow a more precise geographic assignment of the number, but the \phone\ package uses them only to identify numbers from the overseas territories
+The second digit makes it possible to assign a number to one of five geographic zones or to a special purpose (\eg\ mobile telephony). Certain number ranges are reserved for overseas territories
 \vglAnhang{vorwahlen-FR}.
 \begin{sidebyside}
   \setphonenumbers{country=FR,area-code=place-and-number}
-  \phonenumber{0123456789} \\
-  \phonenumber{0512345678} \\
+  \phonenumber{0199006789} \\
+  \phonenumber{0536495678} \\
   \phonenumber{0596123456}
 \end{sidebyside}
 
 The leading 0 is omitted for calls from abroad.
 \begin{sidebyside}
-  \phonenumber[country=FR,foreign]{0123456789}
+  \phonenumber[country=FR,foreign]{0199006789}
+\end{sidebyside}
+
+Numbers for machine to machine communication beginning with 07\,00 have more than ten digits. They have 14 digits in metropolitan France and 13 digits in the overseas territories \cite[19]{ARCEP}.
+\begin{sidebyside}
+  \phonenumber[country=FR]{07000123456789} \\
+  \phonenumber[country=FR]{0700512345678}
 \end{sidebyside}
 
 Some companies and institutions have four-digit short numbers, which always begin with 3.
@@ -717,19 +728,19 @@ The first number of the following example is from Mayotte and thus using the cou
 \begin{sidebyside}
   \setphonenumbers{country=FR,foreign}
   \phonenumber{0269123456} \\
-  \phonenumber{0296123456}
+  \phonenumber{0261913456}
 \end{sidebyside}
 
 For some areas the country code leads to doubling the first three digits, \eg\ in the case of Martinique (area code 05\,96).
 \begin{sidebyside}
   \phonenumber[country=FR,foreign]{0596123456}
 \end{sidebyside}
-However, for Saint Pierre and Miquelon the area code 05\,08 is entirely omitted for calls from abroad \cite[4]{ARCEP}.
+However, for Saint Pierre and Miquelon the area code 05\,08 is entirely omitted for calls from abroad \cite[13]{ARCEP}.
 \begin{sidebyside}
   \phonenumber[country=FR,foreign]{0508123456}
 \end{sidebyside}
 
-In Saint Pierre and Miquelon it is possible as well to omit the area code for local calls and to dial six digits only \cite[4]{ARCEP}.
+In Saint Pierre and Miquelon it is possible as well to omit the area code for local calls and to dial six digits only \cite[13]{ARCEP}.
 \begin{sidebyside}
   \setphonenumbers{country=FR,home-area-code=0508}
   \phonenumber{0508123456}
@@ -744,30 +755,31 @@ Since this is not possible in other areas of France, \code{0508} is the only leg
 \WertbeschreibungPlaceAndNumber
 \begin{sidebyside}
   \setphonenumbers{country=FR,area-code=place-and-number}
-  \phonenumber{0123456789} \\
+  \phonenumber{0199006789} \\
   \phonenumber{0596123456} \\
   \phonenumber{0612345678} \\
-  \phonenumber[foreign]{0123456789}
+  \phonenumber[foreign]{0199006789}
 \end{sidebyside}
 
 \WertbeschreibungPlace
 \ The use of this option is deprecated because the area code has always to be dialled in France.
 \begin{sidebyside}
   \setphonenumbers{country=FR,area-code=place}
-  \phonenumber{0123456789} \\
+  \phonenumber{0199006789} \\
   \phonenumber{0596123456} \\
   \phonenumber{0612345678} \\
-  \phonenumber[foreign]{0123456789}
+  \phonenumber[foreign]{0199006789}
 \end{sidebyside}
 \end{Befehlsliste}
 
 \UeberschriftUngueltig
 \WarnungWenn
 \begin{itemize}
-\item the number does not have exactly 10 or 4 digits,
+\item the number does not have exactly 10 or 4 digits (except for numbers beginning with 07\,00),
 \item a 10-digit number does not begin with 0,
 \item a 4-digit number does not begin with 3,
-\item a 10-digit number does not contain a valid area code.
+\item a 10-digit number does not contain a valid area code,
+\item a number beginning with 07\,00 does not have 14 or 13 digits.
 \end{itemize}
 
 \chapter{British Phone Numbers}
@@ -993,9 +1005,9 @@ Specifies whether the trunk prefix 1 for long-distance calls will be output. Ins
 
 \chapter{Technical Remarks}
 The \phone\ package uses the
-\Paket{ltxcmds} 
-package as well as the experimental \LaTeX\ 3 packages
-\Paket{expl3}, \Paket{xparse}, and \Paket{l3keys2e}.
+\Paket{ltxcmds}
+package as well as the \LaTeX\ 3 package
+\Paket{l3keys2e}.
 
 Hyphens within phone numbers are realized by
 \verbcode:\kern1pt-\kern1pt:, \ie\ they are typeset with an additional distance of 1 point from the surrounding digits. The same goes for slashes too, which are output as
@@ -1058,14 +1070,14 @@ will be expanded to
 \Schmalschrift
 \AreaCodesGeographic[country=FR]
 \egroup
-\Quellen \cite[5]{ARCEP}, \cite{wikipedia-FR-fr}, \cite{wikipedia-FR-de}
+\Quellen \cite[14\psq]{ARCEP}, \cite{wikipedia-FR-fr}, \cite{wikipedia-FR-de}
 
 \UeberschriftSondervorwahlen
 \bgroup
 \Schmalschrift
 \AreaCodesNonGeographic[country=FR]
 \egroup
-\Quellen \cite[6--15]{ARCEP}, \cite{wikipedia-FR-fr}, \cite{wikipedia-FR-de}
+\Quellen \cite[17--25]{ARCEP}, \cite{wikipedia-FR-fr}, \cite{wikipedia-FR-de}
 
 \chapter{British Area Codes}
 \UeberschriftOrtsvorwahlen
@@ -1182,6 +1194,17 @@ option for the area code separator in numbers with country calling code
 \begin{itemize}
 \item Making macros possible as command arguments
 \item Slight change of the warning messages
+\end{itemize}
+\item[2.3] \today
+\begin{itemize}
+\item Addition of the new German mobile phone area code 01\,50\,19
+\item Removal of the German mobile phone area codes 01\,50\,20, 01\,50\,50, 01\,50\,80, 01\,55\,55
+\item Taking into account French machine to machine numbers beginning with 07\,00 (including those from the overseas territories) having 14 or 13 digits
+\item Taking into account the numbers from the French overseas territories beginning with 09\,47 and 09\,76
+\item Addition of the new British area codes 05604, 07354, 07355, 07357, 07359, 07360, 07361, 07362, 07363, 07364, and 0897
+\item Removal of the British area code 07439
+\item Addition of the new North American area codes 227, 274, 341, 368, 428, 447, 448, 464, 474, 523, 524, 525, 526, 572, 582, 656, 659, 689, 730, 742, 771, 826, 839, 840, 943, 945, and 948
+\item Revision of the package code
 \end{itemize}
 \end{description}
 

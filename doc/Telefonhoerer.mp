@@ -1,6 +1,6 @@
 outputtemplate := "%j.mps";
 
-input ../metapost/Telefonhörer;
+input ../metapost/Telefonhoerer;
 
 beginfig(1);
 

@@ -1,6 +1,6 @@
 % phonenumbers package: German manual
-% Version 2.2
-% Datum: 18. August 2019
+% Version 2.3
+% Datum: 20. August 2021
 \documentclass[numbers=noenddot]{scrreprt}
 \usepackage[french,ngerman]{babel}
 \usepackage{fontspec}
@@ -12,7 +12,6 @@
 \usepackage{scrlayer-scrpage}
 \usepackage{multicol}
 \usepackage{metalogo}
-\usepackage[toc]{multitoc}
 \usepackage[ngerman]{isodate}
 \usepackage{cnltx-example}
 \usepackage{cnltx-tools}
@@ -46,8 +45,8 @@
 \renewcommand\@pnumwidth{2em}
 \makeatother
 
-\DeclareTOCStyleEntry[raggedentrytext=on]{tocline}{chapter}
-\DeclareTOCStyleEntry[raggedentrytext=on]{tocline}{section}
+\BeforeStartingTOC{\begin{multicols}{2}}
+\AfterStartingTOC{\end{multicols}}
 
 \addbibresource{Literatur.bib}
 
@@ -72,7 +71,7 @@
 \makeatother
 
 \DeclareNewLayer[background,bottommargin,mode=picture,hoffset=7cm,
-	contents={\includegraphics{Telefonhörer}}]{Telefonebene}
+	contents={\includegraphics{Telefonhoerer}}]{Telefonebene}
 
 \AddLayersToPageStyle{plain}{Telefonebene}
 \AddLayersToPageStyle{scrheadings}{Telefonebene}
@@ -184,19 +183,25 @@ Am Ende der Teilnehmerrufnummer kann eine abgetrennte Durchwahlnummer stehen, di
 \includegraphics{Titelbild-de}
 
 \vfill
-\Large
+\large
 \textit{Paketautor}
 
-\medskip
+\smallskip
 Keno Wehr
 
-\large
+\bigskip
+\textit{Fehlermeldungen}
+
 \smallskip
-\url{wehr@abgol.de}
+\normalsize
+\url{https://github.com/wehro/phonenumbers/issues}
 \end{center}
 
-\vfill
+\bigskip
 \noindent Dieses Paket ermöglicht es, Telefonnummern unterschiedlichen nationalen Konventionen entsprechend zu setzen und bei Bedarf auch zu verlinken. Unterstützt werden deutsche, österreichische, französische, britische und nordamerikanische Telefonnummern. Nummern aus anderen Ländern werden rudimentär unterstützt.
+
+\bigskip
+\noindent An English version of this manual is available in the file \texttt{phonenumbers-en.pdf}.
 \end{titlepage}
 
 \tableofcontents
@@ -212,7 +217,7 @@ Keno Wehr
   \phonenumber[area-code-sep=brackets]{020432632194}
 \end{sidebyside}
 \begin{sidebyside}
-  \phonenumber[area-code=place,area-code-sep=space]{0409188423}
+  \phonenumber[area-code=place,area-code-sep=space]{04066969123}
 \end{sidebyside}
 \begin{sidebyside}
   \phonenumber[foreign]{0209576342}
@@ -237,13 +242,13 @@ Keno Wehr
 
 \section{Frankreich}
 \begin{sidebyside}
-  \phonenumber[country=FR]{0123456789}
+  \phonenumber[country=FR]{0199006789}
 \end{sidebyside}
 \begin{sidebyside}
-  \phonenumber[country=FR,area-code=place-and-number]{0123456789}
+  \phonenumber[country=FR,area-code=place-and-number]{0199006789}
 \end{sidebyside}
 \begin{sidebyside}
-  \phonenumber[country=FR,foreign]{0123456789}
+  \phonenumber[country=FR,foreign]{0199006789}
 \end{sidebyside}
 
 \section{Großbritannien}
@@ -292,11 +297,11 @@ Das Ziel des Pakets \phone\ ist es, das Setzen von Telefonnummern zu ermögliche
 
 Beispielsweise werden in den meisten Ländern Vorwahlen graphisch von der Rufnummer getrennt. Für die Darstellung der Telefonnummer mit dem Paket \phone\ braucht der Nutzer nicht zu wissen, welche Ziffern zur Vorwahl und welche zur Rufnummer gehören. Das Paket kennt alle Vorwahlen der unterstützten Länder und stellt diese automatisch richtig dar.
 \begin{sidebyside}
-  \phonenumber{0305226789}
+  \phonenumber{03023125789}
 \end{sidebyside}
 Hier wurden die ersten drei Ziffern als Vorwahl von Berlin erkannt. Dagegen können im folgenden Beispiel die ersten sechs Ziffern als Vorwahl von Bad Schandau identifiziert werden.
 \begin{sidebyside}
-  \phonenumber{0350226789}
+  \phonenumber{03502225789}
 \end{sidebyside}
 
 Das Paket hat nicht das Ziel, eine bestimmte Norm umzusetzen; es orientiert sich an den üblichen Gepflogenheiten zur Darstellung von Telefonnummern. Durch das Setzen von Optionen kann der Anwender das Land festlegen, aus dem die Telefonnummer stammt, sowie zwischen mehreren Formatierungsvarianten wählen. Hierzu zählt auch die zusätzliche Ausgabe der Auslandsvorwahl.
@@ -313,7 +318,7 @@ Setzt die \meta{Optionen} für alle folgenden Telefonnummern, für die nichts an
 Setzt eine Telefonnummer. Die \meta{Optionen} gelten nur für diese Telefonnummer.
 
 Die \meta{Nummer} kann im lokalen oder im internationalen Format eingegeben werden. Das lokale Format ist nur für unterstützte Länder möglich; das zugehörige Land ist durch die Option
-\option{country} 
+\option{country}
 festzulegen
 \vglAbschnitt{optionen-allgemein}.
 Das internationale Format beginnt stets mit
@@ -379,15 +384,15 @@ Gibt an, ob und in welcher Form die Auslandsvorwahl ausgegeben werden soll.
 
 Mit \code{foreign=international} oder einfach \code{foreign} erhält man eine Auslandsvorwahl, die aus einem Pluszeichen gefolgt von der Landeskennzahl (z.\,B. 49 für deutsche Nummern) besteht. In dieser Form kann sie auf Mobiltelefonen direkt verwendet werden. Im Festnetz muss das + durch die am Ort des Anrufers verwendeten internationalen Verkehrsausscheidungsziffern ersetzt werden.
 \begin{sidebyside}
-  \phonenumber[foreign=international]{0305226789}
+  \phonenumber[foreign=international]{03023125789}
 \end{sidebyside}
 Die Variante \code{american} lässt die Auslandsvorwahl mit 011 beginnen, den in Nordamerika gebräuchlichen internationalen Verkehrsausscheidungsziffern.
 \begin{sidebyside}
-  \phonenumber[foreign=american]{0305226789}
+  \phonenumber[foreign=american]{03023125789}
 \end{sidebyside}
 Bei Auswahl von \code{european} beginnt die Nummer mit einer Doppelnull, wie sie in den meisten Ländern Europas und weiteren Teilen der Welt verwendet wird.
 \begin{sidebyside}
-  \phonenumber[foreign=european]{0305226789}
+  \phonenumber[foreign=european]{03023125789}
 \end{sidebyside}
 
 Bei Nummern aus nicht unterstützten Ländern wird die Wahl
@@ -413,7 +418,7 @@ Legt das Heimatland fest. Für Nummern aus diesem Land wird unabhängig vom Wert
 \begin{sidebyside}
   \setphonenumbers{foreign,home-country=FR}
   \phonenumber[country=DE]{0441343396} \\
-  \phonenumber[country=FR]{0123456789} \\
+  \phonenumber[country=FR]{0199006789} \\
   \phonenumber[country=US]{2125550123}
 \end{sidebyside}
 
@@ -427,7 +432,7 @@ Vor der Heimatvorwahl sollte das Heimatland mit der Option \option{home-country}
   \setphonenumbers{home-country=US,home-area-code=242,foreign}
   \phonenumber[country=US]{2125550123} \\
   \phonenumber[country=US]{2425550124} \\
-  \phonenumber[country=DE]{02581639737}
+  \phonenumber[country=DE]{0258163970}
 \end{sidebyside}
 Die Angabe einer Heimatvorwahl ist nur für Gebiete zulässig, in denen die Vorwahl bei Ortsgesprächen weggelassen werden kann.
 \end{Befehlsliste}
@@ -486,15 +491,15 @@ Der zugehörige Tarif kann mit Hilfe der Option
 \OptionsvariantenAreaCodeSep
 \OptionsbeschreibungAreaCodeSep
 \begin{sidebyside}
-  \phonenumber[area-code-sep=space]{02581639737} \\
-  \phonenumber[area-code-sep=hyphen]{01738642753}
+  \phonenumber[area-code-sep=space]{0258163970} \\
+  \phonenumber[area-code-sep=hyphen]{01749091317}
 \end{sidebyside}
 
 \WertbeschreibungBrackets
 \begin{sidebyside}
   \setphonenumbers{area-code-sep=brackets}
   \phonenumber{02581639737} \\
-  \phonenumber{01738642753}
+  \phonenumber{01749091317}
 \end{sidebyside}
 
 \HinweisForeignAreaCodeSep
@@ -505,7 +510,7 @@ Der zugehörige Tarif kann mit Hilfe der Option
 \begin{sidebyside}
   \setphonenumbers{area-code=place}
   \phonenumber{08942630845} \\
-  \phonenumber{01738642753} \\
+  \phonenumber{01749091317} \\
   \phonenumber[foreign]{04414363524}
 \end{sidebyside}
 
@@ -513,7 +518,7 @@ Der zugehörige Tarif kann mit Hilfe der Option
 \begin{sidebyside}
   \setphonenumbers{area-code=place-and-number}
   \phonenumber{08942630845} \\
-  \phonenumber{01738642753} \\
+  \phonenumber{01749091317} \\
   \phonenumber{01803635341} \\
   \phonenumber[foreign]{04414363524}
 \end{sidebyside}
@@ -679,20 +684,26 @@ Er gilt hingegen nicht für die Pazifikgebiete Wallis und Futuna, Französisch-P
 \UeberschriftAufbau
 Französische Telefonnummern sind generell zehnstellig und werden in Zweiergruppen gegliedert. Die erste Ziffer ist immer eine 0.
 \begin{sidebyside}
-  \phonenumber[country=FR]{0123456789}
+  \phonenumber[country=FR]{0199006789}
 \end{sidebyside}
-Die zweite Ziffer ermöglicht die Zuordnung der Nummer zu einem von fünf geographischen Bereichen bzw. einer besonderen Verwendung (z.\,B. Mobilfunk). Die folgenden Stellen erlauben prinzipiell eine genauere geographische Zuordnung der Nummer, doch macht das Paket \phone\ hiervon nur zur Identifikation von Nummern aus Überseegebieten Gebrauch
+Die zweite Ziffer ermöglicht die Zuordnung der Nummer zu einem von fünf geographischen Bereichen bzw. einer besonderen Verwendung (z.\,B. Mobilfunk). Bestimmte Nummerngruppen sind für Überseegebiete reserviert
 \vglAnhang{vorwahlen-FR}.
 \begin{sidebyside}
   \setphonenumbers{country=FR,area-code=place-and-number}
-  \phonenumber{0123456789} \\
-  \phonenumber{0512345678} \\
+  \phonenumber{0199006789} \\
+  \phonenumber{0536495678} \\
   \phonenumber{0596123456}
 \end{sidebyside}
 
 Bei Anrufen aus dem Ausland entfällt die führende 0 der Rufnummer.
 \begin{sidebyside}
-  \phonenumber[country=FR,foreign]{0123456789}
+  \phonenumber[country=FR,foreign]{0199006789}
+\end{sidebyside}
+
+Nummern für die maschinelle Kommunikation, die mit 07\,00 beginnen, haben mehr als zehn Ziffern. Sie sind im Mutterland 14-stellig, in den Überseegebieten 13-stellig \cite[19]{ARCEP}.
+\begin{sidebyside}
+  \phonenumber[country=FR]{07000123456789} \\
+  \phonenumber[country=FR]{0700512345678}
 \end{sidebyside}
 
 Einige Firmen und Institutionen haben vierstellige Kurznummern, die stets mit einer 3 beginnen.
@@ -717,19 +728,19 @@ Die erste Nummer im folgenden Beispiel stammt aus Mayotte und verwendet daher di
 \begin{sidebyside}
   \setphonenumbers{country=FR,foreign}
   \phonenumber{0269123456} \\
-  \phonenumber{0296123456}
+  \phonenumber{0261913456}
 \end{sidebyside}
 
 Die Auslandsvorwahl führt für einige Gebiete zu einer Verdopplung der ersten drei Ziffern, z.\,B. im Fall von Martinique (Regionalvorwahl 05\,96).
 \begin{sidebyside}
   \phonenumber[country=FR,foreign]{0596123456}
 \end{sidebyside}
-Dagegen entfällt für Saint-Pierre und Miquelon die Regionalvorwahl 05\,08 bei Auslandsanrufen vollständig \cite[4]{ARCEP}.
+Dagegen entfällt für Saint-Pierre und Miquelon die Regionalvorwahl 05\,08 bei Auslandsanrufen vollständig \cite[13]{ARCEP}.
 \begin{sidebyside}
   \phonenumber[country=FR,foreign]{0508123456}
 \end{sidebyside}
 
-In Saint-Pierre und Miquelon ist es außerdem möglich, bei lokalen Gesprächen die Vorwahl wegzulassen und nur sechs Ziffern zu wählen \cite[4]{ARCEP}.
+In Saint-Pierre und Miquelon ist es außerdem möglich, bei lokalen Gesprächen die Vorwahl wegzulassen und nur sechs Ziffern zu wählen \cite[13]{ARCEP}.
 \begin{sidebyside}
   \setphonenumbers{country=FR,home-area-code=0508}
   \phonenumber{0508123456}
@@ -744,30 +755,31 @@ Da dies in anderen Gebieten Frankreichs nicht möglich ist, ist \code{0508} der 
 \WertbeschreibungPlaceAndNumber
 \begin{sidebyside}
   \setphonenumbers{country=FR,area-code=place-and-number}
-  \phonenumber{0123456789} \\
+  \phonenumber{0199006789} \\
   \phonenumber{0596123456} \\
   \phonenumber{0612345678} \\
-  \phonenumber[foreign]{0123456789}
+  \phonenumber[foreign]{0199006789}
 \end{sidebyside}
 
 \WertbeschreibungPlace
 \ Da die Vorwahl in Frankreich stets mitgewählt werden muss, ist von der Verwendung dieser Option abzuraten.
 \begin{sidebyside}
   \setphonenumbers{country=FR,area-code=place}
-  \phonenumber{0123456789} \\
+  \phonenumber{0199006789} \\
   \phonenumber{0596123456} \\
   \phonenumber{0612345678} \\
-  \phonenumber[foreign]{0123456789}
+  \phonenumber[foreign]{0199006789}
 \end{sidebyside}
 \end{Befehlsliste}
 
 \UeberschriftUngueltig
 \WarnungWenn
 \begin{itemize}
-\item die Nummer nicht genau 10 oder 4 Stellen hat,
+\item die Nummer nicht genau 10 oder 4 Stellen hat (außer bei Nummern, die mit 07\,00 beginnen),
 \item eine Nummer mit 10 Stellen nicht mit einer 0 beginnt,
 \item eine Nummer mit 4 Stellen nicht mir einer 3 beginnt,
-\item eine Nummer mit 10 Stellen keine gültige Vorwahl beinhaltet.
+\item eine Nummer mit 10 Stellen keine gültige Vorwahl beinhaltet,
+\item eine Nummer, die mit 07\,00 beginnt, nicht 14 oder 13 Stellen hat.
 \end{itemize}
 
 \chapter{Britische Telefonnummern}
@@ -993,9 +1005,9 @@ Gibt an, ob die Verkehrsausscheidungsziffer 1 für Ferngespräche ausgegeben wer
 
 \chapter{Technische Hinweise}
 Das Paket \phone\ verwendet das Paket
-\Paket{ltxcmds} 
-sowie die experimentellen \LaTeX-3-Pakete
-\Paket{expl3}, \Paket{xparse} und \Paket{l3keys2e}.
+\Paket{ltxcmds}
+sowie das \LaTeX-3-Paket
+\Paket{l3keys2e}.
 
 Bindestriche innerhalb von Telefonnummern werden durch
 \verbcode:\kern1pt-\kern1pt: realisiert, das heißt sie werden mit einem Zusatzabstand von 1 Punkt zu den umgebenden Ziffern gesetzt. Das gilt auch für Schrägstriche, die als
@@ -1058,14 +1070,14 @@ expandiert.
 \Schmalschrift
 \AreaCodesGeographic[country=FR]
 \egroup
-\Quellen \cite[5]{ARCEP}, \cite{wikipedia-FR-fr}, \cite{wikipedia-FR-de}
+\Quellen \cite[14\psq]{ARCEP}, \cite{wikipedia-FR-fr}, \cite{wikipedia-FR-de}
 
 \UeberschriftSondervorwahlen
 \bgroup
 \Schmalschrift
 \AreaCodesNonGeographic[country=FR]
 \egroup
-\Quellen \cite[6--15]{ARCEP}, \cite{wikipedia-FR-fr}, \cite{wikipedia-FR-de}
+\Quellen \cite[17--25]{ARCEP}, \cite{wikipedia-FR-fr}, \cite{wikipedia-FR-de}
 
 \chapter{Britische Vorwahlen}
 \UeberschriftOrtsvorwahlen
@@ -1182,6 +1194,17 @@ am Anfang
 \begin{itemize}
 \item Ermöglichung von Makros als Befehlsargumenten
 \item leichte Veränderung der Warnmeldungen
+\end{itemize}
+\item[2.3] \today
+\begin{itemize}
+\item Ergänzung der neuen deutschen Mobilfunkvorwahl 01\,50\,19
+\item Entfernung der deutschen Mobilfunkvorwahlen 01\,50\,20, 01\,50\,50, 01\,50\,80, 01\,55\,55
+\item Berücksichtigung der mit 07\,00 beginnenden französischen Machine-to-machine-Nummern (einschließlich derjenigen aus den Überseegebieten) mit 14 bzw. 13 Stellen
+\item Berücksichtigung der mit 09\,47 und 09\,76 beginnenden Nummern aus den französischen Überseegebieten
+\item Ergänzung der neuen britischen Vorwahlen 05604, 07354, 07355, 07357, 07359, 07360, 07361, 07362, 07363, 07364 und 0897
+\item Entfernung der britischen Vorwahl 07439
+\item Ergänzung der neuen nordamerikanischen Vorwahlen 227, 274, 341, 368, 428, 447, 448, 464, 474, 523, 524, 525, 526, 572, 582, 656, 659, 689, 730, 742, 771, 826, 839, 840, 943, 945 und 948
+\item Revision des Paketcodes
 \end{itemize}
 \end{description}
 
