@@ -1,6 +1,6 @@
 % phonenumbers package: English manual
-% Version 2.3
-% Datum: 20. August 2021
+% Version 2.4
+% Datum: 13. Mai 2022
 \documentclass[numbers=noenddot]{scrreprt}
 \usepackage[french,UKenglish]{babel}
 \usepackage{fontspec}
@@ -16,15 +16,15 @@
 \usepackage{cnltx-example}
 \usepackage{cnltx-tools}
 \usepackage[colorlinks=true,
-	allcolors=black,
-	bookmarksopen=true,
-	bookmarksopenlevel=0,
-	bookmarksnumbered=true,
-	pdfencoding=auto,
-	pdftitle={Typesetting telephone numbers with LaTeX},
-	pdfsubject={Manual for the PHONENUMBERS package},
-	pdfkeywords={latex phonenumbers telephone numbers},
-	pdfauthor={K. Wehr}]{hyperref}
+  allcolors=black,
+  bookmarksopen=true,
+  bookmarksopenlevel=0,
+  bookmarksnumbered=true,
+  pdfencoding=auto,
+  pdftitle={Typesetting telephone numbers with LaTeX},
+  pdfsubject={Manual for the PHONENUMBERS package},
+  pdfkeywords={latex phonenumbers telephone numbers},
+  pdfauthor={K. Wehr}]{hyperref}
 
 \setmainfont{TeX Gyre Bonum}
 \setmonofont{Latin Modern Mono}[Scale=MatchLowercase]
@@ -53,16 +53,16 @@
 \renewcommand{\labelnamepunct}{\addcolon\space}
 
 \definecolorscheme{phonecolor}{
-	cs => cnltxformalblue,
-	option => cnltxbrown,
-	cnltx => cnltxgreen
+  cs => cnltxformalblue,
+  option => cnltxbrown,
+  cnltx => cnltxgreen
 }
 
 \setcnltx{
-	add-cmds = {setphonenumbers,phonenumber,href},
-	color-scheme = phonecolor,
-	add-listings-options = {numbers=none},
-	pre-output = {\raggedright}
+  add-cmds = {setphonenumbers,phonenumber,href},
+  color-scheme = phonecolor,
+  add-listings-options = {numbers=none},
+  pre-output = {\raggedright}
 }
 
 \makeatletter
@@ -71,7 +71,7 @@
 \makeatother
 
 \DeclareNewLayer[background,bottommargin,mode=picture,hoffset=7cm,
-	contents={\includegraphics{Telefonhoerer}}]{Telefonebene}
+  contents={\includegraphics{Telefonhoerer}}]{Telefonebene}
 
 \AddLayersToPageStyle{plain}{Telefonebene}
 \AddLayersToPageStyle{scrheadings}{Telefonebene}
@@ -79,103 +79,107 @@
 \ExplSyntaxOn
 
 \NewDocumentEnvironment {Befehlsliste} { }
-	{
-		\begin{list}{ }
-			{
-				\setlength{\leftmargin}{0pt}
-				\setlength{\itemindent}{-1em}
-				\setlength{\parsep}{0pt}
-				\setlength{\listparindent}{\parindent}
-				\setlength{\itemsep}{\topsep}
-			}
-	}
-	{
-		\end{list}
-	}
+  {
+    \begin{list}{ }
+      {
+        \setlength{\leftmargin}{0pt}
+        \setlength{\itemindent}{-1em}
+        \setlength{\parsep}{0pt}
+        \setlength{\listparindent}{\parindent}
+        \setlength{\itemsep}{\topsep}
+      }
+  }
+  {
+    \end{list}
+  }
 
 \NewDocumentCommand \Befehlsbeschreibung {m o}
-	{
-		\item
-		\cs{#1}
-		\IfValueT{#2}{#2}
-		\\
-	}
+  {
+    \item
+    \cs{#1}
+    \IfValueT{#2}{#2}
+    \\
+  }
 
 \NewDocumentCommand \Optionsbeschreibung {m m m}
-	{
-		\item
-		\option{#1}~=~\choices{#2}
-		\hfill
-		Default:~\code{#3}
-		\\
-	}
+  {
+    \item
+    \option{#1}~=~\choices{#2}
+    \hfill
+    Default:~\code{#3}
+    \\
+  }
 
 \ExplSyntaxOff
 
-\newcommand*{\Paket}[1]{\textsc{#1}}
-\newcommand{\phone}{\textcolor{cnltx}{\Paket{phone\-numbers}}}
+\newcommand*\Paket[1]{\textsc{#1}}
+\newcommand\phone{\textcolor{cnltx}{\Paket{phone\-numbers}}}
 
-\newcommand{\UeberschriftGeltungsbereich}{\section{Scope}}
+\newcommand\UeberschriftGeltungsbereich{\section{Scope}}
 
-\newcommand{\UeberschriftAufbau}{\section{Structure of the Numbers}}
+\newcommand\UeberschriftAufbau{\section{Structure of the Numbers}}
 
-\newcommand*{\UeberschriftOptionen}[1]{\section{Options}\label{optionen-#1}}
+\newcommand*\UeberschriftOptionen[1]{\section{Options}\label{optionen-#1}}
 
-\newcommand{\UeberschriftUngueltig}{\section{Invalid Numbers}}
+\newcommand\UeberschriftUngueltig{\section{Invalid Numbers}}
 
-\newcommand{\UeberschriftOrtsvorwahlen}{\section{Geographic Area Codes}}
+\newcommand\UeberschriftOrtsvorwahlen{\section{Geographic Area Codes}}
 
-\newcommand{\UeberschriftRegionalvorwahlen}{\section{Geographic Area Codes}}
+\newcommand\UeberschriftRegionalvorwahlen{\section{Geographic Area Codes}}
 
-\newcommand{\UeberschriftSondervorwahlen}{\section{Non-Geographic Area Codes}}
+\newcommand\UeberschriftSondervorwahlen{\section{Non-Geographic Area Codes}}
 
-\newcommand{\OptionsvariantenAreaCodeSep}{\Optionsbeschreibung{area-code-sep}{slash,brackets,space,hyphen}{slash}}
+\newcommand\OptionsvariantenAreaCodeSep{\Optionsbeschreibung{area-code-sep}{slash,brackets,space,hyphen}{slash}}
 
-\newcommand{\OptionsbeschreibungAreaCodeSep}{Sets the seperator between area code and subscriber number.}
+\newcommand\OptionsbeschreibungAreaCodeSep{Sets the seperator between area code and subscriber number.}
 
-\newcommand{\HinweisForeignAreaCodeSep}{For numbers with country calling code use the
+\newcommand\HinweisForeignAreaCodeSep{For numbers with country calling code use the
 \option{foreign-area-code-sep}
 option \sieheAbschnitt{optionen-allgemein}.}
 
-\newcommand{\OptionsvariantenAreaCode}{\Optionsbeschreibung{area-code}{number,place,place-and-number}{number}}
+\newcommand\OptionsvariantenAreaCode{\Optionsbeschreibung{area-code}{number,place,place-and-number}{number}}
 
-\newcommand{\OptionsbeschreibungAreaCode}{Sets, how the area code will be typeset: as number, as place name, or as place name with number.}
+\newcommand\OptionsbeschreibungAreaCode{Sets, how the area code will be typeset: as number, as place name, or as place name with number.}
 
-\newcommand{\WertbeschreibungBrackets}{The choice \code{brackets} will cause the area code of landline numbers to be typeset in brackets. For mobile phone and special numbers this choice will be treated like \code{space}, since the area code has always to be dialled for these numbers.}
+\newcommand\WertbeschreibungBrackets{The choice \code{brackets} will cause the area code of landline numbers to be typeset in brackets. For mobile phone and special numbers this choice will be treated like \code{space}, since the area code has always to be dialled for these numbers.}
 
-\newcommand{\WertbeschreibungPlaceAndNumber}{The choice \code{place-and-number} will cause the place name or the meaning of the area code, respectively, to be output in addition to the area code for numbers without country calling code.}
+\newcommand\WertbeschreibungPlaceAndNumber{The choice \code{place-and-number} will cause the place name or the meaning of the area code, respectively, to be output in addition to the area code for numbers without country calling code.}
 
-\newcommand{\WertbeschreibungPlace}{The choice \code{place} will typeset landline numbers without country calling code with the place name instead of the area code. In other cases the area code will remain.}
+\newcommand\WertbeschreibungPlace{The choice \code{place} will typeset landline numbers without country calling code with the place name instead of the area code. In other cases the area code will remain.}
 
-\newcommand{\KeineVerlinkung}{Numbers without an area code cannot be linked though
+\newcommand\KeineVerlinkung{Numbers without an area code cannot be linked though
 \vglAbschnitt{verlinkung}.}
 
-\newcommand{\WarnungWenn}{A warning will be issued if}
+\newcommand\WarnungWenn{A warning will be issued if}
 
-\newcommand*{\vglAbschnitt}[1]{(\cf\ section \ref{#1})}
+\newcommand*\vglAbschnitt[1]{(\cf\ section \ref{#1})}
 
-\newcommand*{\sieheAbschnitt}[1]{(see section \ref{#1})}
+\newcommand*\sieheAbschnitt[1]{(see section \ref{#1})}
 
-\newcommand*{\vglAnhang}[1]{(\cf\ appendix~\ref{#1})}
+\newcommand*\vglAnhang[1]{(\cf\ appendix~\ref{#1})}
 
-\newcommand{\Quelle}{\noindent\emph{Source: }}
+\newcommand\Quelle{\noindent\emph{Source: }}
 
-\newcommand*{\Quellen}{\noindent\emph{Sources: }}
+\newcommand*\Quellen{\noindent\emph{Sources: }}
 
-\newcommand{\Schmalschrift}{\small\fontspec{Libertinus Serif}[Ligatures=TeX]}
+\newcommand\Schmalschrift{\small\fontspec{Libertinus Serif}[Ligatures=TeX]}
 
-\newcommand*{\AufbauDEATA}[6]{A #1 phone number normally consists of an area code beginning with 0 and a subscriber number. The area code can have #2 to #3 digits, a landline subscriber number #4 to #5 digits. There are different conventions for the separation of the area code from the subscriber number
+\newcommand*\AufbauDEATA[6]{A #1 phone number normally consists of an area code beginning with 0 and a subscriber number. The area code can have #2 to #3 digits, a landline subscriber number #4 to #5 digits. There are different conventions for the separation of the area code from the subscriber number
 \vglAbschnitt{#6}.
 The default separator used by the \phone\ package is a slash.}
 
-\newcommand{\AufbauDEATB}{The area code is not required for calls within the local exchange area.}
+\newcommand\AufbauDEATB{The area code is not required for calls within the local exchange area.}
 
-\newcommand{\AufbauDEATC}[1]{\KeineVerlinkung\ As an alternative the use of the \option{home-area-code} option
+\newcommand\AufbauDEATC[1]{\KeineVerlinkung\ As an alternative the use of the \option{home-area-code} option
 \vglAbschnitt{optionen-allgemein},
 which can be used everywhere in #1, is recommended.\par
 The subscriber number can end in a separate extension, which can be input by an optional argument or a hyphen.}
 
-\newcommand*{\AufbauDEATD}[1]{For calls from abroad the country code #1 has to be used and the leading 0 of the area code has to be left out.}
+\newcommand*\AufbauDEATD[1]{For calls from abroad the country code #1 has to be used and the leading 0 of the area code has to be left out.}
+
+\newcommand\EMail{wehr}
+\newcommand\EMailDomain{abgol}
+\newcommand\EMailTopLevelDomain{de}
 
 \begin{document}
 \begin{titlepage}
@@ -189,7 +193,11 @@ The subscriber number can end in a separate extension, which can be input by an 
 \smallskip
 Keno Wehr
 
+\normalsize
+\texttt{\EMail@\EMailDomain.\EMailTopLevelDomain}
+
 \bigskip
+\large
 \textit{Bug reports}
 
 \smallskip
@@ -435,13 +443,20 @@ The \option{home-country} option should to be set before the home area code. If 
   \phonenumber[country=DE]{0258163970}
 \end{sidebyside}
 Setting a home area code is allowed only for areas where the area code can be left out for local calls.
+\Optionsbeschreibung{group-min}{3,4,5,6,7}{3}
+In several countries telephone numbers are structured in groups of two digits. The value of this option sets the minimum length of a number part (country calling code, area code, subscriber number, extension) to which structuring shall be applied.
+\begin{sidebyside}
+  \setphonenumbers{country=AT}
+  \phonenumber{04632503}[364] \\
+  \phonenumber[group-min=5]{04632503}[364]
+\end{sidebyside}
 \end{Befehlsliste}
 
 \UeberschriftUngueltig
 To ensure robustness against errors, the compilation will never be aborted with an error message if an invalid number is given to the \cs{phonenumber} command. Rather, the \phone\ package will write warnings to the log file.
 This will occur if
 \begin{itemize}
-\item the input is empty or contains other characters than digits and spaces (apart from a plus sign as first character),
+\item the input is empty or contains illegal characters,
 \item an extension is given for a non-German and non-Austrian phone number,
 \item a number input in the international format consists of a country calling code only or does not contain a valid country code,
 \item the number is not in accordance with the national rules of the selected country (only for supported countries).
@@ -1195,7 +1210,7 @@ option for the area code separator in numbers with country calling code
 \item Making macros possible as command arguments
 \item Slight change of the warning messages
 \end{itemize}
-\item[2.3] \today
+\item[2.3] \printdate{20.8.2021}
 \begin{itemize}
 \item Addition of the new German mobile phone area code 01\,50\,19
 \item Removal of the German mobile phone area codes 01\,50\,20, 01\,50\,50, 01\,50\,80, 01\,55\,55
@@ -1205,6 +1220,11 @@ option for the area code separator in numbers with country calling code
 \item Removal of the British area code 07439
 \item Addition of the new North American area codes 227, 274, 341, 368, 428, 447, 448, 464, 474, 523, 524, 525, 526, 572, 582, 656, 659, 689, 730, 742, 771, 826, 839, 840, 943, 945, and 948
 \item Revision of the package code
+\end{itemize}
+\item[2.4] \today
+\begin{itemize}
+\item Introduction of the
+\option{group-min} option to suppress the structuring of short numbers
 \end{itemize}
 \end{description}
 

@@ -1,5 +1,5 @@
 % phonenumbers package: English title picture
-% Datum: 20. August 2021
+% Datum: 13. Mai 2022
 outputtemplate := "%j.mps";
 
 input latexmp;
@@ -25,7 +25,7 @@ draw textpathRaw("\fontsize{24}{24}\selectfont\sperren{Typesetting telephone num
 
 waehlscheibe(1.4,0,0);
 
-label.top(textext("\fontsize{17}{17}\selectfont Version 2.3"),origin) withcolor white;
+label.top(textext("\fontsize{17}{17}\selectfont Version 2.4"),origin) withcolor white;
 label.bot(textext("\fontsize{12}{12}\selectfont\today"),origin) withcolor white;
 
 endfig;

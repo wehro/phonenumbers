@@ -1,6 +1,6 @@
 % phonenumbers package: German manual
-% Version 2.3
-% Datum: 20. August 2021
+% Version 2.4
+% Datum: 13. Mai 2022
 \documentclass[numbers=noenddot]{scrreprt}
 \usepackage[french,ngerman]{babel}
 \usepackage{fontspec}
@@ -16,15 +16,15 @@
 \usepackage{cnltx-example}
 \usepackage{cnltx-tools}
 \usepackage[colorlinks=true,
-	allcolors=black,
-	bookmarksopen=true,
-	bookmarksopenlevel=0,
-	bookmarksnumbered=true,
-	pdfencoding=auto,
-	pdftitle={Setzen von Telefonnummern mit LaTeX},
-	pdfsubject={Anleitung zum Paket PHONENUMBERS},
-	pdfkeywords={latex phonenumbers Telefonnummern},
-	pdfauthor={K. Wehr}]{hyperref}
+  allcolors=black,
+  bookmarksopen=true,
+  bookmarksopenlevel=0,
+  bookmarksnumbered=true,
+  pdfencoding=auto,
+  pdftitle={Setzen von Telefonnummern mit LaTeX},
+  pdfsubject={Anleitung zum Paket PHONENUMBERS},
+  pdfkeywords={latex phonenumbers Telefonnummern},
+  pdfauthor={K. Wehr}]{hyperref}
 
 \setmainfont{TeX Gyre Bonum}
 \setmonofont{Latin Modern Mono}[Scale=MatchLowercase]
@@ -53,16 +53,16 @@
 \renewcommand{\labelnamepunct}{\addcolon\space}
 
 \definecolorscheme{phonecolor}{
-	cs => cnltxformalblue,
-	option => cnltxbrown,
-	cnltx => cnltxgreen
+  cs => cnltxformalblue,
+  option => cnltxbrown,
+  cnltx => cnltxgreen
 }
 
 \setcnltx{
-	add-cmds = {setphonenumbers,phonenumber,href},
-	color-scheme = phonecolor,
-	add-listings-options = {numbers=none},
-	pre-output = {\raggedright}
+  add-cmds = {setphonenumbers,phonenumber,href},
+  color-scheme = phonecolor,
+  add-listings-options = {numbers=none},
+  pre-output = {\raggedright}
 }
 
 \makeatletter
@@ -71,7 +71,7 @@
 \makeatother
 
 \DeclareNewLayer[background,bottommargin,mode=picture,hoffset=7cm,
-	contents={\includegraphics{Telefonhoerer}}]{Telefonebene}
+  contents={\includegraphics{Telefonhoerer}}]{Telefonebene}
 
 \AddLayersToPageStyle{plain}{Telefonebene}
 \AddLayersToPageStyle{scrheadings}{Telefonebene}
@@ -79,103 +79,107 @@
 \ExplSyntaxOn
 
 \NewDocumentEnvironment {Befehlsliste} { }
-	{
-		\begin{list}{ }
-			{
-				\setlength{\leftmargin}{0pt}
-				\setlength{\itemindent}{-1em}
-				\setlength{\parsep}{0pt}
-				\setlength{\listparindent}{\parindent}
-				\setlength{\itemsep}{\topsep}
-			}
-	}
-	{
-		\end{list}
-	}
+  {
+    \begin{list}{ }
+      {
+        \setlength{\leftmargin}{0pt}
+        \setlength{\itemindent}{-1em}
+        \setlength{\parsep}{0pt}
+        \setlength{\listparindent}{\parindent}
+        \setlength{\itemsep}{\topsep}
+      }
+  }
+  {
+    \end{list}
+  }
 
 \NewDocumentCommand \Befehlsbeschreibung {m o}
-	{
-		\item
-		\cs{#1}
-		\IfValueT{#2}{#2}
-		\\
-	}
+  {
+    \item
+    \cs{#1}
+    \IfValueT{#2}{#2}
+    \\
+  }
 
 \NewDocumentCommand \Optionsbeschreibung {m m m}
-	{
-		\item
-		\option{#1}~=~\choices{#2}
-		\hfill
-		Voreinstellung:~\code{#3}
-		\\
-	}
+  {
+    \item
+    \option{#1}~=~\choices{#2}
+    \hfill
+    Voreinstellung:~\code{#3}
+    \\
+  }
 
 \ExplSyntaxOff
 
-\newcommand*{\Paket}[1]{\textsc{#1}}
-\newcommand{\phone}{\textcolor{cnltx}{\Paket{phone\-numbers}}}
+\newcommand*\Paket[1]{\textsc{#1}}
+\newcommand\phone{\textcolor{cnltx}{\Paket{phone\-numbers}}}
 
-\newcommand{\UeberschriftGeltungsbereich}{\section{Geltungsbereich}}
+\newcommand\UeberschriftGeltungsbereich{\section{Geltungsbereich}}
 
-\newcommand{\UeberschriftAufbau}{\section{Aufbau der Nummern}}
+\newcommand\UeberschriftAufbau{\section{Aufbau der Nummern}}
 
-\newcommand*{\UeberschriftOptionen}[1]{\section{Optionen}\label{optionen-#1}}
+\newcommand*\UeberschriftOptionen[1]{\section{Optionen}\label{optionen-#1}}
 
-\newcommand{\UeberschriftUngueltig}{\section{Ungültige Nummern}}
+\newcommand\UeberschriftUngueltig{\section{Ungültige Nummern}}
 
-\newcommand{\UeberschriftOrtsvorwahlen}{\section{Ortsvorwahlen}}
+\newcommand\UeberschriftOrtsvorwahlen{\section{Ortsvorwahlen}}
 
-\newcommand{\UeberschriftRegionalvorwahlen}{\section{Regionalvorwahlen}}
+\newcommand\UeberschriftRegionalvorwahlen{\section{Regionalvorwahlen}}
 
-\newcommand{\UeberschriftSondervorwahlen}{\section{Sondervorwahlen}}
+\newcommand\UeberschriftSondervorwahlen{\section{Sondervorwahlen}}
 
-\newcommand{\OptionsvariantenAreaCodeSep}{\Optionsbeschreibung{area-code-sep}{slash,brackets,space,hyphen}{slash}}
+\newcommand\OptionsvariantenAreaCodeSep{\Optionsbeschreibung{area-code-sep}{slash,brackets,space,hyphen}{slash}}
 
-\newcommand{\OptionsbeschreibungAreaCodeSep}{Legt fest, wie die Vorwahl von der Teilnehmerrufnummer abgetrennt wird.}
+\newcommand\OptionsbeschreibungAreaCodeSep{Legt fest, wie die Vorwahl von der Teilnehmerrufnummer abgetrennt wird.}
 
-\newcommand{\HinweisForeignAreaCodeSep}{Für Nummern mit Auslandsvorwahl gibt es die Option
+\newcommand\HinweisForeignAreaCodeSep{Für Nummern mit Auslandsvorwahl gibt es die Option
 \option{foreign-area-code-sep}
  \sieheAbschnitt{optionen-allgemein}.}
 
-\newcommand{\OptionsvariantenAreaCode}{\Optionsbeschreibung{area-code}{number,place,place-and-number}{number}}
+\newcommand\OptionsvariantenAreaCode{\Optionsbeschreibung{area-code}{number,place,place-and-number}{number}}
 
-\newcommand{\OptionsbeschreibungAreaCode}{Legt fest, wie die Vorwahl dargestellt werden soll: als Nummer, als Ortsname oder als Ortsname mit Nummer.}
+\newcommand\OptionsbeschreibungAreaCode{Legt fest, wie die Vorwahl dargestellt werden soll: als Nummer, als Ortsname oder als Ortsname mit Nummer.}
 
-\newcommand{\WertbeschreibungBrackets}{Die Variante \code{brackets} setzt bei Festnetznummern Klammern um die Vorwahl. Bei Mobilfunk- und Sondernummern wird sie wie \code{space} behandelt, da bei solchen Nummern die Vorwahl stets mitgewählt werden muss.}
+\newcommand\WertbeschreibungBrackets{Die Variante \code{brackets} setzt bei Festnetznummern Klammern um die Vorwahl. Bei Mobilfunk- und Sondernummern wird sie wie \code{space} behandelt, da bei solchen Nummern die Vorwahl stets mitgewählt werden muss.}
 
-\newcommand{\WertbeschreibungPlaceAndNumber}{Die Variante \code{place-and-number} gibt für Nummern ohne Auslandsvorwahl den Ortsnamen bzw. die Bedeutung der Vorwahl zusätzlich zur Vorwahlnummer aus.}
+\newcommand\WertbeschreibungPlaceAndNumber{Die Variante \code{place-and-number} gibt für Nummern ohne Auslandsvorwahl den Ortsnamen bzw. die Bedeutung der Vorwahl zusätzlich zur Vorwahlnummer aus.}
 
-\newcommand{\WertbeschreibungPlace}{Die Variante \code{place} gibt bei Festnetznummern ohne Auslandsvorwahl den Ortsnamen anstelle der Vorwahlnummer aus. In anderen Fällen bleibt es bei der Ausgabe der Nummer.}
+\newcommand\WertbeschreibungPlace{Die Variante \code{place} gibt bei Festnetznummern ohne Auslandsvorwahl den Ortsnamen anstelle der Vorwahlnummer aus. In anderen Fällen bleibt es bei der Ausgabe der Nummer.}
 
-\newcommand{\KeineVerlinkung}{Nummern ohne Vorwahl können allerdings nicht verlinkt werden
+\newcommand\KeineVerlinkung{Nummern ohne Vorwahl können allerdings nicht verlinkt werden
 \vglAbschnitt{verlinkung}.}
 
-\newcommand{\WarnungWenn}{Eine Warnung wird ausgegeben, wenn}
+\newcommand\WarnungWenn{Eine Warnung wird ausgegeben, wenn}
 
-\newcommand*{\vglAbschnitt}[1]{(\cf\ Abschnitt \ref{#1})}
+\newcommand*\vglAbschnitt[1]{(\cf\ Abschnitt \ref{#1})}
 
-\newcommand*{\sieheAbschnitt}[1]{(siehe Abschnitt \ref{#1})}
+\newcommand*\sieheAbschnitt[1]{(siehe Abschnitt \ref{#1})}
 
-\newcommand*{\vglAnhang}[1]{(\cf\ Anhang~\ref{#1})}
+\newcommand*\vglAnhang[1]{(\cf\ Anhang~\ref{#1})}
 
-\newcommand{\Quelle}{\noindent\emph{Quelle: }}
+\newcommand\Quelle{\noindent\emph{Quelle: }}
 
-\newcommand*{\Quellen}{\noindent\emph{Quellen: }}
+\newcommand*\Quellen{\noindent\emph{Quellen: }}
 
-\newcommand{\Schmalschrift}{\small\fontspec{Libertinus Serif}[Ligatures=TeX]}
+\newcommand\Schmalschrift{\small\fontspec{Libertinus Serif}[Ligatures=TeX]}
 
-\newcommand*{\AufbauDEATA}[6]{Eine #1 Telefonnummer besteht in der Regel aus einer Vorwahl, die mit einer 0 beginnt, und einer Teilnehmerrufnummer. Die Vorwahl kann zwischen #2 und #3 Stellen haben, die Teilnehmerrufnummer im Festznetz zwischen #4 und #5 Stellen. Zur Trennung von Vorwahl und Teilnehmerrufnummer gibt es unterschiedliche Konventionen
+\newcommand*\AufbauDEATA[6]{Eine #1 Telefonnummer besteht in der Regel aus einer Vorwahl, die mit einer 0 beginnt, und einer Teilnehmerrufnummer. Die Vorwahl kann zwischen #2 und #3 Stellen haben, die Teilnehmerrufnummer im Festznetz zwischen #4 und #5 Stellen. Zur Trennung von Vorwahl und Teilnehmerrufnummer gibt es unterschiedliche Konventionen
 \vglAbschnitt{#6}.
 Standardmäßig verwendet das Paket \phone\ einen Schrägstrich.}
 
-\newcommand{\AufbauDEATB}{Die Ortsvorwahl kann bei Anrufen innerhalb eines Ortsnetzes weggelassen werden.}
+\newcommand\AufbauDEATB{Die Ortsvorwahl kann bei Anrufen innerhalb eines Ortsnetzes weggelassen werden.}
 
-\newcommand{\AufbauDEATC}[1]{\KeineVerlinkung\ Als Alternative empfiehlt sich der Einsatz der Option \option{home-area-code}
+\newcommand\AufbauDEATC[1]{\KeineVerlinkung\ Als Alternative empfiehlt sich der Einsatz der Option \option{home-area-code}
 \vglAbschnitt{optionen-allgemein},
 die in #1 überall verwendet werden kann.\par
 Am Ende der Teilnehmerrufnummer kann eine abgetrennte Durchwahlnummer stehen, die durch ein optionales Argument oder einen Bindestrich angegeben wird.}
 
-\newcommand*{\AufbauDEATD}[1]{Bei Anrufen aus dem Ausland wird die Auslandsvorwahl mit der Landeskennzahl #1 vorangestellt und die führende 0 der Ortsvorwahl weggelassen.}
+\newcommand*\AufbauDEATD[1]{Bei Anrufen aus dem Ausland wird die Auslandsvorwahl mit der Landeskennzahl #1 vorangestellt und die führende 0 der Ortsvorwahl weggelassen.}
+
+\newcommand\EMail{wehr}
+\newcommand\EMailDomain{abgol}
+\newcommand\EMailTopLevelDomain{de}
 
 \begin{document}
 \begin{titlepage}
@@ -189,7 +193,11 @@ Am Ende der Teilnehmerrufnummer kann eine abgetrennte Durchwahlnummer stehen, di
 \smallskip
 Keno Wehr
 
+\normalsize
+\texttt{\EMail@\EMailDomain.\EMailTopLevelDomain}
+
 \bigskip
+\large
 \textit{Fehlermeldungen}
 
 \smallskip
@@ -435,13 +443,20 @@ Vor der Heimatvorwahl sollte das Heimatland mit der Option \option{home-country}
   \phonenumber[country=DE]{0258163970}
 \end{sidebyside}
 Die Angabe einer Heimatvorwahl ist nur für Gebiete zulässig, in denen die Vorwahl bei Ortsgesprächen weggelassen werden kann.
+\Optionsbeschreibung{group-min}{3,4,5,6,7}{3}
+In mehreren Ländern werden Telefonnummern in Zweiergruppen gegliedert. Der Wert dieser Option gibt an, ab welcher Länge eines Nummernteils (Auslandsvorwahl, Ortsvorwahl, Teilnehmerrufnummer, Durchwahl) eine Gliederung stattfindet.
+\begin{sidebyside}
+  \setphonenumbers{country=AT}
+  \phonenumber{04632503}[364] \\
+  \phonenumber[group-min=5]{04632503}[364]
+\end{sidebyside}
 \end{Befehlsliste}
 
 \UeberschriftUngueltig
 Um Robustheit gegenüber Fehlern zu gewährleisten, wird die Kompilierung niemals mit einer Fehlermeldung abgebrochen, wenn dem Befehl \cs{phonenumber} eine ungültige Nummer übergeben wird. Stattdessen schreibt das Paket \phone\ Warnmeldungen in die Log-Datei.
 Dies ist der Fall, wenn
 \begin{itemize}
-\item die Eingabe leer ist oder nicht nur Ziffern und Leerzeichen enthält (abgesehen von einem Pluszeichen am Anfang),
+\item die Eingabe leer ist oder unerlaubte Zeichen enthält,
 \item eine Durchwahlnummer angegeben ist, obwohl es sich nicht um eine deutsche oder österreichische Telefonnummer handelt,
 \item eine im internationalen Format eingegebene Nummer nur aus einer Landesvorwahl besteht oder keine gültige Landeskennzahl enthält,
 \item die Nummer nicht den nationalen Regeln des gewählten Landes entspricht (nur für unterstützte Länder).
@@ -1195,7 +1210,7 @@ am Anfang
 \item Ermöglichung von Makros als Befehlsargumenten
 \item leichte Veränderung der Warnmeldungen
 \end{itemize}
-\item[2.3] \today
+\item[2.3] \printdate{20.8.2021}
 \begin{itemize}
 \item Ergänzung der neuen deutschen Mobilfunkvorwahl 01\,50\,19
 \item Entfernung der deutschen Mobilfunkvorwahlen 01\,50\,20, 01\,50\,50, 01\,50\,80, 01\,55\,55
@@ -1205,6 +1220,11 @@ am Anfang
 \item Entfernung der britischen Vorwahl 07439
 \item Ergänzung der neuen nordamerikanischen Vorwahlen 227, 274, 341, 368, 428, 447, 448, 464, 474, 523, 524, 525, 526, 572, 582, 656, 659, 689, 730, 742, 771, 826, 839, 840, 943, 945 und 948
 \item Revision des Paketcodes
+\end{itemize}
+\item[2.4] \today
+\begin{itemize}
+\item Einführung der Option
+\option{group-min}, um kurze Nummern nicht zu gliedern
 \end{itemize}
 \end{description}
 

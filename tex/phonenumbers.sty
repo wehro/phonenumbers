@@ -2,8 +2,8 @@
 % LaTeX-Paket zur Formatierung von Telefonnummern
 % LaTeX package for formatting telephone numbers
 % Autor: K. Wehr
-% Version: 2.3
-% Datum: 20. August 2021
+% Version: 2.4
+% Datum: 13. Mai 2022
 
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either version 1.3
@@ -14,7 +14,7 @@
 % version 2005/12/01 or later.
 
 
-\ProvidesExplPackage {phonenumbers} {2021-08-20} {2.3} {Telephone number package}
+\ProvidesExplPackage {phonenumbers} {2022-05-13} {2.4} {Telephone number package}
 
 \RequirePackage{l3keys2e}
 \RequirePackage{ltxcmds}
@@ -34,13 +34,13 @@
 \str_new:N \l_phone_vorwahltrennung_str
 \str_new:N \l_phone_auslandsvorwahltrennung_str
 \str_new:N \l_phone_heimatvorwahl_str
-\str_new:N \l_phone_rufnummer_str
 \str_new:N \l_phone_bereinigte_nummer_str
 \str_new:N \l_phone_bereinigte_durchwahl_str
 \str_new:N \l_phone_linktext_str
 
 \int_new:N \l_phone_ziffernzahl_int
 \int_new:N \l_phone_nummerlaenge_int
+\int_new:N \l_phone_gruppierungsminimum_int
 
 \tl_new:N \l_phone_ausgabetext_tl
 \tl_new:N \l_phone_formatierte_nummer_tl
@@ -358,6 +358,16 @@
       home-area-code .value_required:n = true
    }
 
+\keys_define:nn {phonenumbers}
+   {
+      group-min .choices:nn = {3,4,5,6,7}
+         {
+            \int_set_eq:NN \l_phone_gruppierungsminimum_int \l_keys_choice_tl
+         },
+      group-min .initial:n = {3} ,
+      group-min .value_required:n = true
+   }
+
 
 % Prüfe, ob eine Vorwahl als Heimatvorwahl zulässig ist.
 % #1: Heimatvorwahl
@@ -409,6 +419,7 @@
    }
 
 
+% einen Nummernteil von vorne in Zweiergruppen gruppiert schreiben, sofern er nicht kürzer als das Gruppierungsminimum ist
 \cs_new_protected:Npn \phone_von_vorne_gruppiert_schreiben:n #1
    {
       \int_set:Nn \l_phone_ziffernzahl_int { \tl_count:n {#1} }
@@ -418,10 +429,15 @@
          {
             \tl_put_right:Nx \l_phone_formatierte_nummer_tl { \tl_item:nn {#1} {##1} }
 
-            \int_if_even:nT {##1}
+            % Nach jeder zweiten Ziffer wird ein kleiner Abstand eingefügt, wenn die Ziffernzahl nicht unterhalb des Gruppierungsminimums liegt.
+            \bool_lazy_all:nT
                {
-                  \int_compare:nNnT {##1} < {\l_phone_ziffernzahl_int}
-                     { \tl_put_right:Nn \l_phone_formatierte_nummer_tl {\,} }
+                  { ! \int_compare_p:nNn { \l_phone_ziffernzahl_int } < { \l_phone_gruppierungsminimum_int } }
+                  { \int_if_even_p:n {##1} }
+                  { \int_compare_p:nNn {##1} < { \l_phone_ziffernzahl_int } }
+               }
+               {
+                  \tl_put_right:Nn \l_phone_formatierte_nummer_tl {\,}
                }
          }
 
@@ -431,6 +447,35 @@
 \cs_generate_variant:Nn \phone_von_vorne_gruppiert_schreiben:n {x,V}
 
 
+% einen Nummernteil von in Zweiergruppen gruppiert mit führender Einzelziffer schreiben, sofern er nicht kürzer als das Gruppierungsminimum ist
+\cs_new_protected:Npn \phone_versetzt_gruppiert_schreiben:n #1
+   {
+      \int_set:Nn \l_phone_ziffernzahl_int { \tl_count:n {#1} }
+      \tl_clear:N \l_phone_formatierte_nummer_tl
+
+      \int_step_inline:nn {\l_phone_ziffernzahl_int}
+         {
+            \tl_put_right:Nx \l_phone_formatierte_nummer_tl { \tl_item:nn {#1} {##1} }
+
+            % Nach der 1., 3., 5., ... Ziffer wird ein kleiner Abstand eingefügt, wenn die Ziffernzahl nicht unterhalb des Gruppierungsminimums liegt.
+            \bool_lazy_all:nT
+               {
+                  { ! \int_compare_p:nNn { \l_phone_ziffernzahl_int } < { \l_phone_gruppierungsminimum_int } }
+                  { \int_if_odd_p:n {##1} }
+                  { \int_compare_p:nNn {##1} < { \l_phone_ziffernzahl_int } }
+               }
+               {
+                  \tl_put_right:Nn \l_phone_formatierte_nummer_tl {\,}
+               }
+         }
+
+      \tl_put_right:NV \l_phone_ausgabetext_tl \l_phone_formatierte_nummer_tl
+   }
+
+\cs_generate_variant:Nn \phone_versetzt_gruppiert_schreiben:n {x}
+
+
+% einen Nummernteil von hinten in Zweiergruppen gruppiert schreiben, sofern er nicht kürzer als das Gruppierungsminimum ist
 \cs_new_protected:Npn \phone_von_hinten_gruppiert_schreiben:n #1
    {
       \int_set:Nn \l_phone_ziffernzahl_int { \tl_count:n {#1} }
@@ -440,10 +485,15 @@
          {
             \tl_put_left:Nx \l_phone_formatierte_nummer_tl { \tl_item:nn {#1} {##1} }
 
-            \int_if_even:nT { \l_phone_ziffernzahl_int + 1 - ##1 }
+            % Nach jeder zweiten Ziffer wird ein kleiner Abstand eingefügt, wenn die Ziffernzahl nicht unterhalb des Gruppierungsminimums liegt.
+            \bool_lazy_all:nT
                {
-                  \int_compare:nNnT {##1} > {1}
-                     { \tl_put_left:Nn \l_phone_formatierte_nummer_tl {\,} }
+                  { ! \int_compare_p:nNn { \l_phone_ziffernzahl_int } < { \l_phone_gruppierungsminimum_int } }
+                  { \int_if_even_p:n { \l_phone_ziffernzahl_int + 1 - ##1 } }
+                  { \int_compare_p:nNn {##1} > {1} }
+               }
+               {
+                  \tl_put_left:Nn \l_phone_formatierte_nummer_tl {\,}
                }
          }
 
@@ -576,7 +626,7 @@
                   \str_if_eq:xnTF { \str_head:N \l_phone_bereinigte_nummer_str } {1}
                      {
                         \str_set:Nn \l_phone_land_str {US}
-                        \str_set:Nx \l_phone_bereinigte_nummer_str { \str_range:Nnn \l_phone_bereinigte_nummer_str {2} {-1} }
+                        \str_set:Nx \l_phone_bereinigte_nummer_str { \str_tail:N \l_phone_bereinigte_nummer_str }
                      }
                      {
                         \int_compare:nNnTF {\l_tmpa_int} > {2}
@@ -928,14 +978,27 @@
                   % sechsstellige britische Vorwahl: Gliederung vor der zweitletzten Ziffer
                   \bool_if:NTF #2
                      {
-                        \tl_put_right:Nx \l_phone_ausgabetext_tl { \str_range:nnn {#1} {1} {4} }
+                        \int_compare:nNnTF {\l_phone_gruppierungsminimum_int} > {6}
+                           {
+                              \tl_put_right:Nn \l_phone_ausgabetext_tl {#1}
+                           }
+                           {
+                              \tl_put_right:Nx \l_phone_ausgabetext_tl { \str_range:nnn {#1} {1} {4} }
+                              \tl_put_right:Nn \l_phone_ausgabetext_tl {\,}
+                              \tl_put_right:Nx \l_phone_ausgabetext_tl { \str_range:nnn {#1} {5} {6} }
+                           }
                      }
                      {
-                        \tl_put_right:Nx \l_phone_ausgabetext_tl { \str_tail:x { \str_range:nnn {#1} {1} {4} } }
+                        \int_compare:nNnTF {\l_phone_gruppierungsminimum_int} > {5}
+                           {
+                              \tl_put_right:Nx \l_phone_ausgabetext_tl { \str_tail:n {#1} }
+                           }
+                           {
+                              \tl_put_right:Nx \l_phone_ausgabetext_tl { \str_range:nnn {#1} {2} {4} }
+                              \tl_put_right:Nn \l_phone_ausgabetext_tl {\,}
+                              \tl_put_right:Nx \l_phone_ausgabetext_tl { \str_range:nnn {#1} {5} {6} }
+                           }
                      }
-
-                  \tl_put_right:Nn \l_phone_ausgabetext_tl {\,}
-                  \tl_put_right:Nx \l_phone_ausgabetext_tl { \str_range:nnn {#1} {5} {6} }
                }
                {
                   % nicht sechsstellige britische Vorwahl
@@ -952,23 +1015,19 @@
             % nichtbritische Vorwahl
             \bool_lazy_and:nnTF { \str_if_eq_p:Vn \l_phone_land_str {DE} } { \int_compare_p:nNn { \str_count:n {#1} } = {5} }
                {
-                  % fünfstellige deutsche Vorwahl
                   \str_set:Nx \l_tmpa_str { \str_range:nnn {#1} {1} {4} }
-                  \str_set:Nx \l_tmpb_str { \str_range:nnn {#1} {5} {5} }
 
+                  % fünfstellige deutsche Vorwahl
                   \bool_lazy_or:nnTF { \str_if_eq_p:Vn \l_tmpa_str {0137} } { \str_if_eq_p:Vn \l_tmpa_str {0180} }
                      {
                         % fünfstellige deutsche Vorwahl mit Tarifkennung: letzte Ziffer steht allein
                         \bool_if:NTF #2
                            {
-                              \phone_von_hinten_gruppiert_schreiben:V \l_tmpa_str
+                              \phone_von_vorne_gruppiert_schreiben:n {#1}
                            }
                            {
-                              \phone_von_hinten_gruppiert_schreiben:x { \str_tail:N \l_tmpa_str }
+                              \phone_versetzt_gruppiert_schreiben:x { \str_tail:n {#1} }
                            }
-
-                        \tl_put_right:Nn \l_phone_ausgabetext_tl {\,}
-                        \tl_put_right:NV \l_phone_ausgabetext_tl \l_tmpb_str
                      }
                      {
                         % fünfstellige deutsche Vorwahl ohne Tarifkennung
@@ -1644,7 +1703,7 @@
    }
 
 % #1: Vorwahl, #2: Rufnummer
-\cs_new_protected:Npn \phone_FR_vorwahl_schreiben:nn #1#2
+\cs_new_protected:Npn \phone_FR_vorwahl_und_rufnummer_schreiben:nn #1#2
    {
       \bool_lazy_or:nnTF { \str_if_eq_p:Vn \l_phone_auslandsvorwahltyp_str {off} } { \str_if_eq_p:Vn \l_phone_heimatland_str {FR} }
          {
@@ -1656,15 +1715,16 @@
                      }
                }
 
-            \bool_lazy_and:nnF { \str_if_eq_p:Vn \l_phone_heimatland_str {FR} } { \str_if_eq_p:Vn \l_phone_heimatvorwahl_str {#1} }
+            \bool_lazy_and:nnTF { \str_if_eq_p:Vn \l_phone_heimatland_str {FR} } { \str_if_eq_p:Vn \l_phone_heimatvorwahl_str {#1} }
+               {
+                   \phone_von_hinten_gruppiert_schreiben:n {#2}   % reine Teilnehmerrufnummer in Saint-Pierre-et-Miquelon
+               }
                {
                   \str_case:Vn \l_phone_vorwahldarstellung_str
                      {
                         {number}
                            {
-                              \phone_von_vorne_gruppiert_schreiben:n {#1}
-                              \int_if_even:nT { \str_count:n {#1} }
-                                 { \tl_put_right:Nn \l_phone_ausgabetext_tl {\,} }
+                              \phone_von_vorne_gruppiert_schreiben:V \l_phone_bereinigte_nummer_str
                            }
                         {place}
                            {
@@ -1672,11 +1732,10 @@
                                  {
                                     \tl_put_right:Nv \l_phone_ausgabetext_tl {c_phone_FR_ortsname_#1_tl}
                                     \tl_put_right:NV \l_phone_ausgabetext_tl \c_space_tl
+                                    \phone_von_vorne_gruppiert_schreiben:n {#2}
                                  }
                                  {
-                                    \phone_von_vorne_gruppiert_schreiben:n {#1}
-                                    \int_if_even:nT { \str_count:n {#1} }
-                                       { \tl_put_right:Nn \l_phone_ausgabetext_tl {\,} }
+                                    \phone_von_vorne_gruppiert_schreiben:V \l_phone_bereinigte_nummer_str
                                  }
                            }
                         {place-and-number}
@@ -1687,9 +1746,7 @@
                                     \tl_put_right:NV \l_phone_ausgabetext_tl \c_space_tl
                                  }
 
-                              \phone_von_vorne_gruppiert_schreiben:n {#1}
-                              \int_if_even:nT { \str_count:n {#1} }
-                                 { \tl_put_right:Nn \l_phone_ausgabetext_tl {\,} }
+                              \phone_von_vorne_gruppiert_schreiben:V \l_phone_bereinigte_nummer_str
                            }
                      }
                }
@@ -1699,38 +1756,25 @@
 
             \tl_put_right:NV \l_phone_ausgabetext_tl \c_space_tl
 
-            \str_if_eq:nnF {#1} {0508}   % in Saint-Pierre-et-Miquelon entfällt die Ortsvorwahl
+            \str_if_eq:nnTF {#1} {0508}   % in Saint-Pierre-et-Miquelon entfällt die Ortsvorwahl
                {
-                  \int_if_even:nTF { \str_count:n {#2} }
-                     {
-                        % Rufnummer hat gerade Stellenanzahl
-                        \phone_von_hinten_gruppiert_schreiben:x { \str_tail:n {#1} }
-                        \tl_put_right:Nn \l_phone_ausgabetext_tl {\,}
-                     }
-                     {
-                        \int_if_even:nTF { \str_count:n {#1} }
-                           {
-                              % Rufnummer hat ungerade Stellenanzahl, die Vorwahl ohne die 0 auch
-                              \phone_von_vorne_gruppiert_schreiben:x { \str_tail:n {#1} }
-                           }
-                           {
-                              % Rufnummer hat ungerade Stellenanzahl, die Vorwahl ohne die 0 hat gerade Stellenanzahl
-                              \tl_put_right:Nx \l_phone_ausgabetext_tl { \str_item:nn {#1} {2} \, }
-                              \phone_von_vorne_gruppiert_schreiben:x { \str_range:nnn {#1} {3} {-1} }
-                           }
-                     }
+                  \phone_von_hinten_gruppiert_schreiben:n {#2}
+               }
+               {
+                  \phone_von_hinten_gruppiert_schreiben:x { \str_tail:N \l_phone_bereinigte_nummer_str }
                }
          }
 
+      % Linktext schreiben:
       \str_put_right:Nx \l_phone_linktext_str { + \phone_FR_ermittle_landeskennzahl:n {#1} }
-
       \str_if_eq:nnF {#1} {0508}   % in Saint-Pierre-et-Miquelon entfällt die Ortsvorwahl
          {
             \str_put_right:Nx \l_phone_linktext_str { \str_tail:n {#1} }
          }
+      \str_put_right:Nn \l_phone_linktext_str {#2}
    }
 
-\cs_generate_variant:Nn \phone_FR_vorwahl_schreiben:nn {VV,xV}
+\cs_generate_variant:Nn \phone_FR_vorwahl_und_rufnummer_schreiben:nn {Vx,xx}
 
 
 \cs_new_protected:Npn \phone_FR_nummer_schreiben:
@@ -1771,43 +1815,37 @@
                         \int_compare:nNnTF { \str_item:Nn \l_phone_bereinigte_nummer_str {5} } < {5}
                            {
                               % überlange Mobilfunknummer (machine to machine) im Mutterland (14 Stellen)
-                              \str_set:Nx \l_phone_rufnummer_str { \str_range:Nnn \l_phone_bereinigte_nummer_str {5} {-1} }
-                              \phone_FR_vorwahl_schreiben:xV { \str_range:Nnn \l_phone_bereinigte_nummer_str {1} {4} } \l_phone_rufnummer_str
                               \phone_nummernlaenge_ueberpruefen:Vnnn \l_phone_bereinigte_nummer_str {14} {14} {machine~to~machine}
-                              \bool_if:NT \l_phone_teilnehmerrufnummer_gueltig_bool
+                              \bool_if:NTF \l_phone_teilnehmerrufnummer_gueltig_bool
                                  {
-                                    \phone_von_vorne_gruppiert_schreiben:V \l_phone_rufnummer_str
+                                    \phone_FR_vorwahl_und_rufnummer_schreiben:xx
+                                       {
+                                          \str_range:Nnn \l_phone_bereinigte_nummer_str {1} {4}
+                                       }
+                                       {
+                                          \str_range:Nnn \l_phone_bereinigte_nummer_str {5} {-1}
+                                       }
+                                 }
+                                 {
+                                    \tl_put_right:NV \l_phone_ausgabetext_tl \l_phone_bereinigte_nummer_str
                                  }
                            }
                            {
                               % überlange Mobilfunknummer (machine to machine) in den Überseegebieten (13 Stellen)
-                              \str_set:Nx \l_phone_rufnummer_str { \str_range:Nnn \l_phone_bereinigte_nummer_str {6} {-1} }
-                              \phone_FR_vorwahl_schreiben:xV { \str_range:Nnn \l_phone_bereinigte_nummer_str {1} {5} } \l_phone_rufnummer_str
                               \phone_nummernlaenge_ueberpruefen:Vnnn \l_phone_bereinigte_nummer_str {13} {13} {machine~to~machine}
-                              \bool_if:NT \l_phone_teilnehmerrufnummer_gueltig_bool
+                              \bool_if:NTF \l_phone_teilnehmerrufnummer_gueltig_bool
                                  {
-                                    \bool_lazy_or:nnTF { \str_if_eq_p:Vn \l_phone_auslandsvorwahltyp_str {off} } { \str_if_eq_p:Vn \l_phone_heimatland_str {FR} }
+                                    \phone_FR_vorwahl_und_rufnummer_schreiben:xx
                                        {
-                                          % ohne Auslandsvorwahl steht am Ende eine Einzelziffer
-                                          \tl_put_right:Nx \l_phone_ausgabetext_tl { \str_head:N \l_phone_rufnummer_str \, }
-                                          \phone_von_vorne_gruppiert_schreiben:x { \str_tail:N \l_phone_rufnummer_str }
+                                           \str_range:Nnn \l_phone_bereinigte_nummer_str {1} {5}
                                        }
                                        {
-                                          % mit Auslandsvorwahl ergeben sich durchgehend Zweiergruppen
-                                          \phone_von_vorne_gruppiert_schreiben:V \l_phone_rufnummer_str
+                                          \str_range:Nnn \l_phone_bereinigte_nummer_str {6} {-1}
                                        }
                                  }
-                           }
-
-                        \bool_if:NTF \l_phone_teilnehmerrufnummer_gueltig_bool
-                           {
-                              % Für gültige Nummern Linktext schreiben:
-                              \str_put_right:NV \l_phone_linktext_str \l_phone_rufnummer_str
-                           }
-                           {
-                              % Für ungültige Nummern Linktext löschen und ungruppierte Nummer schreiben:
-                              \str_clear:N \l_phone_linktext_str
-                              \tl_put_right:NV \l_phone_ausgabetext_tl \l_phone_rufnummer_str
+                                 {
+                                    \tl_put_right:NV \l_phone_ausgabetext_tl \l_phone_bereinigte_nummer_str
+                                 }
                            }
                      }
                      {
@@ -1831,10 +1869,10 @@
                                           \clist_if_in:NVT \c_phone_FR_vorwahlen_clist \l_tmpa_str
                                              {
                                                 \bool_set_true:N \l_phone_vorwahl_gefunden_bool
-                                                \str_set:Nx \l_phone_rufnummer_str { \str_range:Nnn \l_phone_bereinigte_nummer_str {##1 + 1} {-1} }
-                                                \phone_FR_vorwahl_schreiben:VV \l_tmpa_str \l_phone_rufnummer_str
-                                                \phone_von_hinten_gruppiert_schreiben:V \l_phone_rufnummer_str
-                                                \str_put_right:NV \l_phone_linktext_str \l_phone_rufnummer_str
+                                                \phone_FR_vorwahl_und_rufnummer_schreiben:Vx \l_tmpa_str
+                                                   {
+                                                      \str_range:Nnn \l_phone_bereinigte_nummer_str {##1 + 1} {-1}
+                                                   }
                                              }
                                        }
                                  }
