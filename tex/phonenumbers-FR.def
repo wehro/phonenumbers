@@ -1,0 +1,396 @@
+% phonenumbers package: phonenumbers-FR.def
+% Module for French telephone numbers
+% Author: K. Wehr
+% Version: 2.5
+% Date: 2022-07-01
+\clist_const:Nn \c_phone_FR_ortsvorwahlen_clist {01,
+02,
+0262,
+026200,
+0263,
+0269,
+03,
+04,
+05,
+0508,
+0590,
+0594,
+0596}
+\clist_const:Nn \c_phone_FR_sondervorwahlen_clist {06,
+0639,
+0690,
+0691,
+0692,
+0693,
+0694,
+0696,
+0697,
+07,
+0700,
+07005,
+07006,
+07007,
+07008,
+07009,
+08,
+09,
+09475,
+09476,
+09477,
+09478,
+09479,
+09760,
+09761,
+09762,
+09763,
+09764,
+09765,
+09766,
+09767,
+09768,
+09769}
+\tl_const:cn {c_phone_FR_ortsname_01_tl} {\^{I}le-de-France}
+\tl_const:cn {c_phone_FR_ortsname_02_tl} {Nord-ouest}
+\tl_const:cn {c_phone_FR_ortsname_0262_tl} {La~R\a'{e}union}
+\tl_const:cn {c_phone_FR_ortsname_026200_tl} {Terres~australes~et~antarctiques~fran\c{c}aises}
+\tl_const:cn {c_phone_FR_ortsname_0263_tl} {La~R\a'{e}union}
+\tl_const:cn {c_phone_FR_ortsname_0269_tl} {Mayotte}
+\tl_const:cn {c_phone_FR_ortsname_03_tl} {Nord-est}
+\tl_const:cn {c_phone_FR_ortsname_04_tl} {Sud-est}
+\tl_const:cn {c_phone_FR_ortsname_05_tl} {Sud-ouest}
+\tl_const:cn {c_phone_FR_ortsname_0508_tl} {Saint-Pierre-et-Miquelon}
+\tl_const:cn {c_phone_FR_ortsname_0590_tl} {Guadeloupe,~Saint-Barth\a'{e}lemy,~Saint-Martin}
+\tl_const:cn {c_phone_FR_ortsname_0594_tl} {Guyane}
+\tl_const:cn {c_phone_FR_ortsname_0596_tl} {Martinique}
+\tl_const:cn {c_phone_FR_ortsname_06_tl} {T\a'{e}l\a'{e}phone~mobile}
+\tl_const:cn {c_phone_FR_ortsname_0639_tl} {T\a'{e}l\a'{e}phone~mobile~(Mayotte)}
+\tl_const:cn {c_phone_FR_ortsname_0690_tl} {T\a'{e}l\a'{e}phone~mobile~(Guadeloupe)}
+\tl_const:cn {c_phone_FR_ortsname_0691_tl} {T\a'{e}l\a'{e}phone~mobile~(Guadeloupe)}
+\tl_const:cn {c_phone_FR_ortsname_0692_tl} {T\a'{e}l\a'{e}phone~mobile~(La~R\a'{e}union)}
+\tl_const:cn {c_phone_FR_ortsname_0693_tl} {T\a'{e}l\a'{e}phone~mobile~(La~R\a'{e}union)}
+\tl_const:cn {c_phone_FR_ortsname_0694_tl} {T\a'{e}l\a'{e}phone~mobile~(Guyane)}
+\tl_const:cn {c_phone_FR_ortsname_0696_tl} {T\a'{e}l\a'{e}phone~mobile~(Martinique)}
+\tl_const:cn {c_phone_FR_ortsname_0697_tl} {T\a'{e}l\a'{e}phone~mobile~(Martinique)}
+\tl_const:cn {c_phone_FR_ortsname_07_tl} {T\a'{e}l\a'{e}phone~mobile}
+\tl_const:cn {c_phone_FR_ortsname_0700_tl} {Communication~machine~\a`{a}~machine}
+\tl_const:cn {c_phone_FR_ortsname_07005_tl} {Communication~machine~\a`{a}~machine~(Guadeloupe)}
+\tl_const:cn {c_phone_FR_ortsname_07006_tl} {Communication~machine~\a`{a}~machine~(Guyane)}
+\tl_const:cn {c_phone_FR_ortsname_07007_tl} {Communication~machine~\a`{a}~machine~(Martinique)}
+\tl_const:cn {c_phone_FR_ortsname_07008_tl} {Communication~machine~\a`{a}~machine~(Mayotte)}
+\tl_const:cn {c_phone_FR_ortsname_07009_tl} {Communication~machine~\a`{a}~machine~(La~R\a'{e}union)}
+\tl_const:cn {c_phone_FR_ortsname_08_tl} {Service~\a`{a}~valeur~ajout\a'{e}e}
+\tl_const:cn {c_phone_FR_ortsname_09_tl} {Service~t\a'{e}l\a'{e}phonique~en~VoIP}
+\tl_const:cn {c_phone_FR_ortsname_09475_tl} {Service~t\a'{e}l\a'{e}phonique~en~VoIP~(Guadeloupe)}
+\tl_const:cn {c_phone_FR_ortsname_09476_tl} {Service~t\a'{e}l\a'{e}phonique~en~VoIP~(Guyane)}
+\tl_const:cn {c_phone_FR_ortsname_09477_tl} {Service~t\a'{e}l\a'{e}phonique~en~VoIP~(Martinique)}
+\tl_const:cn {c_phone_FR_ortsname_09478_tl} {Service~t\a'{e}l\a'{e}phonique~en~VoIP~(Mayotte)}
+\tl_const:cn {c_phone_FR_ortsname_09479_tl} {Service~t\a'{e}l\a'{e}phonique~en~VoIP~(La~R\a'{e}union)}
+\tl_const:cn {c_phone_FR_ortsname_09760_tl} {Service~t\a'{e}l\a'{e}phonique~en~VoIP~(Guadeloupe)}
+\tl_const:cn {c_phone_FR_ortsname_09761_tl} {Service~t\a'{e}l\a'{e}phonique~en~VoIP~(Guadeloupe)}
+\tl_const:cn {c_phone_FR_ortsname_09762_tl} {Service~t\a'{e}l\a'{e}phonique~en~VoIP~(La~R\a'{e}union)}
+\tl_const:cn {c_phone_FR_ortsname_09763_tl} {Service~t\a'{e}l\a'{e}phonique~en~VoIP~(La~R\a'{e}union)}
+\tl_const:cn {c_phone_FR_ortsname_09764_tl} {Service~t\a'{e}l\a'{e}phonique~en~VoIP~(Guyane)}
+\tl_const:cn {c_phone_FR_ortsname_09765_tl} {Service~t\a'{e}l\a'{e}phonique~en~VoIP~(Guyane)}
+\tl_const:cn {c_phone_FR_ortsname_09766_tl} {Service~t\a'{e}l\a'{e}phonique~en~VoIP~(Martinique)}
+\tl_const:cn {c_phone_FR_ortsname_09767_tl} {Service~t\a'{e}l\a'{e}phonique~en~VoIP~(Martinique)}
+\tl_const:cn {c_phone_FR_ortsname_09768_tl} {Service~t\a'{e}l\a'{e}phonique~en~VoIP~(Guadeloupe)}
+\tl_const:cn {c_phone_FR_ortsname_09769_tl} {Service~t\a'{e}l\a'{e}phonique~en~VoIP~(La~R\a'{e}union)}
+
+\tl_const:Nn \c_phone_FR_landesadjektiv_tl {French}
+\bool_const:Nn \c_phone_FR_erlaubt_durchwahl_bool {\c_false_bool}
+
+\clist_new:N \c_phone_FR_vorwahlen_clist
+\clist_concat:NNN \c_phone_FR_vorwahlen_clist \c_phone_FR_ortsvorwahlen_clist \c_phone_FR_sondervorwahlen_clist
+
+\msg_new:nnn {phonenumbers} {FR/illegal home area code}
+   {
+      The~only~legal~home~area~code~in~France~is~0508~(Saint-Pierre-et-Miquelon).~#1~cannot~be~set~as~home~area~code~\msg_line_context:.
+   }
+
+\msg_new:nnn {phonenumbers} {FR/missing zero}
+   {
+      French~phone~number~has~no~zero~in~the~beginning~\msg_line_context:
+   }
+
+% Prüfe, ob eine Vorwahl als Heimatvorwahl zulässig ist.
+% #1: Heimatvorwahl
+\prg_new_protected_conditional:Npnn \phone_FR_heimatvorwahl_erlaubt:n #1 {T}
+   {
+      \clist_if_in:NnTF \c_phone_FR_ortsvorwahlen_clist {#1}
+         {
+            % In Frankreich kann nur 0508 Heimatvorwahl sein.
+            \str_if_eq:nnTF {#1} {0508} { \prg_return_true: }
+               {
+                  \msg_warning:nnn {phonenumbers} {FR/illegal home area code} {#1}
+                  \prg_return_false:
+               }
+         }
+         {
+            \msg_warning:nnn {phonenumbers} {invalid home area code} {#1}
+            \prg_return_false:
+         }
+   }
+
+% #1: Vorwahl
+\cs_new:Npn \phone_FR_ermittle_landeskennzahl:n #1
+   {
+      \str_case:nnF {#1}
+         {
+            {0262} {262}
+            {026200} {262}
+            {0263} {262}
+            {0269} {262}
+            {0508} {508}
+            {0590} {590}
+            {0594} {594}
+            {0596} {596}
+            {0639} {262}
+            {0690} {590}
+            {0691} {590}
+            {0692} {262}
+            {0693} {262}
+            {0694} {594}
+            {0696} {596}
+            {0697} {596}
+            {07005} {590}
+            {07006} {594}
+            {07007} {596}
+            {07008} {262}
+            {07009} {262}
+            {09475} {590}
+            {09476} {594}
+            {09477} {596}
+            {09478} {262}
+            {09479} {262}
+            {09760} {590}
+            {09761} {590}
+            {09762} {262}
+            {09763} {262}
+            {09764} {594}
+            {09765} {594}
+            {09766} {596}
+            {09767} {596}
+            {09768} {590}
+            {09769} {262}
+         }
+         {
+            33
+         }
+   }
+
+% #1: Vorwahl, #2: Rufnummer
+\cs_new_protected:Npn \phone_FR_vorwahl_und_rufnummer_schreiben:nn #1#2
+   {
+      \bool_lazy_or:nnTF { \str_if_eq_p:Vn \l_phone_auslandsvorwahltyp_str {off} } { \str_if_eq_p:Vn \l_phone_heimatland_str {FR} }
+         {
+            \clist_if_in:NnT \c_phone_FR_sondervorwahlen_clist {#1}
+               {
+                  \str_if_eq:VnT \l_phone_vorwahldarstellung_str {place}
+                     {
+                        \str_set:Nn \l_phone_vorwahldarstellung_str {number}
+                     }
+               }
+
+            \bool_lazy_and:nnTF { \str_if_eq_p:Vn \l_phone_heimatland_str {FR} } { \str_if_eq_p:Vn \l_phone_heimatvorwahl_str {#1} }
+               {
+                   \phone_von_hinten_gruppiert_schreiben:n {#2}   % reine Teilnehmerrufnummer in Saint-Pierre-et-Miquelon
+               }
+               {
+                  \str_case:Vn \l_phone_vorwahldarstellung_str
+                     {
+                        {number}
+                           {
+                              \phone_von_vorne_gruppiert_schreiben:V \l_phone_bereinigte_nummer_str
+                           }
+                        {place}
+                           {
+                              \tl_if_exist:cTF {c_phone_FR_ortsname_#1_tl}
+                                 {
+                                    \tl_put_right:Nv \l_phone_ausgabetext_tl {c_phone_FR_ortsname_#1_tl}
+                                    \tl_put_right:NV \l_phone_ausgabetext_tl \c_space_tl
+                                    \phone_von_vorne_gruppiert_schreiben:n {#2}
+                                 }
+                                 {
+                                    \phone_von_vorne_gruppiert_schreiben:V \l_phone_bereinigte_nummer_str
+                                 }
+                           }
+                        {place-and-number}
+                           {
+                              \tl_if_exist:cT {c_phone_FR_ortsname_#1_tl}
+                                 {
+                                    \tl_put_right:Nv \l_phone_ausgabetext_tl {c_phone_FR_ortsname_#1_tl}
+                                    \tl_put_right:NV \l_phone_ausgabetext_tl \c_space_tl
+                                 }
+
+                              \phone_von_vorne_gruppiert_schreiben:V \l_phone_bereinigte_nummer_str
+                           }
+                     }
+               }
+         }
+         {
+            \phone_gruppierte_auslandsvorwahl_schreiben:x { \phone_FR_ermittle_landeskennzahl:n {#1} }
+
+            \tl_put_right:NV \l_phone_ausgabetext_tl \c_space_tl
+
+            \str_if_eq:nnTF {#1} {0508}   % in Saint-Pierre-et-Miquelon entfällt die Ortsvorwahl
+               {
+                  \phone_von_hinten_gruppiert_schreiben:n {#2}
+               }
+               {
+                  \phone_von_hinten_gruppiert_schreiben:x { \str_tail:N \l_phone_bereinigte_nummer_str }
+               }
+         }
+
+      % Linktext schreiben:
+      \str_put_right:Nx \l_phone_linktext_str { + \phone_FR_ermittle_landeskennzahl:n {#1} }
+      \str_if_eq:nnF {#1} {0508}   % in Saint-Pierre-et-Miquelon entfällt die Ortsvorwahl
+         {
+            \str_put_right:Nx \l_phone_linktext_str { \str_tail:n {#1} }
+         }
+      \str_put_right:Nn \l_phone_linktext_str {#2}
+   }
+
+\cs_generate_variant:Nn \phone_FR_vorwahl_und_rufnummer_schreiben:nn {Vx,xx}
+
+\cs_new_protected:Npn \phone_FR_nummer_schreiben:
+   {
+      \int_set:Nn \l_phone_nummernlaenge_int { \str_count:N \l_phone_bereinigte_nummer_str }
+
+      \int_compare:nNnTF {\l_phone_nummernlaenge_int} < {10}
+         {
+            \str_if_eq:xnTF { \str_head:N \l_phone_bereinigte_nummer_str } {3}
+               {
+                  \int_compare:nNnTF {\l_phone_nummernlaenge_int} < {4}
+                     {
+                        \msg_warning:nnnn {phonenumbers} {number too short} {short} {4}
+                        \tl_put_right:NV \l_phone_ausgabetext_tl \l_phone_bereinigte_nummer_str
+                     }
+                     {
+                        \int_compare:nNnTF {\l_phone_nummernlaenge_int} > {4}
+                           {
+                              \msg_warning:nnnn {phonenumbers} {number too long} {short} {4}
+                              \tl_put_right:NV \l_phone_ausgabetext_tl \l_phone_bereinigte_nummer_str
+                           }
+                           {
+                              \phone_von_vorne_gruppiert_schreiben:V \l_phone_bereinigte_nummer_str
+                              \str_put_right:NV \l_phone_linktext_str \l_phone_bereinigte_nummer_str
+                           }
+                     }
+               }
+               {
+                  \msg_warning:nnnn {phonenumbers} {number too short} {phone} {10}
+                  \tl_put_right:NV \l_phone_ausgabetext_tl \l_phone_bereinigte_nummer_str
+               }
+         }
+         {
+            \str_if_eq:xnTF { \str_range:Nnn \l_phone_bereinigte_nummer_str {1} {4} } {0700}
+               {
+                  \int_compare:nNnTF { \str_item:Nn \l_phone_bereinigte_nummer_str {5} } < {5}
+                     {
+                        % überlange Mobilfunknummer (machine to machine) im Mutterland (14 Stellen)
+                        \phone_nummernlaenge_ueberpruefen:Vnnn \l_phone_bereinigte_nummer_str {14} {14} {machine~to~machine}
+                        \bool_if:NTF \l_phone_teilnehmerrufnummer_gueltig_bool
+                           {
+                              \phone_FR_vorwahl_und_rufnummer_schreiben:xx
+                                 {
+                                    \str_range:Nnn \l_phone_bereinigte_nummer_str {1} {4}
+                                 }
+                                 {
+                                    \str_range:Nnn \l_phone_bereinigte_nummer_str {5} {-1}
+                                 }
+                           }
+                           {
+                              \tl_put_right:NV \l_phone_ausgabetext_tl \l_phone_bereinigte_nummer_str
+                           }
+                     }
+                     {
+                        % überlange Mobilfunknummer (machine to machine) in den Überseegebieten (13 Stellen)
+                        \phone_nummernlaenge_ueberpruefen:Vnnn \l_phone_bereinigte_nummer_str {13} {13} {machine~to~machine}
+                        \bool_if:NTF \l_phone_teilnehmerrufnummer_gueltig_bool
+                           {
+                              \phone_FR_vorwahl_und_rufnummer_schreiben:xx
+                                 {
+                                    \str_range:Nnn \l_phone_bereinigte_nummer_str {1} {5}
+                                 }
+                                 {
+                                    \str_range:Nnn \l_phone_bereinigte_nummer_str {6} {-1}
+                                 }
+                           }
+                           {
+                              \tl_put_right:NV \l_phone_ausgabetext_tl \l_phone_bereinigte_nummer_str
+                           }
+                     }
+               }
+               {
+                  \int_compare:nNnTF {\l_phone_nummernlaenge_int} > {10}
+                     {
+                        \msg_warning:nnnn {phonenumbers} {number too long} {phone} {10}
+                        \tl_put_right:NV \l_phone_ausgabetext_tl \l_phone_bereinigte_nummer_str
+                     }
+                     {
+                        \str_if_eq:xnTF { \str_head:N \l_phone_bereinigte_nummer_str } {0}
+                           {
+                              \bool_set_false:N \l_phone_vorwahl_gefunden_bool
+
+                              \int_step_inline:nnnn {6} {-1} {2}
+                                 {
+                                    \bool_if:NF \l_phone_vorwahl_gefunden_bool
+                                       {
+                                          \int_compare:nT { \l_phone_nummernlaenge_int >= ##1 }
+                                             {
+                                                \str_set:Nx \l_tmpa_str { \str_range:Nnn \l_phone_bereinigte_nummer_str {1} {##1} }
+
+                                                \clist_if_in:NVT \c_phone_FR_vorwahlen_clist \l_tmpa_str
+                                                   {
+                                                      \bool_set_true:N \l_phone_vorwahl_gefunden_bool
+                                                      \phone_FR_vorwahl_und_rufnummer_schreiben:Vx \l_tmpa_str
+                                                         {
+                                                            \str_range:Nnn \l_phone_bereinigte_nummer_str {##1 + 1} {-1}
+                                                         }
+                                                   }
+                                             }
+                                       }
+                                 }
+
+                              \bool_if:NF \l_phone_vorwahl_gefunden_bool
+                                 {
+                                    \msg_warning:nn {phonenumbers} {invalid area code}
+                                    \tl_put_right:NV \l_phone_ausgabetext_tl \l_phone_bereinigte_nummer_str
+                                 }
+                           }
+                           {
+                              \msg_warning:nn {phonenumbers} {FR/missing zero}
+                              \tl_put_right:NV \l_phone_ausgabetext_tl \l_phone_bereinigte_nummer_str
+                           }
+                     }
+               }
+         }
+   }
+
+\cs_new_protected:Npn \phone_FR_vorwahlliste_ausgeben:n #1
+   {
+      \begin{tabbing}
+      \hspace {4em} \= \kill
+
+      \bool_set_false:N \l_phone_zeilenumbruch_bool
+
+      \clist_map_inline:cn {c_phone_FR_ #1 _clist}
+         {
+            \bool_if:NTF \l_phone_zeilenumbruch_bool
+               {
+                  \\
+               }
+               {
+                  \bool_gset_true:N \l_phone_zeilenumbruch_bool
+               }
+
+            \phone_von_vorne_gruppiert_schreiben:n {##1}
+            \tl_use:N \l_phone_ausgabetext_tl
+            \>
+            \tl_if_exist:cT {c_phone_FR_ortsname_ ##1 _tl}
+               {
+                  \tl_use:c {c_phone_FR_ortsname_ ##1 _tl}
+               }
+         }
+      \end{tabbing}
+   }

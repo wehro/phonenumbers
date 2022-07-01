@@ -1,5 +1,5 @@
 % phonenumbers package: German title picture
-% Datum: 13. Mai 2022
+% Datum: 1. Juli 2022
 outputtemplate := "%j.mps";
 
 input latexmp;
@@ -25,7 +25,7 @@ draw textpathRaw("\fontsize{24}{24}\selectfont\sperren{Setzen von Telefonnummern
 
 waehlscheibe(1.4,0,0);
 
-label.top(textext("\fontsize{17}{17}\selectfont Version 2.4"),origin) withcolor white;
+label.top(textext("\fontsize{17}{17}\selectfont Version 2.5"),origin) withcolor white;
 label.bot(textext("\fontsize{12}{12}\selectfont\today"),origin) withcolor white;
 
 endfig;

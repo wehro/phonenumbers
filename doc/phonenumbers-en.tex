@@ -1,11 +1,11 @@
 % phonenumbers package: English manual
-% Version 2.4
-% Datum: 13. Mai 2022
+% Version 2.5
+% Datum: 1. Juli 2022
 \documentclass[numbers=noenddot]{scrreprt}
 \usepackage[french,UKenglish]{babel}
 \usepackage{fontspec}
 \usepackage[link=off]{phonenumbers}
-\usepackage{biblatex}
+\usepackage[defernumbers=true]{biblatex}
 \usepackage{csquotes}
 \usepackage{array}
 \usepackage{enumitem}
@@ -45,12 +45,9 @@
 \renewcommand\@pnumwidth{2em}
 \makeatother
 
-
-
-
 \addbibresource{Literatur.bib}
 
-\renewcommand{\labelnamepunct}{\addcolon\space}
+\renewcommand\labelnamepunct{\addcolon\space}
 
 \definecolorscheme{phonecolor}{
   cs => cnltxformalblue,
@@ -112,6 +109,12 @@
 
 \ExplSyntaxOff
 
+\newcommand\Abschnittsliteratur[1]{\bgroup
+\small
+\raggedright
+\printbibliography[heading=subbibnumbered,keyword=#1]
+\egroup}
+
 \newcommand*\Paket[1]{\textsc{#1}}
 \newcommand\phone{\textcolor{cnltx}{\Paket{phone\-numbers}}}
 
@@ -164,7 +167,7 @@ option \sieheAbschnitt{optionen-allgemein}.}
 
 \newcommand\Schmalschrift{\small\fontspec{Libertinus Serif}[Ligatures=TeX]}
 
-\newcommand*\AufbauDEATA[6]{A #1 phone number normally consists of an area code beginning with 0 and a subscriber number. The area code can have #2 to #3 digits, a landline subscriber number #4 to #5 digits. There are different conventions for the separation of the area code from the subscriber number
+\newcommand*\AufbauDEATA[6]{ #1 phone number normally consists of an area code beginning with 0 and a subscriber number. The area code can have #2 to #3 digits, a landline subscriber number #4 to #5 digits. There are different conventions for the separation of the area code from the subscriber number
 \vglAbschnitt{#6}.
 The default separator used by the \phone\ package is a slash.}
 
@@ -325,7 +328,7 @@ Sets the \meta{options} for all following phone numbers not having contradictory
 \Befehlsbeschreibung{phonenumber}[\oarg{options}\marg{number}\oarg{extension}]
 Typesets a telephone number. The \meta{options} are valid only for this phone number.
 
-The \meta{number} can be input in the local or in the international format. The local format is possible for supported countries only; the country has to be set by the
+The \meta{number} can be input in the local or in the international format. The local format is possible for supported countries only; if the local format is used, the country has to be set by the
 \option{country}
 option
 \vglAbschnitt{optionen-allgemein}.
@@ -462,15 +465,37 @@ This will occur if
 \item the number is not in accordance with the national rules of the selected country (only for supported countries).
 \end{itemize}
 
+\section{Technical Remarks}
+The \phone\ package requires the
+\Paket{l3keys2e}
+package.
+
+Hyphens within phone numbers are realized by
+\verbcode:\kern1pt-\kern1pt:, \ie\ they are typeset with an additional distance of 1 point from the surrounding digits. The same goes for slashes too, which are output as
+\verbcode:\kern1pt\slash\kern1pt:, allowing a line break after the slash. After a plus sign an additional distance is inserted as well
+(\verbcode:+\kern1pt:).
+The structuring of German, Austrian, French, British, and unsupported numbers is done by small spaces
+\verbcode:\,:.
+
+The \Paket{hyperref} command \cs{href} is used to link phone numbers. If \Paket{hyperref} is loaded, the command
+\verbcode:\phonenumber{0441654321}:
+will be expanded to
+\begin{center}
+\verbcode=\href{tel:+49441654321}{04\,41\kern1pt\slash\kern1pt65\,43\,21}=\,.
+\end{center}
+
+
 \section{Licence}
 The \phone\ package is subject to the
 \emph{\LaTeX\ Project Public License},
 version 1.3 or later.%
 \footnote{\url{http://www.latex-project.org/lppl.txt}}
 
+\Abschnittsliteratur{general}
+
 \chapter{German Phone Numbers}
 \UeberschriftAufbau
-\AufbauDEATA{German}{3}{6}{3}{10}{optionen-DE}
+\AufbauDEATA{A German}{3}{6}{3}{10}{optionen-DE}
 \begin{sidebyside}
   \phonenumber{02517654321}
 \end{sidebyside}
@@ -573,9 +598,11 @@ Furthermore, a warning will be issued if
 \item a dialer number (area code 0\,90\,09) does not have exactly 12 digits \cite[78]{BNA-konzept}.
 \end{itemize}
 
+\Abschnittsliteratur{german}
+
 \chapter{Austrian Phone Numbers}
 \UeberschriftAufbau
-\AufbauDEATA{Austrian}{2}{5}{5}{9}{optionen-AT}
+\AufbauDEATA{An Austrian}{2}{5}{5}{9}{optionen-AT}
 
 All number components are divided into groups of two digits beginning from the end.
 \begin{sidebyside}
@@ -678,6 +705,8 @@ has less than 9 or more than 13 digits \cite[§\,81]{RTR-Verordnung},
 has less than 10 or more than 13 digits \cite[§\,87]{RTR-Verordnung}.
 \end{itemize}
 
+\Abschnittsliteratur{austrian}
+
 \chapter{French Phone Numbers}
 \UeberschriftGeltungsbereich \label{FR-bereich}
 The French numbering plan
@@ -715,7 +744,7 @@ The leading 0 is omitted for calls from abroad.
   \phonenumber[country=FR,foreign]{0199006789}
 \end{sidebyside}
 
-Numbers for machine to machine communication beginning with 07\,00 have more than ten digits. They have 14 digits in metropolitan France and 13 digits in the overseas territories \cite[19]{ARCEP}.
+Numbers for machine to machine communication beginning with 07\,00 have more than ten digits. They have 14 digits in metropolitan France and 13 digits in the overseas territories \cite[18]{ARCEP}.
 \begin{sidebyside}
   \phonenumber[country=FR]{07000123456789} \\
   \phonenumber[country=FR]{0700512345678}
@@ -726,7 +755,7 @@ Some companies and institutions have four-digit short numbers, which always begi
   \phonenumber[country=FR]{3245}
 \end{sidebyside}
 Short numbers are linked
-\vglAbschnitt{verlinkung} without the country calling code since they cannot be reached from abroad.
+\vglAbschnitt{verlinkung} without the country calling code since they cannot be reached from abroad \cite[26]{ARCEP}.
 
 Despite the fact that the areas mentioned in section \ref{FR-bereich} are treated as one single net internally, there are different country codes within the French numbering plan:
 \begin{center}
@@ -755,7 +784,7 @@ However, for Saint Pierre and Miquelon the area code 05\,08 is entirely omitted 
   \phonenumber[country=FR,foreign]{0508123456}
 \end{sidebyside}
 
-In Saint Pierre and Miquelon it is possible as well to omit the area code for local calls and to dial six digits only \cite[13]{ARCEP}.
+In Saint Pierre and Miquelon it is possible as well to omit the area code for local calls and to dial six digits only \cite[12]{ARCEP}.
 \begin{sidebyside}
   \setphonenumbers{country=FR,home-area-code=0508}
   \phonenumber{0508123456}
@@ -797,10 +826,12 @@ Since this is not possible in other areas of France, \code{0508} is the only leg
 \item a number beginning with 07\,00 does not have 14 or 13 digits.
 \end{itemize}
 
+\Abschnittsliteratur{french}
+
 \chapter{British Phone Numbers}
 \nocite{wikipedia-UK}
+\nocite{wikipedia-conventions}
 \nocite{UK-formatting}
-
 \edef\myindent{\the\parindent}
 \begin{minipage}{12cm}\setlength{\parindent}{\myindent}
 \UeberschriftGeltungsbereich
@@ -893,7 +924,10 @@ Area codes with 6 digits a structured by a space before the second digit from th
 \item a non-geographic number with another area code does not have exactly 11 digits.
 \end{itemize}
 
+\Abschnittsliteratur{british}
+
 \chapter{North American Phone Numbers} \label{US}
+\nocite{wikipedia-conventions-old}
 \UeberschriftGeltungsbereich \label{US-bereich}
 The \emph{North American Numbering Plan}
 \cite{wikipedia-NANP}
@@ -1018,36 +1052,11 @@ Specifies whether the trunk prefix 1 for long-distance calls will be output. Ins
 \item the central office code of a non-geographic number is 911.
 \end{itemize}
 
-\chapter{Technical Remarks}
-The \phone\ package uses the
-\Paket{ltxcmds}
-package as well as the \LaTeX\ 3 package
-\Paket{l3keys2e}.
-
-Hyphens within phone numbers are realized by
-\verbcode:\kern1pt-\kern1pt:, \ie\ they are typeset with an additional distance of 1 point from the surrounding digits. The same goes for slashes too, which are output as
-\verbcode:\kern1pt\slash\kern1pt:, allowing a line break after the slash. After a plus sign an additional distance is inserted as well
-(\verbcode:+\kern1pt:).
-The structuring of German, Austrian, French, British, and unsupported numbers is done by small spaces
-\verbcode:\,:.
-
-The \Paket{hyperref} command \cs{href} is used to link phone numbers. If \Paket{hyperref} is loaded, the command
-\verbcode:\phonenumber{0441654321}:
-will be expanded to
-\begin{center}
-\verbcode=\href{tel:+49441654321}{04\,41\kern1pt\slash\kern1pt65\,43\,21}=\,.
-\end{center}
-
+\Abschnittsliteratur{american}
 
 \appendix
 
-\setlength{\columnseprule}{0pt}
-
-\bgroup
-\small
-\raggedright
-\printbibliography[heading=bibnumbered]
-\egroup
+\setlength\columnseprule{0pt}
 
 \chapter{German Area Codes}
 \UeberschriftOrtsvorwahlen
@@ -1062,7 +1071,7 @@ will be expanded to
 \Schmalschrift
 \AreaCodesNonGeographic[country=DE]
 \end{multicols}
-\Quellen \cite[3--5]{BNA-nummernplan}, \cite{BNA-mobil}, \cite{BNA-0137}, \cite{BNA-01801}, \cite{BNA-01806}
+\Quellen \cite[3--5]{BNA-nummernplan}, \cite{BNA-mobil}, \cite{BNA-0137}, \cite{BNA-0180}
 
 \chapter{Austrian Area Codes}
 \UeberschriftOrtsvorwahlen
@@ -1085,14 +1094,14 @@ will be expanded to
 \Schmalschrift
 \AreaCodesGeographic[country=FR]
 \egroup
-\Quellen \cite[14\psq]{ARCEP}, \cite{wikipedia-FR-fr}, \cite{wikipedia-FR-de}
+\Quellen \cite[13\psq]{ARCEP}, \cite{wikipedia-FR-fr}, \cite{wikipedia-FR-de}
 
 \UeberschriftSondervorwahlen
 \bgroup
 \Schmalschrift
 \AreaCodesNonGeographic[country=FR]
 \egroup
-\Quellen \cite[17--25]{ARCEP}, \cite{wikipedia-FR-fr}, \cite{wikipedia-FR-de}
+\Quellen \cite[16--24]{ARCEP}, \cite{wikipedia-FR-fr}, \cite{wikipedia-FR-de}
 
 \chapter{British Area Codes}
 \UeberschriftOrtsvorwahlen
@@ -1124,8 +1133,7 @@ will be expanded to
 \egroup
 \Quellen \cite{NANPA-non-geographic}, \cite{NANPA-ten-years}
 
-
-\chapter{Valid Country Codes} \label{landeskennzahlen}
+\chapter{Valid Country Codes\label{landeskennzahlen}}
 \begin{multicols}{7}
 \Schmalschrift
 \noindent
@@ -1221,10 +1229,21 @@ option for the area code separator in numbers with country calling code
 \item Addition of the new North American area codes 227, 274, 341, 368, 428, 447, 448, 464, 474, 523, 524, 525, 526, 572, 582, 656, 659, 689, 730, 742, 771, 826, 839, 840, 943, 945, and 948
 \item Revision of the package code
 \end{itemize}
-\item[2.4] \today
+\item[2.4] \printdate{13.5.2022}
 \begin{itemize}
 \item Introduction of the
 \option{group-min} option to suppress the structuring of short numbers
+\end{itemize}
+\item[2.5] \today
+\begin{itemize}
+\item New file structure of the package code: one module file for each country
+\item Removal of the \Paket{ltxcmds} dependency
+\item Addition of the new German mobile phone area codes 01\,51\,80, 01\,51\,81, 01\,53\,10, 01\,55\,10, and 01\,55\,11
+\item Addition of the new British mobile phone area codes 07356 and 07358
+\item Removal of the British area codes 07020, 07050, and 07092
+\item Addition of the new North American area codes 235, 263, 283, 324, 327, 329, 350, 354, 363, 382, 468, 472, 527, 528, 557, 584, 645, 683, 728, 753, 835, 861, 975, and 983
+\item Removal of the North American area code 879
+\item Division of the bibliography
 \end{itemize}
 \end{description}
 

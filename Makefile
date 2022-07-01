@@ -11,7 +11,7 @@ ctan: manual
 	cp doc/phonenumbers-en.tex phonenumbers/doc/
 	mkdir phonenumbers/tex
 	cp tex/phonenumbers.sty phonenumbers/tex/
-	cp tex/*.tex phonenumbers/tex/
+	cp tex/phonenumbers-*.def phonenumbers/tex/
 	zip -r phonenumbers.zip phonenumbers
 	rm -r phonenumbers
 

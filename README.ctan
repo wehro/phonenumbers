@@ -9,8 +9,8 @@ number is valid according to the national rules. It also allows to link phone
 numbers using the hyperref package.
 
 Package author: K. Wehr
-Version: 2.4
-Date: 13th May 2022
+Version: 2.5
+Date: 1 July 2022
 
 The phonenumbers package is subject to the LaTeX Project Public License,
 version 1.3 or later.
@@ -23,15 +23,9 @@ phonenumbers-en.pdf -- English manual
 phonenumbers-en.tex -- Source of the English manual
 
 Package files in the tex/ subtree:
-phn-AT_Ortsnamen.tex -- Austrian place names
-phn-AT_Vorwahlen.tex -- Austrian area codes
-phn-DE_Ortsnamen.tex -- German place names
-phn-DE_Vorwahlen.tex -- German area codes
-phn-FR_Ortsnamen.tex -- French place names
-phn-FR_Vorwahlen.tex -- French area codes
-phn-Landeskennzahlen.tex -- Country codes
-phn-UK_Ortsnamen.tex -- British place names
-phn-UK_Vorwahlen.tex -- British area codes
-phn-US_Ortsnamen.tex -- North American place names
-phn-US_Vorwahlen.tex -- North American area codes
 phonenumbers.sty -- Package code
+phonenumbers-AT.def -- Country module for Austria
+phonenumbers-DE.def -- Country module for Germany
+phonenumbers-FR.def -- Country module for France
+phonenumbers-UK.def -- Country module for Great Britain
+phonenumbers-US.def -- Country module for North America

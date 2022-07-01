@@ -1,11 +1,11 @@
 % phonenumbers package: German manual
-% Version 2.4
-% Datum: 13. Mai 2022
+% Version 2.5
+% Datum: 1. Juli 2022
 \documentclass[numbers=noenddot]{scrreprt}
 \usepackage[french,ngerman]{babel}
 \usepackage{fontspec}
 \usepackage[link=off]{phonenumbers}
-\usepackage{biblatex}
+\usepackage[defernumbers=true]{biblatex}
 \usepackage{csquotes}
 \usepackage{array}
 \usepackage{enumitem}
@@ -45,12 +45,9 @@
 \renewcommand\@pnumwidth{2em}
 \makeatother
 
-\BeforeStartingTOC{\begin{multicols}{2}}
-\AfterStartingTOC{\end{multicols}}
-
 \addbibresource{Literatur.bib}
 
-\renewcommand{\labelnamepunct}{\addcolon\space}
+\renewcommand\labelnamepunct{\addcolon\space}
 
 \definecolorscheme{phonecolor}{
   cs => cnltxformalblue,
@@ -111,6 +108,12 @@
   }
 
 \ExplSyntaxOff
+
+\newcommand\Abschnittsliteratur[1]{\bgroup
+\small
+\raggedright
+\printbibliography[heading=subbibnumbered,keyword=#1]
+\egroup}
 
 \newcommand*\Paket[1]{\textsc{#1}}
 \newcommand\phone{\textcolor{cnltx}{\Paket{phone\-numbers}}}
@@ -325,7 +328,7 @@ Setzt die \meta{Optionen} für alle folgenden Telefonnummern, für die nichts an
 \Befehlsbeschreibung{phonenumber}[\oarg{Optionen}\marg{Nummer}\oarg{Durchwahl\kern1pt}]
 Setzt eine Telefonnummer. Die \meta{Optionen} gelten nur für diese Telefonnummer.
 
-Die \meta{Nummer} kann im lokalen oder im internationalen Format eingegeben werden. Das lokale Format ist nur für unterstützte Länder möglich; das zugehörige Land ist durch die Option
+Die \meta{Nummer} kann im lokalen oder im internationalen Format eingegeben werden. Das lokale Format ist nur für unterstützte Länder möglich; wenn das lokale Format verwendet wird, ist das zugehörige Land ist durch die Option
 \option{country}
 festzulegen
 \vglAbschnitt{optionen-allgemein}.
@@ -462,11 +465,33 @@ Dies ist der Fall, wenn
 \item die Nummer nicht den nationalen Regeln des gewählten Landes entspricht (nur für unterstützte Länder).
 \end{itemize}
 
+\section{Technische Hinweise}
+Das Paket \phone\ erfordert das Paket
+\Paket{l3keys2e}
+.
+
+Bindestriche innerhalb von Telefonnummern werden durch
+\verbcode:\kern1pt-\kern1pt: realisiert, das heißt sie werden mit einem Zusatzabstand von 1 Punkt zu den umgebenden Ziffern gesetzt. Das gilt auch für Schrägstriche, die als
+\verbcode:\kern1pt\slash\kern1pt: ausgegeben werden, was einen Zeilenumbruch nach dem Schrägstrich ermöglicht. Nach einem Pluszeichen wird ebenfalls ein Zusatzabstand eingefügt
+(\verbcode:+\kern1pt:).
+Die Gliederung deutscher, österreichischer, französischer, britischer und nicht unterstützer Nummern erfolgt durch kleine Leerzeichen
+\verbcode:\,:.
+
+Für die Verlinkung von Telefonnummern wird der \Paket{hyperref}-Befehl \cs{href} verwendet. Sofern \Paket{hyperref} geladen ist, wird der Befehl
+\verbcode:\phonenumber{0441654321}:
+zu
+\begin{center}
+\verbcode=\href{tel:+49441654321}{04\,41\kern1pt\slash\kern1pt65\,43\,21}=
+\end{center}
+expandiert.
+
 \section{Lizenz}
 Das Paket \phone\ unterliegt der
 \emph{\LaTeX\ Project Public License},
 Version 1.3 oder Nachfolgeversion.%
 \footnote{\url{http://www.latex-project.org/lppl.txt}}
+
+\Abschnittsliteratur{general}
 
 \chapter{Deutsche Telefonnummern}
 \UeberschriftAufbau
@@ -573,6 +598,8 @@ Außerdem wird eine Warnung ausgegeben, wenn
 \item eine Dialer-Nummer (Vorwahl 0\,90\,09) nicht genau 12 Stellen hat \cite[78]{BNA-konzept}.
 \end{itemize}
 
+\Abschnittsliteratur{german}
+
 \chapter{Österreichische Telefonnummern}
 \UeberschriftAufbau
 \AufbauDEATA{österreichische}{2}{5}{5}{9}{optionen-AT}
@@ -678,9 +705,11 @@ weniger als 9 oder mehr als 13 Ziffern hat \cite[§\,81]{RTR-Verordnung},
 weniger als 10 oder mehr als 13 Ziffern hat \cite[§\,87]{RTR-Verordnung}.
 \end{itemize}
 
+\Abschnittsliteratur{austrian}
+
 \chapter{Französische Telefonnummern}
 \UeberschriftGeltungsbereich \label{FR-bereich}
-Der französische Nummerierungsplan
+Der französische Nummernplan
 \cite{ARCEP}
 gilt nicht nur für das französische Mutterland, sondern auch für die meisten französischen Überseegebiete. Dies betrifft
 \begin{itemize}
@@ -715,7 +744,7 @@ Bei Anrufen aus dem Ausland entfällt die führende 0 der Rufnummer.
   \phonenumber[country=FR,foreign]{0199006789}
 \end{sidebyside}
 
-Nummern für die maschinelle Kommunikation, die mit 07\,00 beginnen, haben mehr als zehn Ziffern. Sie sind im Mutterland 14-stellig, in den Überseegebieten 13-stellig \cite[19]{ARCEP}.
+Nummern für die maschinelle Kommunikation, die mit 07\,00 beginnen, haben mehr als zehn Ziffern. Sie sind im Mutterland 14-stellig, in den Überseegebieten 13-stellig \cite[18]{ARCEP}.
 \begin{sidebyside}
   \phonenumber[country=FR]{07000123456789} \\
   \phonenumber[country=FR]{0700512345678}
@@ -726,9 +755,9 @@ Einige Firmen und Institutionen haben vierstellige Kurznummern, die stets mit ei
   \phonenumber[country=FR]{3245}
 \end{sidebyside}
 Kurznummern werden ohne Auslandsvorwahl verlinkt
-\vglAbschnitt{verlinkung}, da sie aus dem Ausland nicht erreichbar sind.
+\vglAbschnitt{verlinkung}, da sie aus dem Ausland nicht erreichbar sind \cite[26]{ARCEP}.
 
-Obwohl die in Abschnitt \ref{FR-bereich} genannten Gebiete intern wie ein einziges Netz behandelt werden, gibt es im Bereich des französichen Nummerierungsplans verschiedene Landeskennzahlen:
+Obwohl die in Abschnitt \ref{FR-bereich} genannten Gebiete intern wie ein einziges Netz behandelt werden, gibt es im Bereich des französichen Nummernplans verschiedene Landeskennzahlen:
 \begin{center}
 \begin{tabular}{rl}
 33 & Mutterland \\
@@ -755,7 +784,7 @@ Dagegen entfällt für Saint-Pierre und Miquelon die Regionalvorwahl 05\,08 bei 
   \phonenumber[country=FR,foreign]{0508123456}
 \end{sidebyside}
 
-In Saint-Pierre und Miquelon ist es außerdem möglich, bei lokalen Gesprächen die Vorwahl wegzulassen und nur sechs Ziffern zu wählen \cite[13]{ARCEP}.
+In Saint-Pierre und Miquelon ist es außerdem möglich, bei lokalen Gesprächen die Vorwahl wegzulassen und nur sechs Ziffern zu wählen \cite[12]{ARCEP}.
 \begin{sidebyside}
   \setphonenumbers{country=FR,home-area-code=0508}
   \phonenumber{0508123456}
@@ -797,18 +826,20 @@ Da dies in anderen Gebieten Frankreichs nicht möglich ist, ist \code{0508} der 
 \item eine Nummer, die mit 07\,00 beginnt, nicht 14 oder 13 Stellen hat.
 \end{itemize}
 
+\Abschnittsliteratur{french}
+
 \chapter{Britische Telefonnummern}
 \nocite{wikipedia-UK}
+\nocite{wikipedia-conventions}
 \nocite{UK-formatting}
-
 \edef\myindent{\the\parindent}
 \begin{minipage}{12cm}\setlength{\parindent}{\myindent}
 \UeberschriftGeltungsbereich
-Der britische Nummerierungsplan
+Der britische Nummernplan
 \cite{Ofcom-plan}
 gilt für England, Schottland, Wales, Nordirland, die Insel Man und die Kanalinseln Jersey und Guernsey.
 
-Die folgenden britischen Überseegebiete sind Bestandteil des nordamerikanischen Nummerierungsplans
+Die folgenden britischen Überseegebiete sind Bestandteil des nordamerikanischen Nummernplans
 \sieheAbschnitt{US}: Anguilla, Bermuda, die Britischen Jungferninseln, die Kaiman-Inseln, Montserrat, die Turks- und Caicos-Inseln.
 
 Nummern aus den übrigen Überseegebieten werden nicht unterstützt.
@@ -893,9 +924,12 @@ Vorwahlen mit 6 Ziffern werden durch einen Abstand vor der zweitletzten Ziffer g
 \item eine Mobilfunk- oder Sondernummer mit einer anderen Vorwahl nicht genau 11 Stellen hat.
 \end{itemize}
 
+\Abschnittsliteratur{british}
+
 \chapter{Nordamerikanische Telefonnummern} \label{US}
+\nocite{wikipedia-conventions-old}
 \UeberschriftGeltungsbereich \label{US-bereich}
-Der nordamerikanische Nummerierungsplan
+Der nordamerikanische Nummernplan
 \cite{wikipedia-NANP}
 gilt in den Vereinigten Staaten, Kanada, mehreren Karibikstaaten und weiteren Gebieten. Es handelt sich im Einzelnen um
 \begin{itemize}
@@ -918,7 +952,7 @@ gilt in den Vereinigten Staaten, Kanada, mehreren Karibikstaaten und weiteren Ge
 \item St. Kitts und Nevis,
 \item St. Lucia,
 \item St. Vincent und die Grenadinen,
-\item Sint Maarten (NL)\footnote{Der nördliche Teil der Insel gehört unter dem Namen \emph{Saint-Martin} zum französischen Nummerierungsplan
+\item Sint Maarten (NL)\footnote{Der nördliche Teil der Insel gehört unter dem Namen \emph{Saint-Martin} zum französischen Nummernplan
 \sieheAbschnitt{FR-bereich}.},
 \item Trinidad und Tobago,
 \item die Turks- und Caicos-Inseln (GB),
@@ -926,7 +960,7 @@ gilt in den Vereinigten Staaten, Kanada, mehreren Karibikstaaten und weiteren Ge
 \end{itemize}
 
 \UeberschriftAufbau
-Telefonnummern in den Gebieten des nordamerikanischen Nummerierungsplans sind zehnstellig. Sie bestehen aus einer dreistelligen Regionalvorwahl (\emph{area code}), einer dreistelligen Vermittlungsstellennummer (\emph{central office code}) und einer vierstelligen Teilnehmerrufnummer (\emph{subscriber number}) und werden entsprechend gegliedert.
+Telefonnummern in den Gebieten des nordamerikanischen Nummernplans sind zehnstellig. Sie bestehen aus einer dreistelligen Regionalvorwahl (\emph{area code}), einer dreistelligen Vermittlungsstellennummer (\emph{central office code}) und einer vierstelligen Teilnehmerrufnummer (\emph{subscriber number}) und werden entsprechend gegliedert.
 \begin{sidebyside}
   \phonenumber[country=US]{2125550123}
 \end{sidebyside}
@@ -945,9 +979,9 @@ Bei Ferngesprächen muss in der Regel die Verkehrsausscheidungsziffer 1 (\emph{t
   \phonenumber[country=US,trunk-prefix]{2125550123}
 \end{sidebyside}
 
-Für den Mobilfunk gibt es im nordamerikanischen Nummerierungsplan keine eigenen Vorwahlen. Mobiltelefonnummern erhalten gewöhnliche Regionalvorwahlen.
+Für den Mobilfunk gibt es im nordamerikanischen Nummernplan keine eigenen Vorwahlen. Mobiltelefonnummern erhalten gewöhnliche Regionalvorwahlen.
 
-Alle Gebiete des nordamerikanischen Nummerierungsplans sind aus dem Ausland unter der Vorwahl +\kern1pt1 zu erreichen.
+Alle Gebiete des nordamerikanischen Nummernplans sind aus dem Ausland unter der Vorwahl +\kern1pt1 zu erreichen.
 \begin{sidebyside}
   \phonenumber[country=US,foreign]{2125550123}
 \end{sidebyside}
@@ -1018,36 +1052,11 @@ Gibt an, ob die Verkehrsausscheidungsziffer 1 für Ferngespräche ausgegeben wer
 \item die Vermittlungsstellennummer bei einer Sondernummer 911 lautet.
 \end{itemize}
 
-\chapter{Technische Hinweise}
-Das Paket \phone\ verwendet das Paket
-\Paket{ltxcmds}
-sowie das \LaTeX-3-Paket
-\Paket{l3keys2e}.
-
-Bindestriche innerhalb von Telefonnummern werden durch
-\verbcode:\kern1pt-\kern1pt: realisiert, das heißt sie werden mit einem Zusatzabstand von 1 Punkt zu den umgebenden Ziffern gesetzt. Das gilt auch für Schrägstriche, die als
-\verbcode:\kern1pt\slash\kern1pt: ausgegeben werden, was einen Zeilenumbruch nach dem Schrägstrich ermöglicht. Nach einem Pluszeichen wird ebenfalls ein Zusatzabstand eingefügt
-(\verbcode:+\kern1pt:).
-Die Gliederung deutscher, österreichischer, französischer, britischer und nicht unterstützer Nummern erfolgt durch kleine Leerzeichen
-\verbcode:\,:.
-
-Für die Verlinkung von Telefonnummern wird der \Paket{hyperref}-Befehl \cs{href} verwendet. Sofern \Paket{hyperref} geladen ist, wird der Befehl
-\verbcode:\phonenumber{0441654321}:
-zu
-\begin{center}
-\verbcode=\href{tel:+49441654321}{04\,41\kern1pt\slash\kern1pt65\,43\,21}=
-\end{center}
-expandiert.
+\Abschnittsliteratur{american}
 
 \appendix
 
-\setlength{\columnseprule}{0pt}
-
-\bgroup
-\small
-\raggedright
-\printbibliography[heading=bibnumbered]
-\egroup
+\setlength\columnseprule{0pt}
 
 \chapter{Deutsche Vorwahlen}
 \UeberschriftOrtsvorwahlen
@@ -1062,7 +1071,7 @@ expandiert.
 \Schmalschrift
 \AreaCodesNonGeographic[country=DE]
 \end{multicols}
-\Quellen \cite[3--5]{BNA-nummernplan}, \cite{BNA-mobil}, \cite{BNA-0137}, \cite{BNA-01801}, \cite{BNA-01806}
+\Quellen \cite[3--5]{BNA-nummernplan}, \cite{BNA-mobil}, \cite{BNA-0137}, \cite{BNA-0180}
 
 \chapter{Österreichische Vorwahlen}
 \UeberschriftOrtsvorwahlen
@@ -1085,14 +1094,14 @@ expandiert.
 \Schmalschrift
 \AreaCodesGeographic[country=FR]
 \egroup
-\Quellen \cite[14\psq]{ARCEP}, \cite{wikipedia-FR-fr}, \cite{wikipedia-FR-de}
+\Quellen \cite[13\psq]{ARCEP}, \cite{wikipedia-FR-fr}, \cite{wikipedia-FR-de}
 
 \UeberschriftSondervorwahlen
 \bgroup
 \Schmalschrift
 \AreaCodesNonGeographic[country=FR]
 \egroup
-\Quellen \cite[17--25]{ARCEP}, \cite{wikipedia-FR-fr}, \cite{wikipedia-FR-de}
+\Quellen \cite[16--24]{ARCEP}, \cite{wikipedia-FR-fr}, \cite{wikipedia-FR-de}
 
 \chapter{Britische Vorwahlen}
 \UeberschriftOrtsvorwahlen
@@ -1109,7 +1118,7 @@ expandiert.
 \end{multicols}
 \Quellen \cite{Ofcom-plan}, \cite{Ofcom-numbering}, \cite{UK-area-codes}
 
-\chapter{Vorwahlen des nordamerikanischen Nummerierungsplans}
+\chapter{Vorwahlen des nordamerikanischen Nummernplans}
 \UeberschriftRegionalvorwahlen
 \begin{multicols}{2}
 \Schmalschrift
@@ -1124,8 +1133,7 @@ expandiert.
 \egroup
 \Quellen \cite{NANPA-non-geographic}, \cite{NANPA-ten-years}
 
-
-\chapter{Gültige Landeskennzahlen} \label{landeskennzahlen}
+\chapter{Gültige Landeskennzahlen\label{landeskennzahlen}}
 \begin{multicols}{7}
 \Schmalschrift
 \noindent
@@ -1221,10 +1229,21 @@ am Anfang
 \item Ergänzung der neuen nordamerikanischen Vorwahlen 227, 274, 341, 368, 428, 447, 448, 464, 474, 523, 524, 525, 526, 572, 582, 656, 659, 689, 730, 742, 771, 826, 839, 840, 943, 945 und 948
 \item Revision des Paketcodes
 \end{itemize}
-\item[2.4] \today
+\item[2.4] \printdate{13.5.2022}
 \begin{itemize}
 \item Einführung der Option
 \option{group-min}, um kurze Nummern nicht zu gliedern
+\end{itemize}
+\item[2.5] \today
+\begin{itemize}
+\item neue Dateistruktur des Paketcodes: eine Moduldatei für jedes Land
+\item Entfernung der \Paket{ltxcmds}-Abhängigkeit
+\item Ergänzung der neuen deutschen Mobilfunkvorwahlen 01\,51\,80, 01\,51\,81, 01\,53\,10, 01\,55\,10 und 01\,55\,11
+\item Ergänzung der neuen britischen Mobilfunkvorwahlen 07356 und 07358
+\item Entfernung der britischen Vorwahlen 07020, 07050 und 07092
+\item Ergänzung der neuen nordamerikanischen Vorwahlen 235, 263, 283, 324, 327, 329, 350, 354, 363, 382, 468, 472, 527, 528, 557, 584, 645, 683, 728, 753, 835, 861, 975 und 983
+\item Entfernung der nordamerikanischen Vorwahl 879
+\item Aufteilung des Literaturverzeichnisses
 \end{itemize}
 \end{description}
 
