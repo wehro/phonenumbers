@@ -1,8 +1,8 @@
 % phonenumbers package: phonenumbers-DE.def
 % Module for German telephone numbers
 % Author: K. Wehr
-% Version: 2.5
-% Date: 2022-07-01
+% Version: 2.6
+% Date: 2025-05-06
 \clist_const:Nn \c_phone_DE_ortsvorwahlen_clist {0201,
 0202,
 0203,
@@ -5213,6 +5213,7 @@
 01378,
 01379,
 015019,
+015020,
 01511,
 01512,
 01514,
@@ -5221,6 +5222,11 @@
 01517,
 015180,
 015181,
+015182,
+015183,
+015184,
+015185,
+015186,
 015310,
 01520,
 01521,
@@ -5253,7 +5259,14 @@
 015569,
 015630,
 015678,
-01570,
+015679,
+015700,
+015701,
+015702,
+015703,
+015704,
+015705,
+015706,
 01573,
 01575,
 01577,
@@ -5302,8 +5315,7 @@
 0800,
 09001,
 09003,
-09005,
-09009}
+09005}
 \tl_const:cn {c_phone_DE_ortsname_0201_tl} {Essen}
 \tl_const:cn {c_phone_DE_ortsname_0202_tl} {Wuppertal}
 \tl_const:cn {c_phone_DE_ortsname_0203_tl} {Duisburg}
@@ -10514,6 +10526,7 @@
 \tl_const:cn {c_phone_DE_ortsname_01378_tl} {Massenverkehrsdienst~(50\,ct/Anruf)}
 \tl_const:cn {c_phone_DE_ortsname_01379_tl} {Massenverkehrsdienst~(50\,ct/Anruf)}
 \tl_const:cn {c_phone_DE_ortsname_015019_tl} {Mobilfunk}
+\tl_const:cn {c_phone_DE_ortsname_015020_tl} {Mobilfunk}
 \tl_const:cn {c_phone_DE_ortsname_01511_tl} {Mobilfunk}
 \tl_const:cn {c_phone_DE_ortsname_01512_tl} {Mobilfunk}
 \tl_const:cn {c_phone_DE_ortsname_01514_tl} {Mobilfunk}
@@ -10522,6 +10535,11 @@
 \tl_const:cn {c_phone_DE_ortsname_01517_tl} {Mobilfunk}
 \tl_const:cn {c_phone_DE_ortsname_015180_tl} {Mobilfunk}
 \tl_const:cn {c_phone_DE_ortsname_015181_tl} {Mobilfunk}
+\tl_const:cn {c_phone_DE_ortsname_015182_tl} {Mobilfunk}
+\tl_const:cn {c_phone_DE_ortsname_015183_tl} {Mobilfunk}
+\tl_const:cn {c_phone_DE_ortsname_015184_tl} {Mobilfunk}
+\tl_const:cn {c_phone_DE_ortsname_015185_tl} {Mobilfunk}
+\tl_const:cn {c_phone_DE_ortsname_015186_tl} {Mobilfunk}
 \tl_const:cn {c_phone_DE_ortsname_015310_tl} {Mobilfunk}
 \tl_const:cn {c_phone_DE_ortsname_01520_tl} {Mobilfunk}
 \tl_const:cn {c_phone_DE_ortsname_01521_tl} {Mobilfunk}
@@ -10554,7 +10572,14 @@
 \tl_const:cn {c_phone_DE_ortsname_015569_tl} {Mobilfunk}
 \tl_const:cn {c_phone_DE_ortsname_015630_tl} {Mobilfunk}
 \tl_const:cn {c_phone_DE_ortsname_015678_tl} {Mobilfunk}
-\tl_const:cn {c_phone_DE_ortsname_01570_tl} {Mobilfunk}
+\tl_const:cn {c_phone_DE_ortsname_015679_tl} {Mobilfunk}
+\tl_const:cn {c_phone_DE_ortsname_015700_tl} {Mobilfunk}
+\tl_const:cn {c_phone_DE_ortsname_015701_tl} {Mobilfunk}
+\tl_const:cn {c_phone_DE_ortsname_015702_tl} {Mobilfunk}
+\tl_const:cn {c_phone_DE_ortsname_015703_tl} {Mobilfunk}
+\tl_const:cn {c_phone_DE_ortsname_015704_tl} {Mobilfunk}
+\tl_const:cn {c_phone_DE_ortsname_015705_tl} {Mobilfunk}
+\tl_const:cn {c_phone_DE_ortsname_015706_tl} {Mobilfunk}
 \tl_const:cn {c_phone_DE_ortsname_01573_tl} {Mobilfunk}
 \tl_const:cn {c_phone_DE_ortsname_01575_tl} {Mobilfunk}
 \tl_const:cn {c_phone_DE_ortsname_01577_tl} {Mobilfunk}
@@ -10604,7 +10629,6 @@
 \tl_const:cn {c_phone_DE_ortsname_09001_tl} {Premium-Dienst}
 \tl_const:cn {c_phone_DE_ortsname_09003_tl} {Premium-Dienst}
 \tl_const:cn {c_phone_DE_ortsname_09005_tl} {Premium-Dienst}
-\tl_const:cn {c_phone_DE_ortsname_09009_tl} {Dialer}
 
 \tl_const:Nn \c_phone_DE_landesadjektiv_tl {German}
 \bool_const:Nn \c_phone_DE_erlaubt_durchwahl_bool {\c_true_bool}

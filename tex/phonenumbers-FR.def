@@ -1,8 +1,8 @@
 % phonenumbers package: phonenumbers-FR.def
 % Module for French telephone numbers
 % Author: K. Wehr
-% Version: 2.5
-% Date: 2022-07-01
+% Version: 2.6
+% Date: 2025-05-06
 \clist_const:Nn \c_phone_FR_ortsvorwahlen_clist {01,
 02,
 0262,
