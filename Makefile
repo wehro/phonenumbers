@@ -53,6 +53,23 @@ echo >> $@ # empty line
 cat tex/tex-code-$1.def >> $@
 endef
 
+tex/phonenumbers.sty: tex/tex-code-main.def
+	echo "% phonenumbers package: phonenumbers.sty" > $@
+	echo "% LaTeX package for formatting telephone numbers" >> $@
+	echo "% Author: K. Wehr" >> $@
+	echo "% Version: $(VERSION)" >> $@
+	echo "% Date: `date -I`" >> $@
+	echo "% This work may be distributed and/or modified under the" >> $@
+	echo "% conditions of the LaTeX Project Public License, either version 1.3" >> $@
+	echo "% of this license or (at your option) any later version." >> $@
+	echo "% The latest version of this license is in" >> $@
+	echo "%   https://www.latex-project.org/lppl.txt" >> $@
+	echo "% and version 1.3c or later is part of all distributions of LaTeX" >> $@
+	echo "% version 2008 or later." >> $@
+	echo "\\NeedsTeXFormat{LaTeX2e}[2022-06-01]" >> $@
+	echo "\\ProvidesExplPackage {phonenumbers} {`date -I`} {$(VERSION)} {Telephone number package}" >> $@
+	cat tex/tex-code-main.def >> $@
+
 tex/phonenumbers-AT.def: data/geographic-area-codes-AT.csv data/non-geographic-area-codes-AT.csv tex/tex-code-AT.def
 	$(call write-locale-module,AT,Austrian)
 
@@ -68,4 +85,4 @@ tex/phonenumbers-UK.def: data/geographic-area-codes-UK.csv data/non-geographic-a
 tex/phonenumbers-US.def: data/geographic-area-codes-US.csv data/non-geographic-area-codes-US.csv tex/tex-code-US.def
 	$(call write-locale-module,US,North American,10D)
 
-tex: tex/phonenumbers-AT.def tex/phonenumbers-DE.def tex/phonenumbers-FR.def tex/phonenumbers-UK.def tex/phonenumbers-US.def
+tex: tex/phonenumbers.sty tex/phonenumbers-AT.def tex/phonenumbers-DE.def tex/phonenumbers-FR.def tex/phonenumbers-UK.def tex/phonenumbers-US.def
