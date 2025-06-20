@@ -1,6 +1,3 @@
-% phonenumbers package: German manual
-% Version 2.7-dev
-% Datum: 8. Juni 2025
 \documentclass[numbers=noenddot]{scrreprt}
 \usepackage[french,ngerman]{babel}
 \usepackage{fontspec}
@@ -45,7 +42,7 @@
 \renewcommand\@pnumwidth{2em}
 \makeatother
 
-\addbibresource{Literatur.bib}
+\addbibresource{phonenumbers.bib}
 
 \renewcommand\labelnamepunct{\addcolon\space}
 
@@ -68,7 +65,7 @@
 \makeatother
 
 \DeclareNewLayer[background,bottommargin,mode=picture,hoffset=7cm,
-  contents={\includegraphics{Telefonhoerer}}]{Telefonebene}
+  contents={\includegraphics{receiver}}]{Telefonebene}
 
 \AddLayersToPageStyle{plain}{Telefonebene}
 \AddLayersToPageStyle{scrheadings}{Telefonebene}
@@ -187,7 +184,7 @@ Am Ende der Teilnehmerrufnummer kann eine abgetrennte Durchwahlnummer stehen, di
 \begin{document}
 \begin{titlepage}
 \begin{center}
-\includegraphics{Titelbild-de}
+\includegraphics{title-de}
 
 \vfill
 \large
@@ -843,7 +840,7 @@ Die folgenden britischen Überseegebiete sind Bestandteil des nordamerikanischen
 Nummern aus den übrigen Überseegebieten werden nicht unterstützt.
 \end{minipage}
 \hfill
-\adjustimage{valign=c}{Britische_Zelle}
+\adjustimage{valign=c}{british-phone-box}
 
 \UeberschriftAufbau
 Eine britische Telefonnummer besteht in der Regel aus einer Vorwahl, die mit einer 0 beginnt, und einer Teilnehmerrufnummer. Von wenigen kürzeren Nummern abgesehen sind britische Telefonnummern 11-stellig. Bei Festnetzrufnummern wird die Vorwahl üblicherweise in Klammern gesetzt.

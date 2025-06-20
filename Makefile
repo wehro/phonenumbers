@@ -2,36 +2,64 @@
 
 VERSION = 2.7-dev
 
-ctan: manual tex
-	mkdir phonenumbers
-	cp README.ctan phonenumbers/README
-	mkdir phonenumbers/doc
-	cp doc/Literatur.bib phonenumbers/doc/
-	cp doc/phonenumbers-de.pdf phonenumbers/doc/
-	cp doc/phonenumbers-de.tex phonenumbers/doc/
-	cp doc/phonenumbers-en.pdf phonenumbers/doc/
-	cp doc/phonenumbers-en.tex phonenumbers/doc/
-	mkdir phonenumbers/tex
-	cp tex/phonenumbers.sty phonenumbers/tex/
-	cp tex/phonenumbers-*.def phonenumbers/tex/
-	zip -r phonenumbers.zip phonenumbers
-	rm -r phonenumbers
+define write-manual =
+echo "% phonenumbers package: phonenumbers-$1.tex" > doc/phonenumbers-$1.tex
+echo "% $2 manual" >> doc/phonenumbers-$1.tex
+echo "% Author: K. Wehr" >> doc/phonenumbers-$1.tex
+echo "% Version: $(VERSION)" >> doc/phonenumbers-$1.tex
+echo "% Date: `date -I`" >> doc/phonenumbers-$1.tex
+cat doc/manual-$1.tex >> doc/phonenumbers-$1.tex
+endef
+
+define write-title =
+sed -e "s/LANG/$2/" \
+-e "s/TITLE/$3/" \
+-e "s/VERSION/$(VERSION)/" \
+-e "s/DATE/`date -I`/" < doc/title.mp > doc/title-$1.mp
+endef
 
 manual:
-	cd doc && mpost Telefonhoerer
-	cd doc && mpost Britische_Zelle
-	cd doc && mpost Titelbild-de.mp
-	cd doc && mpost Titelbild-en.mp
+	echo "% phonenumbers package: phonenumbers.bib" > doc/phonenumbers.bib
+	echo "% References for the manual" >> doc/phonenumbers.bib
+	echo "% Author: K. Wehr" >> doc/phonenumbers.bib
+	echo "% Version: $(VERSION)" >> doc/phonenumbers.bib
+	echo "% Date: `date -I`" >> doc/phonenumbers.bib
+	cat doc/references.bib >> doc/phonenumbers.bib
+	cd doc && mpost receiver
+	cd doc && mpost british-phone-box
+	$(call write-title,de,ngerman,Setzen von Telefonnummern mit)
+	cd doc && mpost title-de.mp
+	cd doc && mpost title-de.mp
+	$(call write-title,en,UKenglish,Typesetting telephone numbers with)
+	cd doc && mpost title-en.mp
+	cd doc && mpost title-en.mp
+	$(call write-manual,de,German)
 	cd doc && lualatex phonenumbers-de.tex
-	cd doc && lualatex phonenumbers-en.tex
 	cd doc && biber phonenumbers-de
+	cd doc && lualatex phonenumbers-de.tex
+	cd doc && lualatex phonenumbers-de.tex
+	$(call write-manual,en,English)
+	cd doc && lualatex phonenumbers-en.tex
 	cd doc && biber phonenumbers-en
-	cd doc && mpost Titelbild-de.mp
-	cd doc && mpost Titelbild-en.mp
-	cd doc && lualatex phonenumbers-de.tex
 	cd doc && lualatex phonenumbers-en.tex
-	cd doc && lualatex phonenumbers-de.tex
 	cd doc && lualatex phonenumbers-en.tex
+
+tex/phonenumbers.sty:
+	echo "% phonenumbers package: phonenumbers.sty" > $@
+	echo "% LaTeX package for formatting telephone numbers" >> $@
+	echo "% Author: K. Wehr" >> $@
+	echo "% Version: $(VERSION)" >> $@
+	echo "% Date: `date -I`" >> $@
+	echo "% This work may be distributed and/or modified under the" >> $@
+	echo "% conditions of the LaTeX Project Public License, either version 1.3" >> $@
+	echo "% of this license or (at your option) any later version." >> $@
+	echo "% The latest version of this license is in" >> $@
+	echo "%   https://www.latex-project.org/lppl.txt" >> $@
+	echo "% and version 1.3c or later is part of all distributions of LaTeX" >> $@
+	echo "% version 2008 or later." >> $@
+	echo "\\NeedsTeXFormat{LaTeX2e}[2022-06-01]" >> $@
+	echo "\\ProvidesExplPackage {phonenumbers} {`date -I`} {$(VERSION)} {Telephone number package}" >> $@
+	cat tex/tex-code-main.def >> $@
 
 define write-locale-module =
 echo "% phonenumbers package: phonenumbers-$1.def" > $@
@@ -53,23 +81,6 @@ echo >> $@ # empty line
 cat tex/tex-code-$1.def >> $@
 endef
 
-tex/phonenumbers.sty: tex/tex-code-main.def
-	echo "% phonenumbers package: phonenumbers.sty" > $@
-	echo "% LaTeX package for formatting telephone numbers" >> $@
-	echo "% Author: K. Wehr" >> $@
-	echo "% Version: $(VERSION)" >> $@
-	echo "% Date: `date -I`" >> $@
-	echo "% This work may be distributed and/or modified under the" >> $@
-	echo "% conditions of the LaTeX Project Public License, either version 1.3" >> $@
-	echo "% of this license or (at your option) any later version." >> $@
-	echo "% The latest version of this license is in" >> $@
-	echo "%   https://www.latex-project.org/lppl.txt" >> $@
-	echo "% and version 1.3c or later is part of all distributions of LaTeX" >> $@
-	echo "% version 2008 or later." >> $@
-	echo "\\NeedsTeXFormat{LaTeX2e}[2022-06-01]" >> $@
-	echo "\\ProvidesExplPackage {phonenumbers} {`date -I`} {$(VERSION)} {Telephone number package}" >> $@
-	cat tex/tex-code-main.def >> $@
-
 tex/phonenumbers-AT.def: data/geographic-area-codes-AT.csv data/non-geographic-area-codes-AT.csv tex/tex-code-AT.def
 	$(call write-locale-module,AT,Austrian)
 
@@ -86,3 +97,18 @@ tex/phonenumbers-US.def: data/geographic-area-codes-US.csv data/non-geographic-a
 	$(call write-locale-module,US,North American,10D)
 
 tex: tex/phonenumbers.sty tex/phonenumbers-AT.def tex/phonenumbers-DE.def tex/phonenumbers-FR.def tex/phonenumbers-UK.def tex/phonenumbers-US.def
+
+ctan: manual tex
+	mkdir phonenumbers
+	cp README.ctan phonenumbers/README
+	mkdir phonenumbers/doc
+	cp doc/phonenumbers.bib phonenumbers/doc/
+	cp doc/phonenumbers-de.pdf phonenumbers/doc/
+	cp doc/phonenumbers-de.tex phonenumbers/doc/
+	cp doc/phonenumbers-en.pdf phonenumbers/doc/
+	cp doc/phonenumbers-en.tex phonenumbers/doc/
+	mkdir phonenumbers/tex
+	cp tex/phonenumbers.sty phonenumbers/tex/
+	cp tex/phonenumbers-*.def phonenumbers/tex/
+	zip -r phonenumbers.zip phonenumbers
+	rm -r phonenumbers

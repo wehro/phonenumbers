@@ -11,3 +11,7 @@
 *.tmp
 *.toc
 *.xml
+phonenumbers.bib
+phonenumbers-*.tex
+title-de.mp
+title-en.mp
