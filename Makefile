@@ -44,63 +44,51 @@ manual:
 	cd doc && lualatex phonenumbers-en.tex
 	cd doc && lualatex phonenumbers-en.tex
 
-tex/phonenumbers.sty:
-	echo "% phonenumbers package: phonenumbers.sty" > $@
-	echo "% LaTeX package for formatting telephone numbers" >> $@
-	echo "% Author: K. Wehr" >> $@
-	echo "% Version: $(VERSION)" >> $@
-	echo "% Date: `date -I`" >> $@
-	echo "% This work may be distributed and/or modified under the" >> $@
-	echo "% conditions of the LaTeX Project Public License, either version 1.3" >> $@
-	echo "% of this license or (at your option) any later version." >> $@
-	echo "% The latest version of this license is in" >> $@
-	echo "%   https://www.latex-project.org/lppl.txt" >> $@
-	echo "% and version 1.3c or later is part of all distributions of LaTeX" >> $@
-	echo "% version 2008 or later." >> $@
-	echo "\\NeedsTeXFormat{LaTeX2e}[2022-06-01]" >> $@
-	echo "\\ProvidesExplPackage {phonenumbers} {`date -I`} {$(VERSION)} {Telephone number package}" >> $@
-	cat tex/tex-code-main.def >> $@
-
 define write-locale-module =
-echo "% phonenumbers package: phonenumbers-$1.def" > $@
-echo "% Module for $2 telephone numbers" >> $@
-echo "% Author: K. Wehr" >> $@
-echo "% Version: $(VERSION)" >> $@
-echo "% Date: `date -I`" >> $@
-printf "\\clist_const:Nn \\c_phone_$1_ortsvorwahlen_clist {" >> $@
-sed -e "s/\t.*/,/" -e "$$ s/,/}/" < data/geographic-area-codes-$1.csv >> $@
+echo "% phonenumbers package: phonenumbers-$1.def" > tex/phonenumbers-$1.def
+echo "% Module for $2 telephone numbers" >> tex/phonenumbers-$1.def
+echo "% Author: K. Wehr" >> tex/phonenumbers-$1.def
+echo "% Version: $(VERSION)" >> tex/phonenumbers-$1.def
+echo "% Date: `date -I`" >> tex/phonenumbers-$1.def
+printf "\\clist_const:Nn \\c_phone_$1_ortsvorwahlen_clist {" >> tex/phonenumbers-$1.def
+sed -e "s/\t.*/,/" -e "$$ s/,/}/" < data/geographic-area-codes-$1.csv >> tex/phonenumbers-$1.def
 if [ ! -z "$3" ]; then\
-  printf "\\clist_const:Nn \\c_phone_$1_obligatorische_ortsvorwahlen_clist {" >> $@;\
-  grep -P "^[^\t]*\t[^\t]*\t$3(\t|$$)" < data/geographic-area-codes-$1.csv | sed -e "s/\t.*/,/" -e "$$ s/,/}/" >> $@;\
+  printf "\\clist_const:Nn \\c_phone_$1_obligatorische_ortsvorwahlen_clist {" >> tex/phonenumbers-$1.def;\
+  grep -P "^[^\t]*\t[^\t]*\t$3(\t|$$)" < data/geographic-area-codes-$1.csv | sed -e "s/\t.*/,/" -e "$$ s/,/}/" >> tex/phonenumbers-$1.def;\
 fi
-printf "\\clist_const:Nn \\c_phone_$1_sondervorwahlen_clist {" >> $@
-sed -e "s/\t.*/,/" -e "$$ s/,/}/" < data/non-geographic-area-codes-$1.csv >> $@
-cut -f 1,2 < data/geographic-area-codes-$1.csv | sed "s/\([^t]*\)\t\(.*\)/\\\tl_const:cn {c_phone_$1_ortsname_\1_tl} {\2}/" >> $@
-cut -f 1,2 < data/non-geographic-area-codes-$1.csv | sed "s/\([^t]*\)\t\(.*\)/\\\tl_const:cn {c_phone_$1_ortsname_\1_tl} {\2}/" >> $@
-echo >> $@ # empty line
-cat tex/tex-code-$1.def >> $@
+printf "\\clist_const:Nn \\c_phone_$1_sondervorwahlen_clist {" >> tex/phonenumbers-$1.def
+sed -e "s/\t.*/,/" -e "$$ s/,/}/" < data/non-geographic-area-codes-$1.csv >> tex/phonenumbers-$1.def
+cut -f 1,2 < data/geographic-area-codes-$1.csv | sed "s/\([^t]*\)\t\(.*\)/\\\tl_const:cn {c_phone_$1_ortsname_\1_tl} {\2}/" >> tex/phonenumbers-$1.def
+cut -f 1,2 < data/non-geographic-area-codes-$1.csv | sed "s/\([^t]*\)\t\(.*\)/\\\tl_const:cn {c_phone_$1_ortsname_\1_tl} {\2}/" >> tex/phonenumbers-$1.def
+echo >> tex/phonenumbers-$1.def # empty line
+cat tex/tex-code-$1.def >> tex/phonenumbers-$1.def
 endef
 
-tex/phonenumbers-AT.def: data/geographic-area-codes-AT.csv data/non-geographic-area-codes-AT.csv tex/tex-code-AT.def
+tex:
+	echo "% phonenumbers package: phonenumbers.sty" > tex/phonenumbers.sty
+	echo "% LaTeX package for formatting telephone numbers" >> tex/phonenumbers.sty
+	echo "% Author: K. Wehr" >> tex/phonenumbers.sty
+	echo "% Version: $(VERSION)" >> tex/phonenumbers.sty
+	echo "% Date: `date -I`" >> tex/phonenumbers.sty
+	echo "% This work may be distributed and/or modified under the" >> tex/phonenumbers.sty
+	echo "% conditions of the LaTeX Project Public License, either version 1.3" >> tex/phonenumbers.sty
+	echo "% of this license or (at your option) any later version." >> tex/phonenumbers.sty
+	echo "% The latest version of this license is in" >> tex/phonenumbers.sty
+	echo "%   https://www.latex-project.org/lppl.txt" >> tex/phonenumbers.sty
+	echo "% and version 1.3c or later is part of all distributions of LaTeX" >> tex/phonenumbers.sty
+	echo "% version 2008 or later." >> tex/phonenumbers.sty
+	echo "\\NeedsTeXFormat{LaTeX2e}[2022-06-01]" >> tex/phonenumbers.sty
+	echo "\\ProvidesExplPackage {phonenumbers} {`date -I`} {$(VERSION)} {Telephone number package}" >> tex/phonenumbers.sty
+	cat tex/tex-code-main.def >> tex/phonenumbers.sty
 	$(call write-locale-module,AT,Austrian)
-
-tex/phonenumbers-DE.def: data/geographic-area-codes-DE.csv data/non-geographic-area-codes-DE.csv tex/tex-code-DE.def
 	$(call write-locale-module,DE,German)
-
-tex/phonenumbers-FR.def: data/geographic-area-codes-FR.csv data/non-geographic-area-codes-FR.csv tex/tex-code-FR.def
 	$(call write-locale-module,FR,French)
-
-tex/phonenumbers-UK.def: data/geographic-area-codes-UK.csv data/non-geographic-area-codes-UK.csv tex/tex-code-UK.def
 	$(call write-locale-module,UK,British,national)
-
-tex/phonenumbers-US.def: data/geographic-area-codes-US.csv data/non-geographic-area-codes-US.csv tex/tex-code-US.def
 	$(call write-locale-module,US,North American,10D)
-
-tex: tex/phonenumbers.sty tex/phonenumbers-AT.def tex/phonenumbers-DE.def tex/phonenumbers-FR.def tex/phonenumbers-UK.def tex/phonenumbers-US.def
 
 ctan: manual tex
 	mkdir phonenumbers
-	cp README.ctan phonenumbers/README
+	LANG=en_GB.UTF-8 && sed -e "s/VERSION/$(VERSION)/" -e "s/DATE/`date +'%-d %B %Y'`/" < README.ctan > phonenumbers/README
 	mkdir phonenumbers/doc
 	cp doc/phonenumbers.bib phonenumbers/doc/
 	cp doc/phonenumbers-de.pdf phonenumbers/doc/
