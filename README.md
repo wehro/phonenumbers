@@ -10,7 +10,7 @@ All files needed for the CTAN package are created by the Makefile.
 
 Run `make manual` to get the English and the German manual as PDF files in the `doc` directory.
 
-Run `make tex` to get the files needed by TeX in the `tex` directory. For local tests move all files `tex/phonenumbers*` to a place where TeX can find it, e.g. `TEXMFHOME/tex/latex/phonenumbers/`.
+Run `make tex` to get the files needed by TeX in the `tex` directory. For local tests move all files `tex/phonenumbers*` to a place where TeX can find them, e. g. `TEXMFHOME/tex/latex/phonenumbers/`.
 
 Run `make ctan` to create a ZIP archive `phonenumbers.zip` for CTAN upload.
 
@@ -20,7 +20,7 @@ If you want to contribute support for the telephone numbers of a further country
 
 1. Look for the relevant documents of your national telecommunications authority: there should at least be a list of area codes/dialling codes (geographic and non-geographic, where non-geographic mainly means mobile phone numbers) and a document describing the the structure and the possible lengths (number of digits) of the phone numbers. This document might be called National Numbering Plan or similar.
 
-2. Look for further sources containing useful information concerning the telephone numbers of your country, e.g. Wikipedia articles.
+2. Look for further sources containing useful information concerning the telephone numbers of your country, e. g. Wikipedia articles.
 
 3. Add the documents to the file `doc/references.bib`, which contains the references used in the manual.
 
