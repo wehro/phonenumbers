@@ -64,11 +64,12 @@
 \setlength{\cnltx@after@skip}{1pt plus1pt minus1pt}
 \makeatother
 
+\automark[chapter]{chapter}
 \DeclareNewLayer[background,bottommargin,mode=picture,hoffset=7cm,
   contents={\includegraphics{receiver}}]{Telefonebene}
 
-\AddLayersToPageStyle{plain}{Telefonebene}
 \AddLayersToPageStyle{scrheadings}{Telefonebene}
+\AddLayersToPageStyle{plain.scrheadings}{Telefonebene}
 
 \ExplSyntaxOn
 
@@ -156,7 +157,7 @@
 
 \newcommand*\sieheAbschnitt[1]{(siehe Abschnitt \ref{#1})}
 
-\newcommand*\vglAnhang[1]{(\cf\ Anhang~\ref{#1})}
+\newcommand*\sieheAnhang[1]{(siehe Anhang~\ref{#1})}
 
 \newcommand\Quelle{\noindent\emph{Quelle: }}
 
@@ -334,7 +335,7 @@ Das internationale Format beginnt stets mit
 oder
 \code{00}
 gefolgt von der Landeskennzahl
-\vglAnhang{landeskennzahlen}.
+\sieheAnhang{landeskennzahlen}.
 
 Abgesehen von einem führenden Pluszeichen darf die \meta{Nummer} nur aus Ziffern bestehen. Zur Gliederung können Leerzeichen, Klammern (runde und eckige), Schägstriche sowie Bindestriche eingegeben werden; diese werden ignoriert.
 
@@ -568,8 +569,8 @@ Der zugehörige Tarif kann mit Hilfe der Option
 \end{itemize}
 Bei Festnetznummern wird eine Warnung ausgegeben, wenn
 \begin{itemize}
-\item die Teilnehmerrufnummer mit einer 0 beginnt \cite[6]{BNA-nummernplan},
-\item die Teilnehmerrufnummer einschließlich Durchwahlnummer weniger als 3 Stellen hat \cite[6]{BNA-nummernplan},
+\item die Teilnehmerrufnummer mit einer 0 beginnt \cite[5]{BNA-nummernplan},
+\item die Teilnehmerrufnummer einschließlich Durchwahlnummer weniger als 3 Stellen hat \cite[5]{BNA-nummernplan},
 \item die Teilnehmerrufnummer einschließlich Durchwahlnummer mehr als 10 Stellen hat \cite[2]{BNA-Struktur},
 \item die Nummer einschließlich Vorwahl mehr als 13 Stellen hat \cite[2]{BNA-Struktur}.
 \end{itemize}
@@ -725,8 +726,8 @@ Französische Telefonnummern sind generell zehnstellig und werden in Zweiergrupp
 \begin{sidebyside}
   \phonenumber[country=FR]{0199006789}
 \end{sidebyside}
-Die zweite Ziffer ermöglicht die Zuordnung der Nummer zu einem von fünf geographischen Bereichen bzw. einer besonderen Verwendung (z.\,B. Mobilfunk). Bestimmte Nummerngruppen sind für Überseegebiete reserviert
-\vglAnhang{vorwahlen-FR}.
+Die zweite Ziffer ermöglicht die Zuordnung der Nummer zum Festnetz oder einer besonderen Verwendung (z.\,B. Mobilfunk). Bestimmte Nummerngruppen sind für Überseegebiete reserviert
+\sieheAnhang{vorwahlen-FR}.
 \begin{sidebyside}
   \setphonenumbers{country=FR,area-code=place-and-number}
   \phonenumber{0199006789} \\
@@ -739,7 +740,7 @@ Bei Anrufen aus dem Ausland entfällt die führende 0 der Rufnummer.
   \phonenumber[country=FR,foreign]{0199006789}
 \end{sidebyside}
 
-Nummern für die maschinelle Kommunikation, die mit 07\,00 beginnen, haben mehr als zehn Ziffern. Sie sind im Mutterland 14-stellig, in den Überseegebieten 13-stellig \cite[18]{ARCEP}.
+Nummern für die maschinelle Kommunikation, die mit 07\,00 oder 09\,01 beginnen, haben mehr als zehn Ziffern. Sie sind im Mutterland 14-stellig, in den Überseegebieten 13-stellig \cite[17, 24]{ARCEP}.
 \begin{sidebyside}
   \phonenumber[country=FR]{07000123456789} \\
   \phonenumber[country=FR]{0700512345678}
@@ -750,7 +751,7 @@ Einige Firmen und Institutionen haben vierstellige Kurznummern, die stets mit ei
   \phonenumber[country=FR]{3245}
 \end{sidebyside}
 Kurznummern werden ohne Auslandsvorwahl verlinkt
-\vglAbschnitt{verlinkung}, da sie aus dem Ausland nicht erreichbar sind \cite[26]{ARCEP}.
+\vglAbschnitt{verlinkung}, da sie aus dem Ausland nicht erreichbar sind \cite[29]{ARCEP}.
 
 Obwohl die in Abschnitt \ref{FR-bereich} genannten Gebiete intern wie ein einziges Netz behandelt werden, gibt es im Bereich des französichen Nummernplans verschiedene Landeskennzahlen:
 \begin{center}
@@ -774,7 +775,7 @@ Die Auslandsvorwahl führt für einige Gebiete zu einer Verdopplung der ersten d
 \begin{sidebyside}
   \phonenumber[country=FR,foreign]{0596123456}
 \end{sidebyside}
-Dagegen entfällt für Saint-Pierre und Miquelon die Regionalvorwahl 05\,08 bei Auslandsanrufen vollständig \cite[13]{ARCEP}.
+Dagegen entfällt für Saint-Pierre und Miquelon die Regionalvorwahl 05\,08 bei Auslandsanrufen vollständig \cite[12]{ARCEP}.
 \begin{sidebyside}
   \phonenumber[country=FR,foreign]{0508123456}
 \end{sidebyside}
@@ -814,19 +815,19 @@ Da dies in anderen Gebieten Frankreichs nicht möglich ist, ist \code{0508} der 
 \UeberschriftUngueltig
 \WarnungWenn
 \begin{itemize}
-\item die Nummer nicht genau 10 oder 4 Stellen hat (außer bei Nummern, die mit 07\,00 beginnen),
+\item die Nummer nicht genau 10 oder 4 Stellen hat (außer bei Nummern, die mit 07\,00 oder 09\,01 beginnen),
 \item eine Nummer mit 10 Stellen nicht mit einer 0 beginnt,
 \item eine Nummer mit 4 Stellen nicht mir einer 3 beginnt,
 \item eine Nummer mit 10 Stellen keine gültige Vorwahl beinhaltet,
-\item eine Nummer, die mit 07\,00 beginnt, nicht 14 oder 13 Stellen hat.
+\item eine Nummer, die mit 07\,00 oder 09\,01 beginnt, nicht 14 oder 13 Stellen hat.
 \end{itemize}
 
 \Abschnittsliteratur{french}
 
 \chapter{Britische Telefonnummern}
 \nocite{wikipedia-UK}
+\nocite{wikipedia-UK-history}
 \nocite{wikipedia-conventions}
-\nocite{UK-formatting}
 \edef\myindent{\the\parindent}
 \begin{minipage}{12cm}\setlength{\parindent}{\myindent}
 \UeberschriftGeltungsbereich
@@ -922,7 +923,6 @@ Vorwahlen mit 6 Ziffern werden durch einen Abstand vor der zweitletzten Ziffer g
 \Abschnittsliteratur{british}
 
 \chapter{Nordamerikanische Telefonnummern} \label{US}
-\nocite{wikipedia-conventions-old}
 \UeberschriftGeltungsbereich \label{US-bereich}
 Der nordamerikanische Nummernplan
 \cite{wikipedia-NANP}
@@ -1089,14 +1089,14 @@ Gibt an, ob die Verkehrsausscheidungsziffer 1 für Ferngespräche ausgegeben wer
 \Schmalschrift
 \AreaCodesGeographic[country=FR]
 \egroup
-\Quellen \cite[13\psq]{ARCEP}, \cite{wikipedia-FR-fr}, \cite{wikipedia-FR-de}
+\Quellen \cite[20-22]{ARCEP}, \cite{wikipedia-FR-fr}, \cite{wikipedia-FR-de}
 
 \UeberschriftSondervorwahlen
 \bgroup
 \Schmalschrift
 \AreaCodesNonGeographic[country=FR]
 \egroup
-\Quellen \cite[16--24]{ARCEP}, \cite{wikipedia-FR-fr}, \cite{wikipedia-FR-de}
+\Quellen \cite[14, 17, 23\psq, 26\psq]{ARCEP}, \cite{wikipedia-FR-fr}, \cite{wikipedia-FR-de}
 
 \chapter{Britische Vorwahlen}
 \UeberschriftOrtsvorwahlen
@@ -1104,14 +1104,14 @@ Gibt an, ob die Verkehrsausscheidungsziffer 1 für Ferngespräche ausgegeben wer
 \Schmalschrift
 \AreaCodesGeographic[country=UK]
 \end{multicols}
-\Quellen \cite{Ofcom-plan}, \cite{UK-area-codes}
+\Quellen \cite{Ofcom-plan}
 
 \UeberschriftSondervorwahlen
 \begin{multicols}{2}
 \Schmalschrift
 \AreaCodesNonGeographic[country=UK]
 \end{multicols}
-\Quellen \cite{Ofcom-plan}, \cite{Ofcom-numbering}, \cite{UK-area-codes}
+\Quellen \cite{Ofcom-plan}, \cite{Ofcom-numbering}
 
 \chapter{Vorwahlen des nordamerikanischen Nummernplans}
 \UeberschriftRegionalvorwahlen
@@ -1240,10 +1240,19 @@ am Anfang
 \item Entfernung der nordamerikanischen Vorwahl 879
 \item Aufteilung des Literaturverzeichnisses
 \end{itemize}
-\item[2.6] \today
+\item[2.6] \printdate{6.5.2025}
 \begin{itemize}
 \item Ergänzung der neuen deutschen Mobilfunkvorwahlen 01\,50\,20, 01\,51\,82--86, 01\,55\,50--65, 01\,55\,67--69, 01\,56\,79 und 01\,57\,00--06
 \item Entfernung der deutschen Mobilfunkvorwahl 0\,15\,70 und der Sondervorwahl  0\,90\,09
+\end{itemize}
+\item[2.7] \today
+\begin{itemize}
+\item Ergänzung der neuen deutschen Mobilfunkvorwahlen 01\,51\,87, 01\,51\,88, 01\,51\,89 und 01\,56\,36
+\item Entfernung der deutschen Mobilfunkvorwahl 01\,57\,05
+\item Ergänzung der neuen französischen Vorwahlen 01\,51\,0, 02\,68\,7--9, 02\,81\,0, 03\,41\,0, 04\,41\,0, 05\,08\,60, 05\,41\,0, 05\,91, 05\,97, 05\,98\,50--64, 05\,98\,7, 05\,98\,8, 05\,98\,9, 09\,01, 09\,01\,5--9, 09\,37, 09\,38, 09\,39, 09\,39\,5--9, 09\,41\,0, 09\,47\,00--09 und 09\,90\,0
+\item Ergänzung der britischen Sondervorwahlen  07337--07339, 07343--07353 und 07370--07373
+\item Entfernung der britischen Sondervorwahlen  07027, 07046, 07096 und 0820
+\item Ergänzung der neuen nordamerikanischen Vorwahlen 257, 273, 353, 357, 369, 436, 457, 465, 471, 483, 529, 532, 538, 542, 565, 621, 624, 633, 679, 686, 729, 738, 748, 761, 821, 837, 879, 924 und 942
 \end{itemize}
 \end{description}
 

@@ -258,6 +258,7 @@
 \cs_generate_variant:Nn \str_if_eq:nnT {xnT}
 \cs_generate_variant:Nn \str_if_eq:nnF {xnF}
 \cs_generate_variant:Nn \str_if_eq:nnTF {xnTF}
+\cs_generate_variant:Nn \str_if_eq_p:nn {en}
 \cs_generate_variant:Nn \str_case:nn {xn}
 \cs_generate_variant:Nn \str_case:nnT {xnT}
 \cs_generate_variant:Nn \str_case:nnF {xnF}
@@ -389,7 +390,7 @@
 \msg_new:nnn {phonenumbers} {home area code set}
    {
       Your~home~is~in~
-      \tl_use:c { c_phone_ \l_phone_heimatland_str _ortsname_ #1 _tl }
+      \tl_use:c { c_phone_ \l_phone_heimatland_str _place_name_ #1 _tl }
       \c_space_tl
       (area~code~#1)~according~to~line~
       \msg_line_number:.
@@ -643,7 +644,7 @@
 \cs_new_protected:Npn \phone_geklammerte_ziffernvorwahl_schreiben:nN #1#2
    {
       % Klammern werden nur bei Ortsvorwahlen gesetzt
-      \clist_if_in:cnTF { c_phone_ \l_phone_land_str _ortsvorwahlen_clist } {#1}
+      \clist_if_in:cnTF { c_phone_ \l_phone_land_str _geographic_area_codes_clist } {#1}
          {
             \tl_put_right:Nn \l_phone_ausgabetext_tl {(}
             \use:c { phone_ \l_phone_land_str _ziffernvorwahl_schreiben:nN } {#1} #2
@@ -665,7 +666,7 @@
          }
    }
 
-\cs_generate_variant:Nn \phone_gruppierte_auslandsvorwahl_schreiben:n {x}
+\cs_generate_variant:Nn \phone_gruppierte_auslandsvorwahl_schreiben:n {v}
 
 % #1: Landeskennzahl
 \cs_new_protected:Npn \phone_ungruppierte_auslandsvorwahl_schreiben:n #1
@@ -974,7 +975,7 @@
             \keys_set:no {phonenumbers} {#1}
          }
 
-      \use:c { phone_ \l_phone_land_str _vorwahlliste_ausgeben:n } {ortsvorwahlen}
+      \use:c { phone_ \l_phone_land_str _vorwahlliste_ausgeben:n } {geographic_area_codes}
       \group_end:
    }
 
@@ -986,7 +987,7 @@
             \keys_set:no {phonenumbers} {#1}
          }
 
-      \use:c { phone_ \l_phone_land_str _vorwahlliste_ausgeben:n } {sondervorwahlen}
+      \use:c { phone_ \l_phone_land_str _vorwahlliste_ausgeben:n } {nongeographic_area_codes}
       \group_end:
    }
 
@@ -1023,7 +1024,7 @@
                      {
                         \str_set:Nx \l_phone_vorwahl_str { \str_range:Nnn #1 {1} {##1} }
 
-                        \clist_if_in:cVT { c_phone_ \l_phone_land_str _vorwahlen_clist } \l_phone_vorwahl_str
+                        \clist_if_in:cVT { c_phone_ \l_phone_land_str _area_codes_clist } \l_phone_vorwahl_str
                            {
                               \bool_set_true:N \l_phone_vorwahl_gefunden_bool
                            }

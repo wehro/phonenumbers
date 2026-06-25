@@ -64,11 +64,12 @@
 \setlength{\cnltx@after@skip}{1pt plus1pt minus1pt}
 \makeatother
 
+\automark[chapter]{chapter}
 \DeclareNewLayer[background,bottommargin,mode=picture,hoffset=7cm,
   contents={\includegraphics{receiver}}]{Telefonebene}
 
-\AddLayersToPageStyle{plain}{Telefonebene}
 \AddLayersToPageStyle{scrheadings}{Telefonebene}
+\AddLayersToPageStyle{plain.scrheadings}{Telefonebene}
 
 \ExplSyntaxOn
 
@@ -156,7 +157,7 @@ option \sieheAbschnitt{optionen-allgemein}.}
 
 \newcommand*\sieheAbschnitt[1]{(see section \ref{#1})}
 
-\newcommand*\vglAnhang[1]{(\cf\ appendix~\ref{#1})}
+\newcommand*\sieheAnhang[1]{(see appendix~\ref{#1})}
 
 \newcommand\Quelle{\noindent\emph{Source: }}
 
@@ -334,7 +335,7 @@ The international format always begins with
 or
 \code{00}
 followed by the country code
-\vglAnhang{landeskennzahlen}.
+\sieheAnhang{landeskennzahlen}.
 
 Apart from a leading plus sign the \meta{number} has to consist of digits only. To structure the number spaces, brackets (round and square), slashes and hyphens may be input; these will be ignored.
 
@@ -568,8 +569,8 @@ The relevant tariff can be output using the
 \end{itemize}
 For landline numbers a warning will be issued if
 \begin{itemize}
-\item the subscriber number begins with a 0 \cite[6]{BNA-nummernplan},
-\item the subscriber number including the extension has less than 3 digits \cite[6]{BNA-nummernplan},
+\item the subscriber number begins with a 0 \cite[5]{BNA-nummernplan},
+\item the subscriber number including the extension has less than 3 digits \cite[5]{BNA-nummernplan},
 \item the subscriber number including the extension has more than 10 digits \cite[2]{BNA-Struktur},
 \item the number including the area code has more than 13 digits \cite[2]{BNA-Struktur}.
 \end{itemize}
@@ -725,8 +726,8 @@ French phone numbers generally have ten digits and are structured in groups of t
 \begin{sidebyside}
   \phonenumber[country=FR]{0199006789}
 \end{sidebyside}
-The second digit makes it possible to assign a number to one of five geographic zones or to a special purpose (\eg\ mobile telephony). Certain number ranges are reserved for overseas territories
-\vglAnhang{vorwahlen-FR}.
+The second digit makes it possible to assign a number to a landline or to a special purpose (\eg\ mobile telephony). Certain number ranges are reserved for overseas territories
+\sieheAnhang{vorwahlen-FR}.
 \begin{sidebyside}
   \setphonenumbers{country=FR,area-code=place-and-number}
   \phonenumber{0199006789} \\
@@ -739,7 +740,7 @@ The leading 0 is omitted for calls from abroad.
   \phonenumber[country=FR,foreign]{0199006789}
 \end{sidebyside}
 
-Numbers for machine to machine communication beginning with 07\,00 have more than ten digits. They have 14 digits in metropolitan France and 13 digits in the overseas territories \cite[18]{ARCEP}.
+Numbers for machine to machine communication beginning with 07\,00 or 09\,01 have more than ten digits. They have 14 digits in metropolitan France and 13 digits in the overseas territories \cite[17, 24]{ARCEP}.
 \begin{sidebyside}
   \phonenumber[country=FR]{07000123456789} \\
   \phonenumber[country=FR]{0700512345678}
@@ -750,7 +751,7 @@ Some companies and institutions have four-digit short numbers, which always begi
   \phonenumber[country=FR]{3245}
 \end{sidebyside}
 Short numbers are linked
-\vglAbschnitt{verlinkung} without the country calling code since they cannot be reached from abroad \cite[26]{ARCEP}.
+\vglAbschnitt{verlinkung} without the country calling code since they cannot be reached from abroad \cite[29]{ARCEP}.
 
 Despite the fact that the areas mentioned in section \ref{FR-bereich} are treated as one single net internally, there are different country codes within the French numbering plan:
 \begin{center}
@@ -774,7 +775,7 @@ For some areas the country code leads to doubling the first three digits, \eg\ i
 \begin{sidebyside}
   \phonenumber[country=FR,foreign]{0596123456}
 \end{sidebyside}
-However, for Saint Pierre and Miquelon the area code 05\,08 is entirely omitted for calls from abroad \cite[13]{ARCEP}.
+However, for Saint Pierre and Miquelon the area code 05\,08 is entirely omitted for calls from abroad \cite[12]{ARCEP}.
 \begin{sidebyside}
   \phonenumber[country=FR,foreign]{0508123456}
 \end{sidebyside}
@@ -814,7 +815,7 @@ Since this is not possible in other areas of France, \code{0508} is the only leg
 \UeberschriftUngueltig
 \WarnungWenn
 \begin{itemize}
-\item the number does not have exactly 10 or 4 digits (except for numbers beginning with 07\,00),
+\item the number does not have exactly 10 or 4 digits (except for numbers beginning with 07\,00 or 09\,01),
 \item a 10-digit number does not begin with 0,
 \item a 4-digit number does not begin with 3,
 \item a 10-digit number does not contain a valid area code,
@@ -825,8 +826,8 @@ Since this is not possible in other areas of France, \code{0508} is the only leg
 
 \chapter{British Phone Numbers}
 \nocite{wikipedia-UK}
+\nocite{wikipedia-UK-history}
 \nocite{wikipedia-conventions}
-\nocite{UK-formatting}
 \edef\myindent{\the\parindent}
 \begin{minipage}{12cm}\setlength{\parindent}{\myindent}
 \UeberschriftGeltungsbereich
@@ -922,7 +923,6 @@ Area codes with 6 digits a structured by a space before the second digit from th
 \Abschnittsliteratur{british}
 
 \chapter{North American Phone Numbers} \label{US}
-\nocite{wikipedia-conventions-old}
 \UeberschriftGeltungsbereich \label{US-bereich}
 The \emph{North American Numbering Plan}
 \cite{wikipedia-NANP}
@@ -1089,14 +1089,14 @@ Specifies whether the trunk prefix 1 for long-distance calls will be output. Ins
 \Schmalschrift
 \AreaCodesGeographic[country=FR]
 \egroup
-\Quellen \cite[13\psq]{ARCEP}, \cite{wikipedia-FR-fr}, \cite{wikipedia-FR-de}
+\Quellen \cite[20-22]{ARCEP}, \cite{wikipedia-FR-fr}, \cite{wikipedia-FR-de}
 
 \UeberschriftSondervorwahlen
 \bgroup
 \Schmalschrift
 \AreaCodesNonGeographic[country=FR]
 \egroup
-\Quellen \cite[16--24]{ARCEP}, \cite{wikipedia-FR-fr}, \cite{wikipedia-FR-de}
+\Quellen \cite[14, 17, 23\psq, 26\psq]{ARCEP}, \cite{wikipedia-FR-fr}, \cite{wikipedia-FR-de}
 
 \chapter{British Area Codes}
 \UeberschriftOrtsvorwahlen
@@ -1104,14 +1104,14 @@ Specifies whether the trunk prefix 1 for long-distance calls will be output. Ins
 \Schmalschrift
 \AreaCodesGeographic[country=UK]
 \end{multicols}
-\Quellen \cite{Ofcom-plan}, \cite{UK-area-codes}
+\Quellen \cite{Ofcom-plan}
 
 \UeberschriftSondervorwahlen
 \begin{multicols}{2}
 \Schmalschrift
 \AreaCodesNonGeographic[country=UK]
 \end{multicols}
-\Quellen \cite{Ofcom-plan}, \cite{Ofcom-numbering}, \cite{UK-area-codes}
+\Quellen \cite{Ofcom-plan}, \cite{Ofcom-numbering}
 
 \chapter{Area codes of the North American Numbering Plan}
 \UeberschriftRegionalvorwahlen
@@ -1240,10 +1240,19 @@ option for the area code separator in numbers with country calling code
 \item Removal of the North American area code 879
 \item Division of the bibliography
 \end{itemize}
-\item[2.6] \today
+\item[2.6] \printdate{6.5.2025}
 \begin{itemize}
 \item Addition of the new German mobile phone area codes 01\,50\,20, 01\,51\,82--86, 01\,55\,50--65, 01\,55\,67--69, 01\,56\,79, and 01\,57\,00--06
 \item Removal of the German mobile phone area code 0\,15\,70 and of the special area code 0\,90\,09
+\end{itemize}
+\item[2.7] \today
+\begin{itemize}
+\item Addition of the new German mobile phone area codes 01\,51\,87, 01\,51\,88, 01\,51\,89, and 01\,56\,36
+\item Removal of the German mobile phone area code 01\,57\,05
+\item Addition of the new French area codes 01\,51\,0, 02\,68\,7--9, 02\,81\,0, 03\,41\,0, 04\,41\,0, 05\,08\,60, 05\,41\,0, 05\,91, 05\,97, 05\,98\,50--64, 05\,98\,7, 05\,98\,8, 05\,98\,9, 09\,01, 09\,01\,5--9, 09\,37, 09\,38, 09\,39, 09\,39\,5--9, 09\,41\,0, 09\,47\,00--09, and 09\,90\,0
+\item Addition of the British special area codes 07337--07339, 07343--07353, and 07370--07373
+\item Removal of the British special area codes 07027, 07046, 07096, and 0820
+\item Addition of the new North American area codes 257, 273, 353, 357, 369, 436, 457, 465, 471, 483, 529, 532, 538, 542, 565, 621, 624, 633, 679, 686, 729, 738, 748, 761, 821, 837, 879, 924, and 942
 \end{itemize}
 \end{description}
 

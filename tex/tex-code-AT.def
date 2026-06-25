@@ -1,14 +1,14 @@
 \tl_const:Nn \c_phone_AT_landesadjektiv_tl {Austrian}
 \bool_const:Nn \c_phone_AT_erlaubt_durchwahl_bool {\c_true_bool}
 
-\clist_new:N \c_phone_AT_vorwahlen_clist
-\clist_concat:NNN \c_phone_AT_vorwahlen_clist \c_phone_AT_ortsvorwahlen_clist \c_phone_AT_sondervorwahlen_clist
+\clist_new:N \c_phone_AT_area_codes_clist
+\clist_concat:NNN \c_phone_AT_area_codes_clist \c_phone_AT_geographic_area_codes_clist \c_phone_AT_nongeographic_area_codes_clist
 
 % Prüfe, ob eine Vorwahl als Heimatvorwahl zulässig ist.
 % #1: Heimatvorwahl
 \prg_new_protected_conditional:Npnn \phone_AT_heimatvorwahl_erlaubt:n #1 {T}
    {
-      \clist_if_in:NnTF \c_phone_AT_ortsvorwahlen_clist {#1}
+      \clist_if_in:NnTF \c_phone_AT_geographic_area_codes_clist {#1}
          {
             % Alle österreichischen Ortsvorwahlen können Heimatvorwahl sein.
             \prg_return_true:
@@ -36,7 +36,7 @@
    {
       \bool_lazy_or:nnTF { \str_if_eq_p:Vn \l_phone_auslandsvorwahltyp_str {off} } { \str_if_eq_p:Vn \l_phone_heimatland_str {AT} }
          {
-            \clist_if_in:NnT \c_phone_AT_sondervorwahlen_clist {#1}
+            \clist_if_in:NnT \c_phone_AT_nongeographic_area_codes_clist {#1}
                {
                   \str_if_eq:VnT \l_phone_vorwahldarstellung_str {place}
                      {
@@ -86,9 +86,9 @@
                                           \tl_put_right:Nn \l_phone_ausgabetext_tl {(}
                                        }
 
-                                    \tl_if_exist:cTF {c_phone_AT_ortsname_ #1 _tl}
+                                    \tl_if_exist:cTF {c_phone_AT_place_name_ #1 _tl}
                                        {
-                                          \tl_put_right:Nv \l_phone_ausgabetext_tl {c_phone_AT_ortsname_ #1 _tl}
+                                          \tl_put_right:Nv \l_phone_ausgabetext_tl {c_phone_AT_place_name_ #1 _tl}
                                        }
                                        {
                                           \phone_AT_ziffernvorwahl_schreiben:nN {#1} \c_true_bool
@@ -108,9 +108,9 @@
                                        }
                                  }
                                  {
-                                    \tl_if_exist:cTF {c_phone_AT_ortsname_ #1 _tl}
+                                    \tl_if_exist:cTF {c_phone_AT_place_name_ #1 _tl}
                                        {
-                                          \tl_put_right:Nv \l_phone_ausgabetext_tl {c_phone_AT_ortsname_ #1 _tl}
+                                          \tl_put_right:Nv \l_phone_ausgabetext_tl {c_phone_AT_place_name_ #1 _tl}
                                        }
                                        {
                                           \phone_AT_ziffernvorwahl_schreiben:nN {#1} \c_true_bool
@@ -119,9 +119,9 @@
                            }
                         {place-and-number}
                            {
-                              \tl_if_exist:cT {c_phone_AT_ortsname_ #1 _tl}
+                              \tl_if_exist:cT {c_phone_AT_place_name_ #1 _tl}
                                  {
-                                    \tl_put_right:Nv \l_phone_ausgabetext_tl {c_phone_AT_ortsname_ #1 _tl}
+                                    \tl_put_right:Nv \l_phone_ausgabetext_tl {c_phone_AT_place_name_ #1 _tl}
                                     \tl_put_right:NV \l_phone_ausgabetext_tl \c_space_tl
                                  }
 
@@ -275,7 +275,7 @@
                }
          }
          {
-            \clist_if_in:NVTF \c_phone_AT_ortsvorwahlen_clist #1
+            \clist_if_in:NVTF \c_phone_AT_geographic_area_codes_clist #1
                {
                   % Festnetznummer mit Vorwahl
                   \phone_AT_festnetzteilnehmerrufnummer_ueberpruefen:Nn #1 {#2}
@@ -408,9 +408,9 @@
             \phone_von_hinten_gruppiert_schreiben:n {##1}
             \tl_use:N \l_phone_ausgabetext_tl
             \>
-            \tl_if_exist:cT {c_phone_AT_ortsname_ ##1 _tl}
+            \tl_if_exist:cT {c_phone_AT_place_name_ ##1 _tl}
                {
-                  \tl_use:c {c_phone_AT_ortsname_ ##1 _tl}
+                  \tl_use:c {c_phone_AT_place_name_ ##1 _tl}
                }
          }
       \end{tabbing}

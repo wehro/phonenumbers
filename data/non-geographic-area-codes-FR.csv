@@ -1,33 +1,65 @@
-06	T\a'{e}l\a'{e}phone~mobile
-0639	T\a'{e}l\a'{e}phone~mobile~(Mayotte)
-0690	T\a'{e}l\a'{e}phone~mobile~(Guadeloupe)
-0691	T\a'{e}l\a'{e}phone~mobile~(Guadeloupe)
-0692	T\a'{e}l\a'{e}phone~mobile~(La~R\a'{e}union)
-0693	T\a'{e}l\a'{e}phone~mobile~(La~R\a'{e}union)
-0694	T\a'{e}l\a'{e}phone~mobile~(Guyane)
-0696	T\a'{e}l\a'{e}phone~mobile~(Martinique)
-0697	T\a'{e}l\a'{e}phone~mobile~(Martinique)
-07	T\a'{e}l\a'{e}phone~mobile
-0700	Communication~machine~\a`{a}~machine
-07005	Communication~machine~\a`{a}~machine~(Guadeloupe)
-07006	Communication~machine~\a`{a}~machine~(Guyane)
-07007	Communication~machine~\a`{a}~machine~(Martinique)
-07008	Communication~machine~\a`{a}~machine~(Mayotte)
-07009	Communication~machine~\a`{a}~machine~(La~R\a'{e}union)
-08	Service~\a`{a}~valeur~ajout\a'{e}e
-09	Service~t\a'{e}l\a'{e}phonique~en~VoIP
-09475	Service~t\a'{e}l\a'{e}phonique~en~VoIP~(Guadeloupe)
-09476	Service~t\a'{e}l\a'{e}phonique~en~VoIP~(Guyane)
-09477	Service~t\a'{e}l\a'{e}phonique~en~VoIP~(Martinique)
-09478	Service~t\a'{e}l\a'{e}phonique~en~VoIP~(Mayotte)
-09479	Service~t\a'{e}l\a'{e}phonique~en~VoIP~(La~R\a'{e}union)
-09760	Service~t\a'{e}l\a'{e}phonique~en~VoIP~(Guadeloupe)
-09761	Service~t\a'{e}l\a'{e}phonique~en~VoIP~(Guadeloupe)
-09762	Service~t\a'{e}l\a'{e}phonique~en~VoIP~(La~R\a'{e}union)
-09763	Service~t\a'{e}l\a'{e}phonique~en~VoIP~(La~R\a'{e}union)
-09764	Service~t\a'{e}l\a'{e}phonique~en~VoIP~(Guyane)
-09765	Service~t\a'{e}l\a'{e}phonique~en~VoIP~(Guyane)
-09766	Service~t\a'{e}l\a'{e}phonique~en~VoIP~(Martinique)
-09767	Service~t\a'{e}l\a'{e}phonique~en~VoIP~(Martinique)
-09768	Service~t\a'{e}l\a'{e}phonique~en~VoIP~(Guadeloupe)
-09769	Service~t\a'{e}l\a'{e}phonique~en~VoIP~(La~R\a'{e}union)
+01510	33	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral
+02687	262	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral~(La~R\a'{e}union,~Mayotte)
+02810	33	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral
+03410	33	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral
+04410	33	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral
+050860	508	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral~(Saint-Pierre-et-Miquelon)
+05410	33	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral
+059850	590	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral~(Guadeloupe)
+059851	590	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral~(Guadeloupe)
+059852	590	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral~(Guadeloupe)
+059853	590	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral~(Guadeloupe)
+059854	590	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral~(Guadeloupe)
+059855	594	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral~(Guyane)
+059856	594	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral~(Guyane)
+059857	594	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral~(Guyane)
+059858	594	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral~(Guyane)
+059859	594	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral~(Guyane)
+059860	596	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral~(Martinique)
+059861	596	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral~(Martinique)
+059862	596	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral~(Martinique)
+059863	596	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral~(Martinique)
+059864	596	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral~(Martinique)
+06	33	T\a'{e}l\a'{e}phone~mobile
+0639	262	T\a'{e}l\a'{e}phone~mobile~(Mayotte)
+0690	590	T\a'{e}l\a'{e}phone~mobile~(Guadeloupe)
+0691	590	T\a'{e}l\a'{e}phone~mobile~(Guadeloupe)
+0692	262	T\a'{e}l\a'{e}phone~mobile~(La~R\a'{e}union)
+0693	262	T\a'{e}l\a'{e}phone~mobile~(La~R\a'{e}union)
+0694	594	T\a'{e}l\a'{e}phone~mobile~(Guyane)
+0696	596	T\a'{e}l\a'{e}phone~mobile~(Martinique)
+0697	596	T\a'{e}l\a'{e}phone~mobile~(Martinique)
+07	33	T\a'{e}l\a'{e}phone~mobile
+0700	33	Communication~machine~\a`{a}~machine
+07005	590	Communication~machine~\a`{a}~machine~(Guadeloupe)
+07006	594	Communication~machine~\a`{a}~machine~(Guyane)
+07007	596	Communication~machine~\a`{a}~machine~(Martinique)
+07008	262	Communication~machine~\a`{a}~machine~(Mayotte)
+07009	262	Communication~machine~\a`{a}~machine~(La~R\a'{e}union)
+0708	508	T\a'{e}l\a'{e}phone~mobile~(Saint-Pierre-et-Miquelon)
+08	33	Service~\a`{a}~valeur~ajout\a'{e}e
+0901	33	Communication~machine~\a`{a}~machine
+09015	590	Communication~machine~\a`{a}~machine~(Guadeloupe)
+09016	594	Communication~machine~\a`{a}~machine~(Guyane)
+09017	596	Communication~machine~\a`{a}~machine~(Martinique)
+09018	262	Communication~machine~\a`{a}~machine~(Mayotte)
+09019	262	Communication~machine~\a`{a}~machine~(La~R\a'{e}union)
+0937	33	\a'{E}change~avec~une~plateforme~technique
+0938	33	\a'{E}change~avec~une~plateforme~technique
+0939	33	\a'{E}change~avec~une~plateforme~technique
+09395	590	\a'{E}change~avec~une~plateforme~technique~(Guadeloupe)
+09396	594	\a'{E}change~avec~une~plateforme~technique~(Guyane)
+09397	596	\a'{E}change~avec~une~plateforme~technique~(Martinique)
+09398	262	\a'{E}change~avec~une~plateforme~technique~(Mayotte)
+09399	262	\a'{E}change~avec~une~plateforme~technique~(La~R\a'{e}union)
+09410	33	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral
+094700	590	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral~(Guadeloupe)
+094701	590	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral~(Guadeloupe)
+094702	594	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral~(Guyane)
+094703	594	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral~(Guyane)
+094704	596	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral~(Martinique)
+094705	596	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral~(Martinique)
+094706	262	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral~(La~R\a'{e}union)
+094707	262	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral~(La~R\a'{e}union)
+094708	262	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral~(Mayotte)
+094709	262	Appel~d'int\a'{e}r\a^{e}t~g\a'{e}n\a'{e}ral~(Mayotte)

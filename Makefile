@@ -1,6 +1,6 @@
 .PHONY: ctan manual tex
 
-VERSION = 2.7-dev
+VERSION = 2.7
 
 define write-manual =
 echo "% phonenumbers package: phonenumbers-$1.tex" > doc/phonenumbers-$1.tex
@@ -50,16 +50,23 @@ echo "% Module for $2 telephone numbers" >> tex/phonenumbers-$1.def
 echo "% Author: K. Wehr" >> tex/phonenumbers-$1.def
 echo "% Version: $(VERSION)" >> tex/phonenumbers-$1.def
 echo "% Date: `date -I`" >> tex/phonenumbers-$1.def
-printf "\\clist_const:Nn \\c_phone_$1_ortsvorwahlen_clist {" >> tex/phonenumbers-$1.def
+printf "\\clist_const:Nn \\c_phone_$1_geographic_area_codes_clist {" >> tex/phonenumbers-$1.def
 sed -e "s/\t.*/,/" -e "$$ s/,/}/" < data/geographic-area-codes-$1.csv >> tex/phonenumbers-$1.def
 if [ ! -z "$3" ]; then\
-  printf "\\clist_const:Nn \\c_phone_$1_obligatorische_ortsvorwahlen_clist {" >> tex/phonenumbers-$1.def;\
+  printf "\\clist_const:Nn \\c_phone_$1_required_area_codes_clist {" >> tex/phonenumbers-$1.def;\
   grep -P "^[^\t]*\t[^\t]*\t$3(\t|$$)" < data/geographic-area-codes-$1.csv | sed -e "s/\t.*/,/" -e "$$ s/,/}/" >> tex/phonenumbers-$1.def;\
 fi
-printf "\\clist_const:Nn \\c_phone_$1_sondervorwahlen_clist {" >> tex/phonenumbers-$1.def
+printf "\\clist_const:Nn \\c_phone_$1_nongeographic_area_codes_clist {" >> tex/phonenumbers-$1.def
 sed -e "s/\t.*/,/" -e "$$ s/,/}/" < data/non-geographic-area-codes-$1.csv >> tex/phonenumbers-$1.def
-cut -f 1,2 < data/geographic-area-codes-$1.csv | sed "s/\([^t]*\)\t\(.*\)/\\\tl_const:cn {c_phone_$1_ortsname_\1_tl} {\2}/" >> tex/phonenumbers-$1.def
-cut -f 1,2 < data/non-geographic-area-codes-$1.csv | sed "s/\([^t]*\)\t\(.*\)/\\\tl_const:cn {c_phone_$1_ortsname_\1_tl} {\2}/" >> tex/phonenumbers-$1.def
+if [ "$1" = "FR" ]; then\
+  cut -f 1,3 < data/geographic-area-codes-$1.csv | sed "s/\([^t]*\)\t\(.*\)/\\\tl_const:cn {c_phone_$1_place_name_\1_tl} {\2}/" >> tex/phonenumbers-$1.def;\
+  cut -f 1,3 < data/non-geographic-area-codes-$1.csv | sed "s/\([^t]*\)\t\(.*\)/\\\tl_const:cn {c_phone_$1_place_name_\1_tl} {\2}/" >> tex/phonenumbers-$1.def;\
+  cut -f 1,2 < data/geographic-area-codes-$1.csv | sed "s/\([^t]*\)\t\(.*\)/\\\str_const:cn {c_phone_$1_country_code_\1_str} {\2}/" >> tex/phonenumbers-$1.def;\
+  cut -f 1,2 < data/non-geographic-area-codes-$1.csv | sed "s/\([^t]*\)\t\(.*\)/\\\str_const:cn {c_phone_$1_country_code_\1_str} {\2}/" >> tex/phonenumbers-$1.def;\
+else\
+  cut -f 1,2 < data/geographic-area-codes-$1.csv | sed "s/\([^t]*\)\t\(.*\)/\\\tl_const:cn {c_phone_$1_place_name_\1_tl} {\2}/" >> tex/phonenumbers-$1.def;\
+  cut -f 1,2 < data/non-geographic-area-codes-$1.csv | sed "s/\([^t]*\)\t\(.*\)/\\\tl_const:cn {c_phone_$1_place_name_\1_tl} {\2}/" >> tex/phonenumbers-$1.def;\
+fi
 echo >> tex/phonenumbers-$1.def # empty line
 cat tex/tex-code-$1.def >> tex/phonenumbers-$1.def
 endef

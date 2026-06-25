@@ -42,7 +42,6 @@
 07023	Personal~number
 07024	Personal~number
 07026	Personal~number
-07027	Personal~number
 07028	Personal~number
 07029	Personal~number
 07030	Personal~number
@@ -61,7 +60,6 @@
 07043	Personal~number
 07044	Personal~number
 07045	Personal~number
-07046	Personal~number
 07047	Personal~number
 07048	Personal~number
 07049	Personal~number
@@ -106,7 +104,6 @@
 07091	Personal~number
 07093	Personal~number
 07094	Personal~number
-07096	Personal~number
 07098	Personal~number
 07099	Personal~number
 07106	Mobile~phone
@@ -124,9 +121,23 @@
 07310	Mobile~phone
 07311	Mobile~phone
 07312	Mobile~phone
+07337	Mobile~phone
+07338	Mobile~phone
+07339	Mobile~phone
 07340	Mobile~phone
 07341	Mobile~phone
 07342	Mobile~phone
+07343	Mobile~phone
+07344	Mobile~phone
+07345	Mobile~phone
+07346	Mobile~phone
+07347	Mobile~phone
+07348	Mobile~phone
+07349	Mobile~phone
+07350	Mobile~phone
+07351	Mobile~phone
+07352	Mobile~phone
+07353	Mobile~phone
 07354	Mobile~phone
 07355	Mobile~phone
 07356	Mobile~phone
@@ -143,6 +154,10 @@
 07367	Mobile~phone
 07368	Mobile~phone
 07369	Mobile~phone
+07370	Mobile~phone
+07371	Mobile~phone
+07372	Mobile~phone
+07373	Mobile~phone
 07375	Mobile~phone
 07376	Mobile~phone
 07377	Mobile~phone
@@ -679,7 +694,6 @@
 07999	Mobile~phone
 0800	Freephone
 0808	Freephone
-0820	Internet~for~schools
 0843	Special~service~basic~rate
 0844	Special~service~basic~rate
 0845	Special~service~basic~rate

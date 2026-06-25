@@ -1,8 +1,8 @@
 \tl_const:Nn \c_phone_FR_landesadjektiv_tl {French}
 \bool_const:Nn \c_phone_FR_erlaubt_durchwahl_bool {\c_false_bool}
 
-\clist_new:N \c_phone_FR_vorwahlen_clist
-\clist_concat:NNN \c_phone_FR_vorwahlen_clist \c_phone_FR_ortsvorwahlen_clist \c_phone_FR_sondervorwahlen_clist
+\clist_new:N \c_phone_FR_area_codes_clist
+\clist_concat:NNN \c_phone_FR_area_codes_clist \c_phone_FR_geographic_area_codes_clist \c_phone_FR_nongeographic_area_codes_clist
 
 \msg_new:nnn {phonenumbers} {FR/illegal home area code}
    {
@@ -18,7 +18,7 @@
 % #1: Heimatvorwahl
 \prg_new_protected_conditional:Npnn \phone_FR_heimatvorwahl_erlaubt:n #1 {T}
    {
-      \clist_if_in:NnTF \c_phone_FR_ortsvorwahlen_clist {#1}
+      \clist_if_in:NnTF \c_phone_FR_geographic_area_codes_clist {#1}
          {
             % In Frankreich kann nur 0508 Heimatvorwahl sein.
             \str_if_eq:nnTF {#1} {0508} { \prg_return_true: }
@@ -33,59 +33,12 @@
          }
    }
 
-% #1: Vorwahl
-\cs_new:Npn \phone_FR_ermittle_landeskennzahl:n #1
-   {
-      \str_case:nnF {#1}
-         {
-            {0262} {262}
-            {026200} {262}
-            {0263} {262}
-            {0269} {262}
-            {0508} {508}
-            {0590} {590}
-            {0594} {594}
-            {0596} {596}
-            {0639} {262}
-            {0690} {590}
-            {0691} {590}
-            {0692} {262}
-            {0693} {262}
-            {0694} {594}
-            {0696} {596}
-            {0697} {596}
-            {07005} {590}
-            {07006} {594}
-            {07007} {596}
-            {07008} {262}
-            {07009} {262}
-            {09475} {590}
-            {09476} {594}
-            {09477} {596}
-            {09478} {262}
-            {09479} {262}
-            {09760} {590}
-            {09761} {590}
-            {09762} {262}
-            {09763} {262}
-            {09764} {594}
-            {09765} {594}
-            {09766} {596}
-            {09767} {596}
-            {09768} {590}
-            {09769} {262}
-         }
-         {
-            33
-         }
-   }
-
 % #1: Vorwahl, #2: Rufnummer
 \cs_new_protected:Npn \phone_FR_vorwahl_und_rufnummer_schreiben:nn #1#2
    {
       \bool_lazy_or:nnTF { \str_if_eq_p:Vn \l_phone_auslandsvorwahltyp_str {off} } { \str_if_eq_p:Vn \l_phone_heimatland_str {FR} }
          {
-            \clist_if_in:NnT \c_phone_FR_sondervorwahlen_clist {#1}
+            \clist_if_in:NnT \c_phone_FR_nongeographic_area_codes_clist {#1}
                {
                   \str_if_eq:VnT \l_phone_vorwahldarstellung_str {place}
                      {
@@ -106,9 +59,9 @@
                            }
                         {place}
                            {
-                              \tl_if_exist:cTF {c_phone_FR_ortsname_#1_tl}
+                              \tl_if_exist:cTF {c_phone_FR_place_name_ #1 _tl}
                                  {
-                                    \tl_put_right:Nv \l_phone_ausgabetext_tl {c_phone_FR_ortsname_#1_tl}
+                                    \tl_put_right:Nv \l_phone_ausgabetext_tl {c_phone_FR_place_name_ #1 _tl}
                                     \tl_put_right:NV \l_phone_ausgabetext_tl \c_space_tl
                                     \phone_von_vorne_gruppiert_schreiben:n {#2}
                                  }
@@ -118,9 +71,9 @@
                            }
                         {place-and-number}
                            {
-                              \tl_if_exist:cT {c_phone_FR_ortsname_#1_tl}
+                              \tl_if_exist:cT {c_phone_FR_place_name_ #1 _tl}
                                  {
-                                    \tl_put_right:Nv \l_phone_ausgabetext_tl {c_phone_FR_ortsname_#1_tl}
+                                    \tl_put_right:Nv \l_phone_ausgabetext_tl {c_phone_FR_place_name_ #1 _tl}
                                     \tl_put_right:NV \l_phone_ausgabetext_tl \c_space_tl
                                  }
 
@@ -130,7 +83,7 @@
                }
          }
          {
-            \phone_gruppierte_auslandsvorwahl_schreiben:x { \phone_FR_ermittle_landeskennzahl:n {#1} }
+            \phone_gruppierte_auslandsvorwahl_schreiben:v {c_phone_FR_country_code_ #1 _str}
 
             \tl_put_right:NV \l_phone_ausgabetext_tl \c_space_tl
 
@@ -144,7 +97,7 @@
          }
 
       % Linktext schreiben:
-      \str_put_right:Nx \l_phone_linktext_str { + \phone_FR_ermittle_landeskennzahl:n {#1} }
+      \str_put_right:Nx \l_phone_linktext_str { + \str_use:c {c_phone_FR_country_code_ #1 _str} }
       \str_if_eq:nnF {#1} {0508}   % in Saint-Pierre-et-Miquelon entfällt die Ortsvorwahl
          {
             \str_put_right:Nx \l_phone_linktext_str { \str_tail:n {#1} }
@@ -185,11 +138,17 @@
                }
          }
          {
-            \str_if_eq:xnTF { \str_range:Nnn \l_phone_bereinigte_nummer_str {1} {4} } {0700}
+            \bool_lazy_or:nnTF
+               {
+                  \str_if_eq_p:en { \str_range:Nnn \l_phone_bereinigte_nummer_str {1} {4} } {0700}
+               }
+               {
+                  \str_if_eq_p:en { \str_range:Nnn \l_phone_bereinigte_nummer_str {1} {4} } {0901}
+               }
                {
                   \int_compare:nNnTF { \str_item:Nn \l_phone_bereinigte_nummer_str {5} } < {5}
                      {
-                        % überlange Mobilfunknummer (machine to machine) im Mutterland (14 Stellen)
+                        % überlange Nummer (machine to machine) im Mutterland (14 Stellen)
                         \phone_nummernlaenge_ueberpruefen:Vnnn \l_phone_bereinigte_nummer_str {14} {14} {machine~to~machine}
                         \bool_if:NTF \l_phone_teilnehmerrufnummer_gueltig_bool
                            {
@@ -206,7 +165,7 @@
                            }
                      }
                      {
-                        % überlange Mobilfunknummer (machine to machine) in den Überseegebieten (13 Stellen)
+                        % überlange Nummer (machine to machine) in den Überseegebieten (13 Stellen)
                         \phone_nummernlaenge_ueberpruefen:Vnnn \l_phone_bereinigte_nummer_str {13} {13} {machine~to~machine}
                         \bool_if:NTF \l_phone_teilnehmerrufnummer_gueltig_bool
                            {
@@ -242,7 +201,7 @@
                                              {
                                                 \str_set:Nx \l_tmpa_str { \str_range:Nnn \l_phone_bereinigte_nummer_str {1} {##1} }
 
-                                                \clist_if_in:NVT \c_phone_FR_vorwahlen_clist \l_tmpa_str
+                                                \clist_if_in:NVT \c_phone_FR_area_codes_clist \l_tmpa_str
                                                    {
                                                       \bool_set_true:N \l_phone_vorwahl_gefunden_bool
                                                       \phone_FR_vorwahl_und_rufnummer_schreiben:Vx \l_tmpa_str
@@ -289,9 +248,9 @@
             \phone_von_vorne_gruppiert_schreiben:n {##1}
             \tl_use:N \l_phone_ausgabetext_tl
             \>
-            \tl_if_exist:cT {c_phone_FR_ortsname_ ##1 _tl}
+            \tl_if_exist:cT {c_phone_FR_place_name_ ##1 _tl}
                {
-                  \tl_use:c {c_phone_FR_ortsname_ ##1 _tl}
+                  \tl_use:c {c_phone_FR_place_name_ ##1 _tl}
                }
          }
       \end{tabbing}

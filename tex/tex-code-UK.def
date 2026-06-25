@@ -1,12 +1,12 @@
 \tl_const:Nn \c_phone_UK_landesadjektiv_tl {British}
 \bool_const:Nn \c_phone_UK_erlaubt_durchwahl_bool {\c_false_bool}
 
-\clist_new:N \c_phone_UK_vorwahlen_clist
-\clist_concat:NNN \c_phone_UK_vorwahlen_clist \c_phone_UK_ortsvorwahlen_clist \c_phone_UK_sondervorwahlen_clist
+\clist_new:N \c_phone_UK_area_codes_clist
+\clist_concat:NNN \c_phone_UK_area_codes_clist \c_phone_UK_geographic_area_codes_clist \c_phone_UK_nongeographic_area_codes_clist
 
 \msg_new:nnn {phonenumbers} {UK/illegal home area code}
    {
-      National~dialling~is~required~in~\tl_use:c {c_phone_UK_ortsname_ #1 _tl}.~#1~cannot~be~set~as~home~area~code~\msg_line_context:.
+      National~dialling~is~required~in~\tl_use:c {c_phone_UK_place_name_ #1 _tl}.~#1~cannot~be~set~as~home~area~code~\msg_line_context:.
    }
 
 \msg_new:nnn {phonenumbers} {UK/national dialling required}
@@ -18,10 +18,10 @@
 % #1: Heimatvorwahl
 \prg_new_protected_conditional:Npnn \phone_UK_heimatvorwahl_erlaubt:n #1 {T}
    {
-      \clist_if_in:NnTF \c_phone_UK_ortsvorwahlen_clist {#1}
+      \clist_if_in:NnTF \c_phone_UK_geographic_area_codes_clist {#1}
          {
             % In Großbritannien können nur nicht obligatorische Ortsvorwahlen Heimatvorwahl sein.
-            \clist_if_in:NnTF \c_phone_UK_obligatorische_ortsvorwahlen_clist {#1}
+            \clist_if_in:NnTF \c_phone_UK_required_area_codes_clist {#1}
                {
                   \msg_warning:onn {phonenumbers} {UK/illegal home area code} {#1}
                   \prg_return_false:
@@ -83,7 +83,7 @@
    {
       \bool_lazy_or:nnTF { \str_if_eq_p:Vn \l_phone_auslandsvorwahltyp_str {off} } { \str_if_eq_p:Vn \l_phone_heimatland_str {UK} }
          {
-            \clist_if_in:NnT \c_phone_UK_sondervorwahlen_clist {#1}
+            \clist_if_in:NnT \c_phone_UK_nongeographic_area_codes_clist {#1}
                {
                   \str_if_eq:VnT \l_phone_vorwahldarstellung_str {place}
                      {
@@ -122,9 +122,9 @@
                                           \tl_put_right:Nn \l_phone_ausgabetext_tl {(}
                                        }
 
-                                    \tl_if_exist:cTF {c_phone_UK_ortsname_ #1 _tl}
+                                    \tl_if_exist:cTF {c_phone_UK_place_name_ #1 _tl}
                                        {
-                                          \tl_put_right:Nv \l_phone_ausgabetext_tl {c_phone_UK_ortsname_ #1 _tl}
+                                          \tl_put_right:Nv \l_phone_ausgabetext_tl {c_phone_UK_place_name_ #1 _tl}
                                        }
                                        {
                                           \phone_UK_ziffernvorwahl_schreiben:nN {#1} \c_true_bool
@@ -138,9 +138,9 @@
                                     \tl_put_right:NV \l_phone_ausgabetext_tl \c_space_tl
                                  }
                                  {
-                                    \tl_if_exist:cTF {c_phone_UK_ortsname_ #1 _tl}
+                                    \tl_if_exist:cTF {c_phone_UK_place_name_ #1 _tl}
                                        {
-                                          \tl_put_right:Nv \l_phone_ausgabetext_tl {c_phone_UK_ortsname_ #1 _tl}
+                                          \tl_put_right:Nv \l_phone_ausgabetext_tl {c_phone_UK_place_name_ #1 _tl}
                                        }
                                        {
                                           \phone_UK_ziffernvorwahl_schreiben:nN {#1} \c_true_bool
@@ -149,9 +149,9 @@
                            }
                         {place-and-number}
                            {
-                              \tl_if_exist:cT {c_phone_UK_ortsname_ #1 _tl}
+                              \tl_if_exist:cT {c_phone_UK_place_name_ #1 _tl}
                                  {
-                                    \tl_put_right:Nv \l_phone_ausgabetext_tl {c_phone_UK_ortsname_ #1 _tl}
+                                    \tl_put_right:Nv \l_phone_ausgabetext_tl {c_phone_UK_place_name_ #1 _tl}
                                     \tl_put_right:NV \l_phone_ausgabetext_tl \c_space_tl
                                  }
 
@@ -220,7 +220,7 @@
                }
          }
          {
-            \clist_if_in:NVTF \c_phone_UK_ortsvorwahlen_clist #1
+            \clist_if_in:NVTF \c_phone_UK_geographic_area_codes_clist #1
                {
                   % Festnetznummer, muss in der Regel 11 Ziffern umfassen
                   % Ausnahme: Bei den Vorwahlen 01XXX und 016977 sind auch 10 Ziffern möglich.
@@ -298,7 +298,7 @@
                            {
                               \str_set:Nx \l_phone_vorwahl_str { \str_range:Nnn \l_phone_bereinigte_nummer_str {1} {##1} }
 
-                              \clist_if_in:NVT \c_phone_UK_vorwahlen_clist \l_phone_vorwahl_str
+                              \clist_if_in:NVT \c_phone_UK_area_codes_clist \l_phone_vorwahl_str
                                  {
                                     \bool_set_true:N \l_phone_vorwahl_gefunden_bool
 
@@ -347,9 +347,9 @@
             \phone_UK_ziffernvorwahl_schreiben:nN {##1} \c_true_bool
             \tl_use:N \l_phone_ausgabetext_tl
             \>
-            \tl_if_exist:cT {c_phone_UK_ortsname_ ##1 _tl}
+            \tl_if_exist:cT {c_phone_UK_place_name_ ##1 _tl}
                {
-                  \tl_use:c {c_phone_UK_ortsname_ ##1 _tl}
+                  \tl_use:c {c_phone_UK_place_name_ ##1 _tl}
                }
          }
       \end{tabbing}

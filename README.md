@@ -18,7 +18,7 @@ Run `make ctan` to create a ZIP archive `phonenumbers.zip` for CTAN upload.
 
 If you want to contribute support for the telephone numbers of a further country, try to perform some of the following steps:
 
-1. Look for the relevant documents of your national telecommunications authority: there should at least be a list of area codes/dialling codes (geographic and non-geographic, where non-geographic mainly means mobile phone numbers) and a document describing the the structure and the possible lengths (number of digits) of the phone numbers. This document might be called National Numbering Plan or similar.
+1. Look for the relevant documents of your national telecommunications authority: there should at least be a list of area codes/dialling codes (geographic and non-geographic, where non-geographic mainly means mobile phone numbers) and a document describing the structure and the possible lengths (number of digits) of the phone numbers. This document might be called National Numbering Plan or similar.
 
 2. Look for further sources containing useful information concerning the telephone numbers of your country, e. g. Wikipedia articles.
 
